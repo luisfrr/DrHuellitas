@@ -1,0 +1,164 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <!-- Basic Page Needs
+      ================================================== -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>@ViewBag.Title</title>
+    <!-- Mobile Specific Metas
+      ================================================== -->
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <!-- CSS
+      ================================================== -->
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/mediaelementplayer.css")
+    @Styles.Render("~/Content/style.css")
+    @Styles.Render("~/Content/prettyPhoto.css")
+    @Styles.Render("~/Content/color1.css")
+    @Styles.Render("~/Content/style-switcher.css")
+
+    <!-- SCRIPTS
+      ================================================== -->
+    @Scripts.Render("~/Scripts/modernizr.js")
+</head>
+<body>
+    <div class="body">
+        <!-- Start Site Header -->
+        <header class="site-header">
+            <div class="topbar">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <h1 class="logo"><a href="~/Inicio/index"><img src="../../img/Logo1000.png" alt="Logo" style="height:52px; width:auto;"></a></h1>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <ul class="top-navigation hidden-sm hidden-xs">
+                                <li>
+                                    <div class="input-group input-group-lg">
+                                        <input type="text" class="form-control" placeholder="Búsqueda...">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-primary" type="button"><i class="fa fa-search fa-lg"></i></button>
+                                        </span>
+                                    </div>
+                                </li>
+                            </ul>
+                            <a href="#" class="visible-sm visible-xs menu-toggle" style="display: none;"><i class="fa fa-bars"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-menu-wrapper">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <nav class="navigation">
+                                <ul class="sf-menu">
+                                    <li>
+                                        <a href="~/Inicio/index">Inicio</a>
+                                    </li>
+                                    <li>
+                                        <a href="about.html">Agenda</a>
+                                    </li>
+                                    <li>
+                                        <a href="about.html">Establecimientos</a>
+                                    </li>
+                                    <li>
+                                        <a href="about.html">Mis Mascotas</a>
+                                    </li>
+                                    <li>
+                                        <a href="~/AcercaDe/nosotros">Nosotros</a>
+                                        <ul class="dropdown">
+                                            <li><a href="about.html">Términos y condiciones</a></li>
+                                            <li><a href="contact.html">Políticas de privacidad</a></li>
+                                            <li><a href="our-staff.html">Contáctanos</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- End Site Header -->
+        <!-- Start Hero Slider -->
+        <!--<div class="hero-slider flexslider clearfix" data-autoplay="yes" data-pagination="yes" data-arrows="yes" data-style="fade" data-pause="yes">
+            <ul class="slides">
+                <li class=" parallax" style="background-image: url(../../img/slide1.jpg);"></li>
+                <li class="parallax" style="background-image:url(../../img/slide2.jpg);"></li>
+                <li class="parallax" style="background-image:url(../../img/slide3.jpeg);"></li>
+            </ul>
+        </div>-->
+        
+        <!-- End Hero Slider -->
+        <!-- Start Content -->
+        @RenderBody()
+        <!-- End Content-->
+        <!-- Start Footer -->
+        <footer class="site-footer">
+            <div class="container">
+                <div class="row">
+                    <!-- Start Footer Widgets -->
+                    <div class="col-md-4 col-sm-4 widget footer-widget">
+                        <h4 class="footer-widget-title">DR. HUELLITAS</h4>
+                        <img src="../../img/Logo1.png" alt="Logo" style="height:80px; width:290px;">
+                        <div class="spacer-20"></div>
+                        <p>Dr. Huellitas es una aplicación que proporciona información de establecimientos para el cuidado de las mascotas, permite agendar citas y comunicarte con dichos establecimientos por cualquier duda o aclaración.</p>
+                    </div>
+                    <div class="col-md-4 col-sm-4 widget footer-widget">
+                        <h4 class="footer-widget-title">Conócenos</h4>
+                        <ul>
+                            <li><a href="index.html">Información corporativa</a></li>
+                            <li><a href="index.html">Condiciones de uso</a></li>
+                            <li><a href="index.html">Aviso de privacidad</a></li>
+                            <li><a href="about.html">Mapa del sitio</a></li>
+                            <li><a href="sermons.html">Ayuda</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 col-sm-4 widget footer-widget">
+                        <h4 class="footer-widget-title">Contacto</h4>
+                        <ul>
+                            <li>Teléfono de contacto: (01)999-511-7982</li>
+                            <li>E-mail: info@drhuellitas.com</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <footer class="site-footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="copyrights-col-left col-md-6 col-sm-6">
+                        <p>&copy; 2017 Dr. Huellitas. Derechos Reservados</p>
+                    </div>
+                    <div class="copyrights-col-right col-md-6 col-sm-6">
+                        <div class="social-icons"> <a href="../../www.facebook.com/index.html" target="_blank"><i class="fa fa-facebook"></i></a> <a href="../../twitter.com/index.html" target="_blank"><i class="fa fa-twitter"></i></a> <a href="../../www.pinterest.com/index.html" target="_blank"><i class="fa fa-pinterest"></i></a> <a href="../../plus.google.com/index.html" target="_blank"><i class="fa fa-google-plus"></i></a> <a href="../../www.pinterest.com/index.html" target="_blank"><i class="fa fa-youtube"></i></a> <a href="#"><i class="fa fa-rss"></i></a> </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- End Footer -->
+        <a id="back-to-top"><i class="fa fa-angle-double-up"></i></a>
+    </div>
+
+
+    @Scripts.Render("~/Scripts/jquery-2.0.0.min.js")
+    @Scripts.Render("~/Scripts/prettyphoto.js")
+    @Scripts.Render("~/Scripts/helper-plugins.js")
+    @Scripts.Render("~/Scripts/bootstrap.js")
+    @Scripts.Render("~/Scripts/waypoints.js")
+    @Scripts.Render("~/Scripts/mediaelement-and-player.min.js")
+    @Scripts.Render("~/Scripts/init.js")
+    @Scripts.Render("~/Scripts/jquery.flexslider.js")
+    @Scripts.Render("~/Scripts/jquery.countdown.min.js")
+    @Scripts.Render("~/Scripts/jquery_cookie.js")
+    @Scripts.Render("~/Scripts/script.js")
+</body>
+</html>

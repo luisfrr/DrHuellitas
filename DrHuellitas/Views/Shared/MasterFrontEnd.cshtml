@@ -55,23 +55,22 @@
                             <nav class="navigation">
                                 <ul class="sf-menu">
                                     <li>
-                                        <a href="~/Inicio/index">Inicio</a>
+                                        @Html.ActionLink("Inicio", "Index", "Home")
                                     </li>
                                     <li>
-                                        <a href="about.html">Agenda</a>
+                                        @Html.ActionLink("Agenda", "Index", "agenda")
                                     </li>
                                     <li>
-                                        <a href="about.html">Establecimientos</a>
+                                        @Html.ActionLink("Establecimientos", "Index", "establecimientos")
                                     </li>
                                     <li>
-                                        <a href="about.html">Mis Mascotas</a>
+                                        @Html.ActionLink("Mis Mascotas", "Index", "mascotas")
                                     </li>
                                     <li>
-                                        <a href="~/AcercaDe/nosotros">Nosotros</a>
+                                        @Html.ActionLink("Mi Cuenta", "Index", "nosotros")
                                         <ul class="dropdown">
-                                            <li><a href="about.html">Términos y condiciones</a></li>
-                                            <li><a href="contact.html">Políticas de privacidad</a></li>
-                                            <li><a href="our-staff.html">Contáctanos</a></li>
+                                            <li>@Html.ActionLink("Mi Cuenta", "Index", "nosotros")</li>
+                                            <li>@Html.ActionLink("Cerrar Sesión", "Index", "nosotros")</li>
                                         </ul>
                                     </li>
                                 </ul>

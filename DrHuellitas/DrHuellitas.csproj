@@ -142,6 +142,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BO\RegistroBO.cs" />
     <Compile Include="Controllers\InicioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -153,6 +154,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\color1.css" />
     <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\login\style.css" />
     <Content Include="Content\mediaelementplayer.css" />
     <Content Include="Content\prettyPhoto.css" />
     <Content Include="Content\style-switcher.css" />
@@ -185,6 +187,9 @@
     <Content Include="Scripts\jquery.countdown.min.js" />
     <Content Include="Scripts\jquery.flexslider.js" />
     <Content Include="Scripts\jquery_cookie.js" />
+    <Content Include="Scripts\login\index.js" />
+    <Content Include="Scripts\login\jquery.min.js" />
+    <Content Include="Scripts\login\vLmRVp.js" />
     <Content Include="Scripts\mediaelement-and-player.min.js" />
     <Content Include="Scripts\modernizr.js" />
     <Content Include="Scripts\prettyphoto.js" />
@@ -204,6 +209,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="DAO\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

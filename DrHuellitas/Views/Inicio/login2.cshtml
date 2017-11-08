@@ -25,9 +25,9 @@
                         {
                             @Html.HiddenFor(x => x.id)
 
-                            @Html.TextBoxFor(x => x.usuario, new {  @placeholder = "Usuario" })
+                            @Html.TextBoxFor(x => x.usuario, new {  @placeholder = "Usuario..." })
 
-                            @Html.TextBoxFor(x => x.contraseña, new { @placeholder = "Contraseña" })
+                            @Html.TextBoxFor(x => x.contraseña, new { @placeholder = "Contraseña..." })
 
                             @Html.RadioButtonFor(x=>x.id_tipo, new { @name="nombre"})
                             @Html.RadioButtonFor(x => x.id_tipo, 02)

@@ -32,28 +32,28 @@ body {
 
 /* Form Module */
 .form-module {
-  position: relative;
-  background: #ffffff;
-  max-width: 320px;
-  width: 100%;
-  border-top: 5px solid #33b5e5;
-  box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
-  margin: 0 auto;
+    position: relative;
+    background: #ffffff;
+    max-width: 320px;
+    width: 100%;
+    border-top: 5px solid #007F7B;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
 }
-.form-module .toggle {
-  cursor: pointer;
-  position: absolute;
-  top: -0;
-  right: -0;
-  background: #33b5e5;
-  width: 30px;
-  height: 30px;
-  margin: -5px 0 0;
-  color: #ffffff;
-  font-size: 12px;
-  line-height: 30px;
-  text-align: center;
-}
+    .form-module .toggle {
+        cursor: pointer;
+        position: absolute;
+        top: -0;
+        right: -0;
+        background: #007F7B;
+        width: 30px;
+        height: 30px;
+        margin: -5px 0 0;
+        color: #ffffff;
+        font-size: 12px;
+        line-height: 30px;
+        text-align: center;
+    }
     .form-module .toggle .tooltip {
         position: absolute !important;
         top: 5px !important;
@@ -84,13 +84,13 @@ body {
 .form-module .form:nth-child(2) {
   display: block;
 }
-.form-module h2 {
-  margin: 0 0 20px;
-  color: #33b5e5;
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 1;
-}
+    .form-module h2 {
+        margin: 0 0 20px;
+        color: #007F7B;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 1;
+    }
 .form-module input {
   outline: none;
   display: block;
@@ -107,19 +107,20 @@ body {
   border: 1px solid #33b5e5;
   color: #333333;
 }
-.form-module button {
-  cursor: pointer;
-  background: #33b5e5;
-  width: 100%;
-  border: 0;
-  padding: 10px 15px;
-  color: #ffffff;
-  -webkit-transition: 0.3s ease;
-  transition: 0.3s ease;
-}
+    .form-module button {
+        cursor: pointer;
+        background: #007F7B;
+        width: 100%;
+        border: 0;
+        padding: 10px 15px;
+        color: #ffffff;
+        -webkit-transition: 0.3s ease;
+        transition: 0.3s ease;
+    }
 .form-module button:hover {
-  background: #178ab4;
-}
+    background: #007F7B;
+            opacity: 0.95;
+        }
 .form-module .cta {
   background: #f2f2f2;
   width: 100%;

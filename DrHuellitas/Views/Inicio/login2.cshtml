@@ -29,9 +29,6 @@
 
                             @Html.TextBoxFor(x => x.contraseña, new { @placeholder = "Contraseña..." })
 
-                            @Html.RadioButtonFor(x=>x.id_tipo, new { @name="nombre"})
-                            @Html.RadioButtonFor(x => x.id_tipo, 02)
-
 
                             <button type="submit" class="btn-success">Iniciar</button>
 
@@ -41,18 +38,19 @@
                     
                     <div class="form">
                         <h2>¡Resgistrate!</h2>
-                        @using (Html.BeginForm("Index", "Inicio", FormMethod.Post))
+                        @using (Html.BeginForm("Guardar", "Inicio", FormMethod.Post))
                         {
-                            @Html.HiddenFor(x => x.id)
+                           @Html.HiddenFor(x => x.id)
 
-                            @Html.TextBoxFor(x => x.email, new { @placeholder = "Correo electronico" })
+                            @Html.TextBoxFor(x => x.email,new { @placeholder = "Correo electronico" })
 
-                            @Html.TextBoxFor(x => x.usuario, new { @placeholder = "Nombre de Usuario" })
+                            @Html.TextBoxFor(x => x.usuario, new { @placeholder = "Usuario" })
 
-                            @Html.TextBoxFor(x => x.contraseña, new { @placeholder = "Contraseña" })
-                            
-                            @Html.TextBoxFor(x => x.rep_contraseña, new { @placeholder = "Repetir contraseña" })
+                            @Html.TextBoxFor(x => x.contraseña,new { @placeholder = "Contraseña" })
 
+                            @Html.TextBoxFor(x => x.nombre, new { @placeholder="Nombre"})
+                            @Html.RadioButtonFor(x => x.id_tipo,1,new { @checked= "checked" } )
+                            @Html.RadioButtonFor(x => x.id_tipo,2, new { @checked = "checked" })
                             <button type="submit" class="btn-success">Aceptar</button>
 
                         }

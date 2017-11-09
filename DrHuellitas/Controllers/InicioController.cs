@@ -19,12 +19,44 @@ namespace DrHuellitas.Controllers
 
         public ActionResult login2()
         {
-            return View();
+            if (Session["usuario"] != null)
+            {
+                return Redirect("~/Inicio/index");
+            }
+            else
+            {
+                return View();
+            }
         }
         public ActionResult Guardar(RegistroBO registro)
         {
           var r=  objdao.agregarUsuario(registro);
 
+            return Redirect("~/Inicio/login2");
+        }
+        public ActionResult login(RegistroBO registro)
+        {
+            var r = objdao.BuscarUsuario(registro.usuario, registro.contraseña);
+            if (r != null)
+            {
+                Session["usuario"] = r;
+                ViewBag.Usuario = (RegistroBO)Session["usuario"];
+                return Redirect("~/Inicio/index");
+            }
+            else
+            {
+                return Redirect("~/Inicio/login2");
+            }
+
+        }
+        public ActionResult CerrarSesion()
+        {
+            Session.Remove("usuario");
+            Session.Abandon();
+            if (Session == null)
+            {
+                return Redirect("~/Inicio/login2");
+            }
             return Redirect("~/Inicio/login2");
         }
     }

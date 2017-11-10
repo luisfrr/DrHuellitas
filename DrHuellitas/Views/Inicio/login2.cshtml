@@ -51,21 +51,20 @@
                             @Html.TextBoxFor(x => x.nombre, new { @placeholder="Nombre"})
                             <div class="row">
                                 <div class="col-md-2">
-                                    @Html.RadioButtonFor(x => x.id_tipo, 1, new { @style = "width:100%; padding-bottom:5px;" })
+                                    @Html.RadioButtonFor(x => x.id_tipo, 2, new { @style = "width:100%; padding-bottom:5px;" })
                                 </div>
                                 <div class="col-md-10">
-                                    <label>Hola</label>
+                                    <label>Público</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    @Html.RadioButtonFor(x => x.id_tipo, 2, new { @style = "width:100%; padding-bottom:5px;" })
+                                    @Html.RadioButtonFor(x => x.id_tipo, 3, new { @style = "width:100%; padding-bottom:5px;" })
                                 </div>
                                 <div class="col-md-10">
-                                    <label>Hola</label>
+                                    <label>Empresa</label>
                                 </div>
                             </div>
-                               
                             <button type="submit" class="btn-success">Aceptar</button>
 
                         }

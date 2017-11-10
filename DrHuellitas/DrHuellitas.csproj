@@ -890,6 +890,7 @@
     <Content Include="Views\Inicio\login2.cshtml" />
     <Content Include="Views\Shared\BackEndView.cshtml" />
     <Content Include="Views\Administrador\Index.cshtml" />
+    <Content Include="Views\Shared\MasterFrontEndVet.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

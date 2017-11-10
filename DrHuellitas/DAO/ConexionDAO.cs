@@ -20,6 +20,11 @@ namespace DrHuellitas.DAO
             exec = new SqlCommand();
 
         }
+        public SqlConnection conectar()
+        {
+            con =new SqlConnection( "server = DESKTOP - JE5SO9B\\SQLEXPRESS; database = Dr.Huellitas; integrated security = true; ");
+            return con;
+        }
 
         //método para abrir conexión
 

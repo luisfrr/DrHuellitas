@@ -49,8 +49,23 @@
                             @Html.TextBoxFor(x => x.contraseña,new { @placeholder = "Contraseña" })
 
                             @Html.TextBoxFor(x => x.nombre, new { @placeholder="Nombre"})
-                            @Html.RadioButtonFor(x => x.id_tipo,1,new { @checked= "checked" } )
-                            @Html.RadioButtonFor(x => x.id_tipo,2, new { @checked = "checked" })
+                            <div class="row">
+                                <div class="col-md-2">
+                                    @Html.RadioButtonFor(x => x.id_tipo, 1, new { @style = "width:100%; padding-bottom:5px;" })
+                                </div>
+                                <div class="col-md-10">
+                                    <label>Hola</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    @Html.RadioButtonFor(x => x.id_tipo, 2, new { @style = "width:100%; padding-bottom:5px;" })
+                                </div>
+                                <div class="col-md-10">
+                                    <label>Hola</label>
+                                </div>
+                            </div>
+                               
                             <button type="submit" class="btn-success">Aceptar</button>
 
                         }

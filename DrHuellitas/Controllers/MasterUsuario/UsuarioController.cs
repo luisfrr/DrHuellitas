@@ -10,7 +10,7 @@ namespace DrHuellitas.Controllers
     public class UsuarioController : Controller
     {
         // GET: Usuario
-        public ActionResult Index()
+        public ActionResult Index()//Hola bebe
         {
             return View();
         }

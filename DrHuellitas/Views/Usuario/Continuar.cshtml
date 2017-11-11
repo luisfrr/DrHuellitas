@@ -79,19 +79,39 @@
                         <div class="form-group">
                             @Html.TextBoxFor(m => m.nombremascota, new { @placeholder = "Nombre mascota", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
 
-                            @Html.TextBoxFor(m => m.telefono, new { @placeholder = "Teléfono", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
+                            @Html.TextBoxFor(m => m.colorPreDominante, new { @placeholder = "Color predominante (opcional)", @maxlength = "100", @type = "text", @class = "form-control" })
 
+                            @Html.TextBoxFor(m => m.fechaNaci, new { @required = "required", @type = "date", @class = "form-control" })
+                            
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
+                            @Html.HiddenFor(m => m.idusuario)
 
-                            @Html.TextBoxFor(m => m.ape, new { @placeholder = "Apellidos(s)", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
+                            @Html.TextBoxFor(m => m.colorDominate, new { @placeholder = "Color dominante", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
 
-                            @Html.TextBoxFor(m => m.fechanacimiento, new { @required = "required", @type = "date", @class = "form-control" })
+                            @Html.TextBoxFor(m => m.colorAlternativo, new { @placeholder = "Color alternativo", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
+                            
+                            <label class="control-label">Genero</label>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Macho </label>
+                                        @Html.RadioButtonFor(m => m.genero, "Macho", new { @checked = "checked" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label"> </label>
+                                        @Html.RadioButtonFor(m => m.genero, "Hembra", new { @checked = "checked" })
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <br />
                             <label class="control-label" for="file">Seleccionar imagen:</label>
-                            @Html.TextBoxFor(m => m.img, new { @type = "file", @name = "file", @id = "file" })
+                            @Html.TextBoxFor(m => m.imgmas, new { @type = "file", @name = "file", @id = "file" })
                         </div>
                     </div>
                 </div>

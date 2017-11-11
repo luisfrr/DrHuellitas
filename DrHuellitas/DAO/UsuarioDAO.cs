@@ -5,21 +5,30 @@ using System.Web;
 using DrHuellitas.BO;
 using System.Data.SqlClient;
 using System.Data;
+using Encriptacion;
 
 namespace DrHuellitas.DAO
 {
     public class UsuarioDAO
     {
         ConexionDAO conex;
+        EncriptarMD5 Encriptacion = new EncriptarMD5();
 
         public UsuarioDAO()
         {
             conex = new ConexionDAO();
         }
 
+        public string MD5Encriptar(string texto)
+        {
+            string encriptado = Encriptacion.EncriptarMD5_1(texto);
+            return encriptado;
+        }
+
         public int agregarUsuario(RegistroBO usuario)
         {
-           string agregar = string.Format("insert into Usuario(usuario,contraseña,nombre,correo,idtipo)values('{0}','{1}','{2}','{3}','{4}')",usuario.usuario,usuario.contraseña,usuario.nombre,usuario.email,usuario.id_tipo);
+            string contraseña = MD5Encriptar(usuario.contraseña);
+           string agregar = string.Format("insert into Usuario(usuario,idTipo,contraseña,nombre,email)values('{0}','{1}','{2}','{3}','{4}')", usuario.usuario,usuario.id_tipo,contraseña,usuario.nombre,usuario.email);
             return conex.ejecutarSentencia(agregar);
         }
         public int modificarusuario(RegistroBO usuario)

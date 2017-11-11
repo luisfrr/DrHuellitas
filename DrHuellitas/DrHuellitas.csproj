@@ -904,6 +904,12 @@
     <Content Include="Views\Cliente\cliente.cshtml" />
     <Content Include="Views\Usuario\Continuar.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Encriptacion\Encriptacion.csproj">
+      <Project>{23d277de-4691-4114-9504-f0d0172bcbf3}</Project>
+      <Name>Encriptacion</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

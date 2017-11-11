@@ -20,7 +20,7 @@ namespace DrHuellitas.Controllers
         {
           var r=  objdao.agregarUsuario(registro);
 
-            return Redirect("~/Inicio/login2");
+            return Redirect("~/Inicio/Index");
         }
         public ActionResult IniciarSesion(RegistroBO registro) //Este método es el que válida el usuario(login)
         {

@@ -15,14 +15,18 @@ namespace DrHuellitas.DAO
         //constructor
         public ConexionDAO()
         {
-            con = new SqlConnection("server=DESKTOP-JE5SO9B\\SQLEXPRESS; database=Dr.Huellitas ; integrated security = true;");
+
+            //william
+            con = new SqlConnection("Data Source=LAPTOP-ELH53H70\\WILLYSERVER;Initial Catalog=PHuellitas;Integrated Security=True");
+            //gerardo
+            //con = new SqlConnection("server=DESKTOP-JE5SO9B\\SQLEXPRESS; database=Dr.Huellitas ; integrated security = true;");
             //sirve para establecer las consultas e instrucciones SQL que se ejecutarán en el servidor
             exec = new SqlCommand();
 
         }
         public SqlConnection conectar()
         {
-            con =new SqlConnection( "server = DESKTOP - JE5SO9B\\SQLEXPRESS; database = Dr.Huellitas; integrated security = true; ");
+            con = new SqlConnection("Data Source=LAPTOP-ELH53H70\\WILLYSERVER;Initial Catalog=PHuellitas;Integrated Security=True");
             return con;
         }
 

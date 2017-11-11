@@ -21,6 +21,7 @@
     <!-- SCRIPTS
       ================================================== -->
     @Scripts.Render("~/Scripts/modernizr.js")
+    @Scripts.Render("~/Scripts/jquery-2.0.0.min.js")
 </head>
 <body>
     <div class="body">
@@ -82,7 +83,7 @@
         </header>
         <!-- End Site Header -->
         <!-- Start Hero Slider -->
-        <div class="hero-slider flexslider clearfix" data-autoplay="yes" data-pagination="yes" data-arrows="yes" data-style="fade" data-pause="yes">
+        <div id ="slider" class="hero-slider flexslider clearfix" data-autoplay="yes" data-pagination="yes" data-arrows="yes" data-style="fade" data-pause="yes">
             <ul class="slides">
                 <li class=" parallax" style="background-image: url(../../img/slide1.jpg);"></li>
                 <li class="parallax" style="background-image:url(../../img/slide2.jpg);"></li>
@@ -163,7 +164,7 @@
     </div>
 
 
-    @Scripts.Render("~/Scripts/jquery-2.0.0.min.js")
+    
     @Scripts.Render("~/Scripts/prettyphoto.js")
     @Scripts.Render("~/Scripts/helper-plugins.js")
     @Scripts.Render("~/Scripts/bootstrap.js")

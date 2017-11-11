@@ -4,12 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace DrHuellitas.Controllers
+namespace DrHuellitas.Controllers.MasterAdmin
 {
-    public class ClienteController : Controller
+    public class AdminController : Controller
     {
-        // GET: Cliente
-        public ActionResult cliente()
+        // GET: Admin
+        public ActionResult Index()
         {
             return View();
         }

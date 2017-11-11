@@ -6,10 +6,15 @@ using System.Web.Mvc;
 
 namespace DrHuellitas.Controllers
 {
-    public class AdministradorController : Controller
+    public class UsuarioController : Controller
     {
-        // GET: Administrador
+        // GET: Usuario
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult Continuar()
         {
             return View();
         }

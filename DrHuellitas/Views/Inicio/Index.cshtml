@@ -1,70 +1,77 @@
-﻿
+﻿@using DrHuellitas.BO;
+@model RegistroBO 
 @{
-    ViewBag.Title = "Dr. Huellitas";
-    Layout = "~/Views/Shared/MasterFrontEnd.cshtml";
+    ViewBag.Title = "Bienvenidos a Dr. Huellitas - Más que un amigo";
+    Layout = "~/Views/Shared/MasterLoginView.cshtml";
 }
 
-<div class="page-header">
+@Styles.Render("~/Content/login/style.css")
+
+<div class="nav-backed-header parallax" style="background-image:url(../../img/slide1.jpg); height:700px;">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>Inicio</h1>
+        <div class="row" style="padding-top:100px;">
+            <div class="col-md-6">
+                
+            </div>
+            <div class="col-md-6">
+                <div class="module form-module">
+                    <div class="toggle">
+                        <i class="fa fa-times fa-pencil"></i>
+                        <div class="tooltip">Resgistrate</div>
+                    </div>
+                    <div class="form">
+                        <h2>Iniciar Sesión</h2>
+                        @using (Html.BeginForm("Index", "Inicio", FormMethod.Post))
+                        {
+                            @Html.HiddenFor(x => x.id)
+
+                            @Html.TextBoxFor(x => x.usuario, new {  @placeholder = "Usuario..." })
+
+                            @Html.TextBoxFor(x => x.contraseña, new { @placeholder = "Contraseña...", @type = "password" })
+
+
+                            <button type="submit" class="btn-success">Iniciar</button>
+
+                        }
+                        <div class="cta"><a href="http://andytran.me">¿Olvidaste tu contraseña?</a></div>
+                    </div>
+                    
+                    <div class="form">
+                        <h2>¡Resgistrate!</h2>
+                        @using (Html.BeginForm("Guardar", "Inicio", FormMethod.Post))
+                        {
+                           @Html.HiddenFor(x => x.id)
+
+                            @Html.TextBoxFor(x => x.email,new { @placeholder = "Correo electronico" })
+
+                            @Html.TextBoxFor(x => x.usuario, new { @placeholder = "Usuario" })
+
+                            @Html.TextBoxFor(x => x.contraseña,new { @placeholder = "Contraseña" })
+
+                            @Html.TextBoxFor(x => x.nombre, new { @placeholder="Nombre"})
+                            <div class="row">
+                                <div class="col-md-2">
+                                    @Html.RadioButtonFor(x => x.id_tipo, 2, new { @style = "width:100%; padding-bottom:5px;" })
+                                </div>
+                                <div class="col-md-10">
+                                    <label>Público</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    @Html.RadioButtonFor(x => x.id_tipo, 3, new { @style = "width:100%; padding-bottom:5px;" })
+                                </div>
+                                <div class="col-md-10">
+                                    <label>Empresa</label>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-success">Aceptar</button>
+
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-
-<div class="main" role="main">
-    <div id="content" class="content full">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus. Donec facilisis fermentum sem, ac viverra ante luctus vel. Donec vel mauris quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus. Donec facilisis fermentum sem, ac viverra ante luctus vel. Donec vel mauris quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus. Donec facilisis fermentum sem, ac viverra ante luctus vel. Donec vel mauris quam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus. Donec facilisis fermentum sem, ac viverra ante luctus vel. Donec vel mauris quam.</p>
-                    <hr>
-                    <h3>Our Staff</h3>
-                </div>
-                <div class="col-md-4 col-sm-4">
-                    <div class="grid-item staff-item">
-                        <div class="grid-item-inner">
-                            <div class="media-box"> <img src="images/staff1.jpg" alt=""> </div>
-                            <div class="grid-content">
-                                <h3>Melina Mironescu</h3>
-                                <nav class="social-icons"> <a href="../../www.facebook.com/index.html" target="_blank"><i class="fa fa-facebook"></i></a> <a href="../../twitter.com/index.html" target="_blank"><i class="fa fa-twitter"></i></a> <a href="../../plus.google.com/index.html" target="_blank"><i class="fa fa-google-plus"></i></a> <a href="../../www.pinterest.com/index.html" target="_blank"><i class="fa fa-pinterest"></i></a> </nav>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus. Donec facilisis fermentum sem, ac viverra ante luctus vel. Donec vel mauris quam.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4">
-                    <div class="grid-item staff-item">
-                        <div class="grid-item-inner">
-                            <div class="media-box"> <img src="images/staff2.jpg" alt=""> </div>
-                            <div class="grid-content">
-                                <h3>Francisc Cazan</h3>
-                                <nav class="social-icons"> <a href="../../www.facebook.com/index.html" target="_blank"><i class="fa fa-facebook"></i></a> <a href="../../twitter.com/index.html" target="_blank"><i class="fa fa-twitter"></i></a> <a href="../../plus.google.com/index.html" target="_blank"><i class="fa fa-google-plus"></i></a> <a href="../../www.pinterest.com/index.html" target="_blank"><i class="fa fa-pinterest"></i></a> </nav>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus. Donec facilisis fermentum sem, ac viverra ante luctus vel. Donec vel mauris quam.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-4">
-                    <div class="grid-item staff-item">
-                        <div class="grid-item-inner">
-                            <div class="media-box"> <img src="images/staff3.jpg" alt=""> </div>
-                            <div class="grid-content">
-                                <h3>Ethan Kay</h3>
-                                <nav class="social-icons"> <a href="../../www.facebook.com/index.html" target="_blank"><i class="fa fa-facebook"></i></a> <a href="../../twitter.com/index.html" target="_blank"><i class="fa fa-twitter"></i></a> <a href="../../plus.google.com/index.html" target="_blank"><i class="fa fa-google-plus"></i></a> <a href="../../www.pinterest.com/index.html" target="_blank"><i class="fa fa-pinterest"></i></a> </nav>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus. Donec facilisis fermentum sem, ac viverra ante luctus vel. Donec vel mauris quam.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    document.getElementById("slider").style.height="200px"
-</script>

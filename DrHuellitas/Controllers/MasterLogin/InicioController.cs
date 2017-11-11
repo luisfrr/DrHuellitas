@@ -12,29 +12,17 @@ namespace DrHuellitas.Controllers
     {
         // GET: Inicio
         UsuarioDAO objdao = new UsuarioDAO();
-        public ActionResult Index()
+        public ActionResult Index() //Este método lanza la página del inicio de sesión
         {
             return View();
         }
-
-        public ActionResult login2()
-        {
-            if (Session["usuario"] != null)
-            {
-                return Redirect("~/Cliente/cliente");
-            }
-            else
-            {
-                return View();
-            }
-        }
-        public ActionResult Guardar(RegistroBO registro)
+        public ActionResult Registrar(RegistroBO registro) //Este método es el realiza el registro
         {
           var r=  objdao.agregarUsuario(registro);
 
             return Redirect("~/Inicio/login2");
         }
-        public ActionResult login(RegistroBO registro)
+        public ActionResult IniciarSesion(RegistroBO registro) //Este método es el que válida el usuario(login)
         {
             var r = objdao.BuscarUsuario(registro.usuario, registro.contraseña);
             if (r != null)
@@ -49,7 +37,7 @@ namespace DrHuellitas.Controllers
             }
 
         }
-        public ActionResult CerrarSesion()
+        public ActionResult CerrarSesion() //Este método se va a llamar en cada master para cerrar sesión
         {
             Session.Remove("usuario");
             Session.Abandon();

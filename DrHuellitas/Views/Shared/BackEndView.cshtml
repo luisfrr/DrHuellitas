@@ -1,9 +1,4 @@
-﻿
-@{
-    Layout = null;
-}
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html>
 <head>
@@ -28,8 +23,8 @@
 
     <header class="site-header">
         <div class="container-fluid">
-            <a href="#" class="site-logo">
-                <img class="hidden-md-down" src="~/img/Logo.png" alt="" style="height:auto; width:136.5px;">
+            <a href="~/Admin/Index" class="site-logo">
+                <img class="hidden-md-down" src="~/img/Logo.png" alt="" style="height:auto; width:136.5px; padding-top:15px;">
                 <img class="hidden-lg-down" src="~/img/Logo.png" alt="" style="height:auto; width:136.5px;">
             </a>
 
@@ -417,16 +412,20 @@
         </div><!--.container-fluid-->
     </header><!--.site-header-->
 
+
+
+
+
     <!--Menu-->
     <div class="mobile-menu-left-overlay"></div>
     <nav class="side-menu">
         <ul class="side-menu-list">
-            <li class="grey with-sub">
+            <li class="grey">
                 <span>
                     <i class="font-icon font-icon-dashboard"></i>
-                    <span class="lbl">Dashboard</span>
+                    <span class="lbl">Inicio</span>
                 </span>
-                <ul>
+                <!--<ul>
                     <li><a href="index.html"><span class="lbl">Default</span><span class="label label-custom label-pill label-danger">new</span></a></li>
                     <li><a href="dashboard-top-menu.html"><span class="lbl">Top menu</span></a></li>
                     <li><a href="side-menu-compact-full.html"><span class="lbl">Compact menu</span></a></li>
@@ -440,9 +439,9 @@
                     <li><a href="dark-menu-ultramarine.html"><span class="lbl">Ultramarine dark menu</span></a></li>
                     <li><a href="asphalt-menu.html"><span class="lbl">Asphalt top menu</span></a></li>
                     <li><a href="side-menu-big-icon.html"><span class="lbl">Big menu</span></a></li>
-                </ul>
+                </ul>-->
             </li>
-            <li class="brown with-sub">
+            <!--<li class="brown with-sub">
                 <span>
                     <i class="font-icon glyphicon glyphicon-tint"></i>
                     <span class="lbl">Skins</span>
@@ -457,26 +456,26 @@
                     <li><a href="theme-picton-blue.html"><span class="lbl">Picton Blue</span></a></li>
                     <li><a href="theme-picton-blue-white-ebony.html"><span class="lbl">Picton Blue White Ebony</span></a></li>
                 </ul>
-            </li>
-            <li class="purple with-sub">
+            </li>-->
+            <li class="purple">
                 <span>
                     <i class="font-icon font-icon-comments active"></i>
-                    <span class="lbl">Messages</span>
+                    <span class="lbl">Chat</span>
                 </span>
-                <ul>
+                <!--<ul>
                     <li><a href="messenger.html"><span class="lbl">Messenger</span></a></li>
                     <li><a href="chat.html"><span class="lbl">Messages</span><span class="label label-custom label-pill label-danger">8</span></a></li>
                     <li><a href="chat-write.html"><span class="lbl">Write Message</span></a></li>
                     <li><a href="chat-index.html"><span class="lbl">Select User</span></a></li>
-                </ul>
+                </ul>-->
             </li>
             <li class="red">
                 <a href="mail.html">
                     <i class="font-icon glyphicon glyphicon-send"></i>
-                    <span class="lbl">Mail</span>
+                    <span class="lbl">E-Mail</span>
                 </a>
             </li>
-            <li class="gold with-sub">
+            <!--<li class="gold with-sub">
                 <span>
                     <i class="font-icon font-icon-edit"></i>
                     <span class="lbl">Forms</span>
@@ -493,22 +492,30 @@
                     <li><a href="form-flex-labels.html"><span class="lbl">Flex Labels</span></a></li>
                     <li><a href="ui-form-extras.html"><span class="lbl">Extras</span></a></li>
                 </ul>
-            </li>
-            <li class="blue-dirty">
+            </li>-->
+            <!--<li class="blue-dirty">
                 <a href="tables.html">
                     <span class="glyphicon glyphicon-th"></span>
                     <span class="lbl">Tables</span>
                 </a>
-            </li>
+            </li>-->
             <li class="magenta with-sub">
                 <span>
                     <span class="glyphicon glyphicon-list-alt"></span>
-                    <span class="lbl">Datatables</span>
+                    <span class="lbl">Gestiones</span>
                 </span>
                 <ul>
-                    <a href="datatables-net.html"><span class="lbl">Datatables.net</span></a>
+                    <li><a href="~/Admin/"><span class="lbl">Usuarios</span></a></li>
+                    <li><a href="~/Admin/"><span class="lbl">Mascotas</span></a></li>
+                    <li><a href="~/Admin/"><span class="lbl"></span></a></li>
+                    <li><a href="~/Admin/"><span class="lbl">Propaganda</span></a></li>
+                    <li><a href="~/Admin/"><span class="lbl">Comentarios</span></a></li>
+                    <li><a href="~/Admin/"><span class="lbl">Paquetes</span></a></li>
+                    <li><a href="~/Admin/"><span class="lbl">Gestión </span></a></li>
+                    <li><a href="~/Admin/"><span class="lbl">Gestión </span></a></li>
+                </ul>
+            
             </li>
-            <a href="bootstrap-datatables.html"><span class="lbl">Bootstrap Table</span></a></li>
 
             <!--<li><a href="datatables.html"><span class="lbl">Default</span></a></li>
             <li><a href="datatables-fixed-columns.html"><span class="lbl">Fixed Columns</span></a></li>
@@ -517,8 +524,6 @@
             <li><a href="datatables-resize-columns.html"><span class="lbl">Resize Columns</span></a></li>
             <li><a href="datatables-mobile.html"><span class="lbl">Mobile</span></a></li>
             <li><a href="datatables-filter-control.html"><span class="lbl">Filters</span></a></li>-->
-        </ul>
-        </li>
         <li class="green with-sub">
             <span>
                 <i class="font-icon font-icon-widget"></i>

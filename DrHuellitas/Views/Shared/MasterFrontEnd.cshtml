@@ -56,22 +56,28 @@
                             <nav class="navigation">
                                 <ul class="sf-menu">
                                     <li>
-                                        @Html.ActionLink("Inicio", "Index", "Home")
+                                        @Html.ActionLink("Inicio", "Index", "Usuario")
                                     </li>
                                     <li>
-                                        @Html.ActionLink("Agenda", "Index", "agenda")
+                                        @Html.ActionLink("Comercios", "Comercios", "Usuario")
                                     </li>
                                     <li>
-                                        @Html.ActionLink("Establecimientos", "Index", "establecimientos")
+                                        @Html.ActionLink("Agenda", "Agenda", "Usuario")
                                     </li>
                                     <li>
-                                        @Html.ActionLink("Mis Mascotas", "Index", "mascotas")
+                                        @Html.ActionLink("Chat", "Chat", "Usuario")
                                     </li>
                                     <li>
-                                        @Html.ActionLink("Mi Cuenta", "Index", "nosotros")
+                                        @Html.ActionLink("Mis Mascotas", "Mascotas", "Usuario")
                                         <ul class="dropdown">
-                                            <li>@Html.ActionLink("Mi Cuenta", "Index", "nosotros")</li>
-                                            <li>@Html.ActionLink("Cerrar Sesión", "Index", "nosotros")</li>
+                                            <li>@Html.ActionLink("Cartillas", "Cartillas", "Usuario")</li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        @Html.ActionLink("Mi Cuenta", "Cuenta", "Usuario")
+                                        <ul class="dropdown">
+                                            <li>@Html.ActionLink("Mi Cuenta", "Cuenta", "Usuario")</li>
+                                            <li>@Html.ActionLink("Cerrar Sesión", "Index", "Inicio")</li>
                                         </ul>
                                     </li>
                                 </ul>

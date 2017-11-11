@@ -31,7 +31,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                            <h1 class="logo"><a href="~/Inicio/index"><img src="../../img/Logo.png" alt="Logo" style="height:52px; width:auto;"></a></h1>
+                            <h1 class="logo"><a href="~/Comercio/Index"><img src="../../img/Logo.png" alt="Logo" style="height:52px; width:auto;"></a></h1>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <ul class="top-navigation hidden-sm hidden-xs">
@@ -54,28 +54,185 @@
                     <div class="row">
                         <div class="col-md-12">
                             <nav class="navigation">
-                                <ul class="sf-menu">
-                                    <li>
-                                        @Html.ActionLink("Inicio", "Index", "Home")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Agenda", "Index", "agenda")
-                                    </li>
+                                
+                                @if ((int)Session["veterinaria"] == 1 && (int)Session["estetica"] == 1 && (int)Session["Productos"] == 1)
+                                {
+                                    <ul class="sf-menu">
+                                        <li>
+                                            @Html.ActionLink("Inicio", "Index", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Agenda", "Index", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Chat", "Chat", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Mis Doctores", "Doctores", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Mi Propaganda", "Propaganda", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Mi Cuenta", "Cuenta", "Comercio")
+                                            <ul class="dropdown">
+                                                <li>@Html.ActionLink("Mis comentarios", "Comentarios", "Comercio")</li>
+                                                <li>@Html.ActionLink("Salir", "CerrarSesion", "Inicio")</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                }
+                                else if ((int)Session["veterinaria"] == 1 && (int)Session["estetica"] == 1 && (int)Session["Productos"] == 0)
+                                {
+                                    <ul class="sf-menu">
+                                        <li>
+                                            @Html.ActionLink("Inicio", "Index", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Agenda", "Index", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Chat", "Chat", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Mis Doctores", "Doctores", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Mi Propaganda", "Propaganda", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Mi Cuenta", "Cuenta", "Comercio")
+                                            <ul class="dropdown">
+                                                <li>@Html.ActionLink("Mis comentarios", "Comentarios", "Comercio")</li>
+                                                <li>@Html.ActionLink("Salir", "CerrarSesion", "Inicio")</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                }
+                                else if ((int)Session["veterinaria"] == 1 && (int)Session["estetica"] == 0 && (int)Session["Productos"] == 0)
+                                {
+                                    <ul class="sf-menu">
+                                        <li>
+                                            @Html.ActionLink("Inicio", "Index", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Agenda", "Index", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Chat", "Chat", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Mis Doctores", "Doctores", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Mi Propaganda", "Propaganda", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Mi Cuenta", "Cuenta", "Comercio")
+                                            <ul class="dropdown">
+                                                <li>@Html.ActionLink("Mis comentarios", "Comentarios", "Comercio")</li>
+                                                <li>@Html.ActionLink("Salir", "CerrarSesion", "Inicio")</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                }
+                                else if ((int)Session["veterinaria"] == 0 && (int)Session["estetica"] == 1 && (int)Session["Productos"] == 1)
+                                {
+                                    <ul class="sf-menu">
+                                        <li>
+                                            @Html.ActionLink("Inicio", "Index", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Agenda", "Index", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Chat", "Chat", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Mi Propaganda", "Propaganda", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Mi Cuenta", "Cuenta", "Comercio")
+                                            <ul class="dropdown">
+                                                <li>@Html.ActionLink("Mis comentarios", "Comentarios", "Comercio")</li>
+                                                <li>@Html.ActionLink("Salir", "CerrarSesion", "Inicio")</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                }
+                                else if ((int)Session["veterinaria"] == 0 && (int)Session["estetica"] == 0 && (int)Session["Productos"] == 1)
+                                {
+                                    <ul class="sf-menu">
+                                        <li>
+                                            @Html.ActionLink("Inicio", "Index", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Chat", "Chat", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Mi Propaganda", "Propaganda", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Mi Cuenta", "Cuenta", "Comercio")
+                                            <ul class="dropdown">
+                                                <li>@Html.ActionLink("Mis comentarios", "Comentarios", "Comercio")</li>
+                                                <li>@Html.ActionLink("Salir", "CerrarSesion", "Inicio")</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                }
+                                else if ((int)Session["veterinaria"] == 0 && (int)Session["estetica"] == 1 && (int)Session["Productos"] == 0)
+                                {
+                                    <ul class="sf-menu">
+                                        <li>
+                                            @Html.ActionLink("Inicio", "Index", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Agenda", "Index", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Chat", "Chat", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Mi Propaganda", "Propaganda", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Mi Cuenta", "Cuenta", "Comercio")
+                                            <ul class="dropdown">
+                                                <li>@Html.ActionLink("Mis comentarios", "Comentarios", "Comercio")</li>
+                                                <li>@Html.ActionLink("Salir", "CerrarSesion", "Inicio")</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                }
+                                else if ((int)Session["veterinaria"] == 1 && (int)Session["estetica"] == 0 && (int)Session["Productos"] == 1)
+                                {
+                                    <ul class="sf-menu">
+                                        <li>
+                                            @Html.ActionLink("Inicio", "Index", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Agenda", "Index", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Chat", "Chat", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Mis Doctores", "Doctores", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Mi Propaganda", "Propaganda", "Comercio")
+                                        </li>
+                                        <li>
+                                            @Html.ActionLink("Mi Cuenta", "Cuenta", "Comercio")
+                                            <ul class="dropdown">
+                                                <li>@Html.ActionLink("Mis comentarios", "Comentarios", "Comercio")</li>
+                                                <li>@Html.ActionLink("Salir", "CerrarSesion", "Inicio")</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                }
 
-                                    <li>
-                                        @Html.ActionLink("Personal", "Index", "establecimientos")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Publicaciones", "Index", "establecimientos")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Mi Cuenta", "Index", "nosotros")
-                                        <ul class="dropdown">
-                                            
-                                            <li>@Html.ActionLink("Salir", "CerrarSesion", "Inicio")</li>
-                                        </ul>
-                                    </li>
-                                </ul>
                             </nav>
                         </div>
                     </div>

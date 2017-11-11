@@ -143,9 +143,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BO\RegistroBO.cs" />
-    <Compile Include="Controllers\AdministradorController.cs" />
-    <Compile Include="Controllers\ClienteController.cs" />
-    <Compile Include="Controllers\InicioController.cs" />
+    <Compile Include="Controllers\MasterAdmin\AdminController.cs" />
+    <Compile Include="Controllers\MasterComercio\ComercioController.cs" />
+    <Compile Include="Controllers\MasterLogin\InicioController.cs" />
+    <Compile Include="Controllers\MasterUsuario\UsuarioController.cs" />
+    <Compile Include="Controllers\MasterVeterinario\VetController.cs" />
     <Compile Include="DAO\ConexionDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
     <Compile Include="Global.asax.cs">
@@ -823,6 +825,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Comercio\" />
+    <Folder Include="Views\Vet\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -888,13 +892,14 @@
     <Content Include="fonts\admin\startuid41d.eot" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\MasterFrontEnd.cshtml" />
-    <Content Include="Views\Inicio\Index.cshtml" />
+    <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\Shared\MasterLoginView.cshtml" />
-    <Content Include="Views\Inicio\login2.cshtml" />
+    <Content Include="Views\Inicio\Index.cshtml" />
     <Content Include="Views\Shared\BackEndView.cshtml" />
-    <Content Include="Views\Administrador\Index.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\MasterFrontEndVet.cshtml" />
     <Content Include="Views\Cliente\cliente.cshtml" />
+    <Content Include="Views\Usuario\Continuar.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

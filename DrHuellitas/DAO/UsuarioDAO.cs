@@ -28,12 +28,12 @@ namespace DrHuellitas.DAO
         public int agregarUsuario(RegistroBO usuario)
         {
             string contraseña = MD5Encriptar(usuario.contraseña);
-           string agregar = string.Format("insert into Usuario(usuario,idTipo,contraseña,nombre,email)values('{0}','{1}','{2}','{3}','{4}')", usuario.usuario,usuario.id_tipo,contraseña,usuario.nombre,usuario.email);
+           string agregar = string.Format("insert into Usuario(usuario,idTipo,contraseña,nombre,email)values('{0}','{1}','{2}','{3}','{4}')", usuario.usuario,usuario.idtipo,contraseña,usuario.nombre,usuario.email);
             return conex.ejecutarSentencia(agregar);
         }
         public int modificarusuario(RegistroBO usuario)
         {
-            string modificar = string.Format("update Usuario set usuario='{1}',contraseña='{2}',nombre='3}',correo='{4}',idtipo='{5}' where id='{0}'", usuario.id, usuario.usuario, usuario.contraseña, usuario.nombre, usuario.email, usuario.id_tipo);
+            string modificar = string.Format("update Usuario set usuario='{1}',contraseña='{2}',nombre='3}',correo='{4}',idtipo='{5}' where id='{0}'", usuario.id, usuario.usuario, usuario.contraseña, usuario.nombre, usuario.email, usuario.idtipo);
             return conex.ejecutarSentencia(modificar);
         }
         public RegistroBO BuscarUsuario(string Usuario, string Contraseña)

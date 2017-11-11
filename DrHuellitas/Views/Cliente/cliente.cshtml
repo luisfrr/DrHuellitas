@@ -1,12 +1,19 @@
 ﻿
 @{
-    ViewBag.Title = "cliente1";
+    ViewBag.Title = "cliente";
     Layout = "~/Views/Shared/MasterFrontEnd.cshtml";
 }
 
-<h2>cliente</h2>
-<div class="container">
 @Styles.Render("~/Content/Cliente/Step.css")
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Inicio</h1>
+            </div>
+        </div>
+    </div>
+</div>
     <div class="stepwizard col-md-offset-3">
         <div class="stepwizard-row setup-panel">
             <div class="stepwizard-step">
@@ -70,5 +77,6 @@
             </div>
         </div>
     </form>
-
-</div>
+<script>
+    document.getElementById("slider").style.height = "200px"
+</script>

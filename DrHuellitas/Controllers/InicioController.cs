@@ -21,7 +21,7 @@ namespace DrHuellitas.Controllers
         {
             if (Session["usuario"] != null)
             {
-                return Redirect("~/Inicio/index");
+                return Redirect("~/Cliente/cliente");
             }
             else
             {
@@ -41,7 +41,7 @@ namespace DrHuellitas.Controllers
             {
                 Session["usuario"] = r;
                 ViewBag.Usuario = (RegistroBO)Session["usuario"];
-                return Redirect("~/Inicio/index");
+                return Redirect("~/Cliente/cliente");
             }
             else
             {

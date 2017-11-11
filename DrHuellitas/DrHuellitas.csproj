@@ -144,7 +144,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BO\MascotasBO.cs" />
     <Compile Include="BO\RegistroBO.cs" />
-    <Compile Include="BO\RegistroUsuarioMascotaBO.cs" />
     <Compile Include="BO\RegistroVetBO.cs" />
     <Compile Include="Controllers\MasterAdmin\AdminController.cs" />
     <Compile Include="Controllers\MasterComercio\ComercioController.cs" />

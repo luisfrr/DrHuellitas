@@ -7,8 +7,8 @@ namespace DrHuellitas.BO
 {
     public class MascotasBO
     {
-        public int id { get; set; }
-        public string nombre { get; set; }
+        public int idmascota { get; set; }
+        public string nombremascota { get; set; }
         public int idusuario { get; set; }
         public string colorDominate { get; set; }
         public string colorPreDominante { get; set; }

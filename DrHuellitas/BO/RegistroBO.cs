@@ -20,8 +20,17 @@ namespace DrHuellitas.BO
         public byte[] qr { get; set; }
         public byte[] foto { get; set; }
         public string ape { get; set; }
-
         public HttpPostedFileBase img { get; set; }
+
+        public int idmascota { get; set; }
+        public string nombremascota { get; set; }
+        public int idusuario { get; set; }
+        public string colorDominate { get; set; }
+        public string colorPreDominante { get; set; }
+        public string colorAlternativo { get; set; }
+        public int genero { get; set; }
+        public DateTime fechaNaci { get; set; }
+        public HttpPostedFileBase imgmas { get; set; }
 
         //FALTA AGREGAR FOTO Y QR
 

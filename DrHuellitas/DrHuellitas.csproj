@@ -143,6 +143,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BO\RegistroBO.cs" />
+    <Compile Include="BO\RegistroComercioBO.cs" />
+    <Compile Include="BO\RegistroPublicoBO.cs" />
+    <Compile Include="BO\RegistroVetBO.cs" />
     <Compile Include="Controllers\MasterAdmin\AdminController.cs" />
     <Compile Include="Controllers\MasterComercio\ComercioController.cs" />
     <Compile Include="Controllers\MasterLogin\InicioController.cs" />

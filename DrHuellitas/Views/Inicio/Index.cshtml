@@ -33,7 +33,8 @@
                             <button type="submit" class="btn-success">Iniciar</button>
 
                         }
-                        <div class="cta"><a href="http://andytran.me">¿Olvidaste tu contraseña?</a></div>
+                        <br />
+                        <div class="cta">@Html.ActionLink("¿Olvidaste tu contraseña?", "RecuperarPass", "Inicio")</div>
                     </div>
                     
                     <div class="form">
@@ -46,9 +47,9 @@
 
                             @Html.TextBoxFor(x => x.usuario, new { @placeholder = "Usuario" })
 
-                            @Html.TextBoxFor(x => x.contraseña,new { @placeholder = "Contraseña" })
+                            @Html.TextBoxFor(x => x.contraseña,new { @placeholder = "Contraseña", @type="password"})
 
-                            @Html.TextBoxFor(x => x.nombre, new { @placeholder="Nombre"})
+                            @Html.TextBoxFor(x => x.nombre, new { @placeholder="Repetir contraseña", @type="password"})
                             <div class="row">
                                 <div class="col-md-2">
                                     @Html.RadioButtonFor(x => x.id_tipo, 2, new { @style = "width:100%; padding-bottom:5px;" })

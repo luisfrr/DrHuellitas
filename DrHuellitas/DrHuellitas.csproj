@@ -144,6 +144,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BO\RegistroBO.cs" />
     <Compile Include="Controllers\AdministradorController.cs" />
+    <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\InicioController.cs" />
     <Compile Include="DAO\ConexionDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
@@ -162,6 +163,7 @@
     <Content Include="Content\admin\widgets.min.css" />
     <Content Include="Content\animations.css" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\Cliente\Step.css" />
     <Content Include="Content\color1.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\login\style.css" />
@@ -791,6 +793,7 @@
     <Content Include="Scripts\admin\popper.min.js" />
     <Content Include="Scripts\admin\tether.min.js" />
     <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\Cliente\Step.js" />
     <Content Include="Scripts\helper-plugins.js" />
     <Content Include="Scripts\init.js" />
     <Content Include="Scripts\jquery-2.0.0.min.js" />
@@ -891,6 +894,7 @@
     <Content Include="Views\Shared\BackEndView.cshtml" />
     <Content Include="Views\Administrador\Index.cshtml" />
     <Content Include="Views\Shared\MasterFrontEndVet.cshtml" />
+    <Content Include="Views\Cliente\cliente.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

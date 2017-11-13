@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DrHuellitas", "DrHuellitas\DrHuellitas.csproj", "{AD746B54-3842-4597-B76A-0F025B541CDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Encriptacion", "Encriptacion\Encriptacion.csproj", "{23D277DE-4691-4114-9504-F0D0172BCBF3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MD5", "Encriptacion\MD5.csproj", "{23D277DE-4691-4114-9504-F0D0172BCBF3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

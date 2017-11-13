@@ -142,6 +142,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BO\FotoBO.cs" />
     <Compile Include="BO\MascotasBO.cs" />
     <Compile Include="BO\RegistroBO.cs" />
     <Compile Include="BO\RegistroVetBO.cs" />
@@ -150,7 +151,7 @@
     <Compile Include="Controllers\MasterLogin\InicioController.cs" />
     <Compile Include="Controllers\MasterUsuario\UsuarioController.cs" />
     <Compile Include="Controllers\MasterVeterinario\VetController.cs" />
-    <Compile Include="DAO\ConexionDAO.cs" />
+    <Compile Include="DAO\ConexionSQL.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -904,9 +905,9 @@
     <Content Include="Views\Usuario\Continuar.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Encriptacion\Encriptacion.csproj">
+    <ProjectReference Include="..\Encriptacion\MD5.csproj">
       <Project>{23d277de-4691-4114-9504-f0d0172bcbf3}</Project>
-      <Name>Encriptacion</Name>
+      <Name>MD5</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

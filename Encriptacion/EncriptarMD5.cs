@@ -10,20 +10,8 @@ namespace Encriptacion
     public class EncriptarMD5
     {
         public string Key { get; set; }
-        //public string Key
-        //{
-        //    get
-        //    {
-        //        return "DRH";
-        //    }
 
-        //    set
-        //    {
-        //        key = "DRH";
-        //    }
-        //}
-
-        public string EncriptarMD5_1(string text)
+        public string Encriptar(string text)
         {
             Key = "DRH";
             try
@@ -60,7 +48,7 @@ namespace Encriptacion
             return text;
         }
 
-        public string DesencriptarMD5(string textoEncriptado)
+        public string Desencriptar(string textoEncriptado)
         {
             try
             {

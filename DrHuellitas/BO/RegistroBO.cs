@@ -18,7 +18,7 @@ namespace DrHuellitas.BO
         public DateTime fechanacimiento { get; set; }
         public int status { get; set; }
         public byte[] qr { get; set; }
-        public byte[] foto { get; set; }
+        public String foto { get; set; }
         public string ape { get; set; }
         public HttpPostedFileBase img { get; set; }
 
@@ -28,12 +28,13 @@ namespace DrHuellitas.BO
         public string colorDominate { get; set; }
         public string colorPreDominante { get; set; }
         public string colorAlternativo { get; set; }
-        public int genero { get; set; }
+        public string genero { get; set; }
         public DateTime fechaNaci { get; set; }
         public HttpPostedFileBase imgmas { get; set; }
 
-        //FALTA AGREGAR FOTO Y QR
 
+        //FALTA AGREGAR FOTO Y QR
+        
 
     }
 }

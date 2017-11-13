@@ -4,11 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.IO;
+using DrHuellitas.BO;
+using DrHuellitas.DAO;
 
 namespace DrHuellitas.Controllers
 {
     public class UsuarioController : Controller
     {
+        UsuarioDAO objDAO = new UsuarioDAO();
         // GET: Usuario
         public ActionResult Index()//Hola bebe
         {
@@ -17,24 +20,22 @@ namespace DrHuellitas.Controllers
 
         public ActionResult Continuar()
         {
-            return View();
+            if ((int)Session["status"] == 1)
+            {
+                return Redirect("~/Usuario/Index");
+            }
+            else
+            {
+                return View();
+            }
         }
 
-        private byte[] arr;//Array para mi imagen
-
-        public byte[] FileUpload(HttpPostedFileBase file)
+        public ActionResult ContinuarRegistro(RegistroBO objBO)
         {
-            
-            if (file!= null)
-            {
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    file.InputStream.CopyTo(ms);
-                    arr = ms.GetBuffer();
-                    
-                }
-            }
-            return arr;
+            int id = (int)Session["id"];
+            var r = objDAO.ContinuarRegistro(objBO, id);
+
+            return Redirect("~/Usuario/Index");
         }
 
     }

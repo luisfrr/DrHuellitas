@@ -21,7 +21,7 @@
                     </div>
                     <div class="form">
                         <h2>Iniciar Sesión</h2>
-                        @using (Html.BeginForm("Index", "Inicio", FormMethod.Post))
+                        @using (Html.BeginForm("IniciarSesion", "Inicio", FormMethod.Post))
                         {
                             @Html.HiddenFor(x => x.id)
 
@@ -30,7 +30,7 @@
                             @Html.TextBoxFor(x => x.contraseña, new { @placeholder = "Contraseña...", @type = "password" })
 
 
-                            <button type="submit" class="btn-success">Iniciar</button>
+                            <button type="submit" class="btn-success">Aceptar</button>
 
                         }
                         <br />
@@ -47,9 +47,9 @@
 
                             @Html.TextBoxFor(x => x.usuario, new { @placeholder = "Usuario" })
 
-                            @Html.TextBoxFor(x => x.contraseña,new { @placeholder = "Contraseña", @type="password"})
+                            @Html.TextBoxFor(x => x.contraseña, new { @id = "pass1", @placeholder = "Contraseña", @type="password"})
 
-                            @Html.TextBoxFor(x => x.nombre, new { @placeholder="Repetir contraseña", @type="password"})
+                            @Html.TextBoxFor(x => x.nombre, new { @id = "pass2", @placeholder ="Repetir contraseña", @type="password"})<label id="mensaje"></label>
                             <div class="row">
                                 <div class="col-md-2">
                                     @Html.RadioButtonFor(x => x.idtipo, 2, new { @style = "width:100%; padding-bottom:5px;" })
@@ -75,4 +75,19 @@
         </div>
     </div>
 </div>
+
+
+
+<script>
+    var p1 = document.getElementById("pass1").value;
+    var p2 = document.getElementById("pass2").value;
+
+    if (p1 != p2) {
+        document.getElementById("mensaje").innerText = "Las contraseñas no coinciden"
+        document.getElementById('mensaje').style.color = '#FF0000';
+    } else {
+        document.getElementById("mensaje").innerText = "Correcto"
+        document.getElementById('mensaje').style.color = '#000000';
+    }
+</script>
 

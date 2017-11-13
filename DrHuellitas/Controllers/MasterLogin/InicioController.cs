@@ -11,41 +11,98 @@ namespace DrHuellitas.Controllers
     public class InicioController : Controller
     {
         // GET: Inicio
-        UsuarioDAO objdao = new UsuarioDAO();
+        UsuarioDAO objDAO = new UsuarioDAO();
         public ActionResult Index() //Este método lanza la página del inicio de sesión
         {
-            return View();
-        }
-        public ActionResult Registrar(RegistroBO registro) //Este método es el realiza el registro
-        {
-          var r=  objdao.agregarUsuario(registro);
-
-            return Redirect("~/Inicio/Index");
-        }
-        public ActionResult IniciarSesion(RegistroBO registro) //Este método es el que válida el usuario(login)
-        {
-            var r = objdao.BuscarUsuario(registro.usuario, registro.contraseña);
-            if (r != null)
+            int tipo = 0;
+            int status = 0;
+            
+            string modulo = "";
+            if(Session["id"] != null)
             {
-                Session["usuario"] = r;
-                ViewBag.Usuario = (RegistroBO)Session["usuario"];
-                return Redirect("~/Cliente/cliente");
+                tipo = (int)Session["idtipo"];
+                status = (int)Session["status"];
+
+                if (tipo == 1)
+                {
+                    modulo = "~/Admin/Index";
+                }
+                else if (tipo == 2)
+                {
+                    modulo = (status == 0) ? "~/Usuario/Continuar" : "~/Usuario/Index";
+                }
+                else if (tipo == 3)
+                {
+                    modulo = (status == 0) ? "~/Comercio/Continuar" : "~/Comercio/Index";
+                }
+                else if (tipo == 4)
+                {
+                    modulo = (status == 0) ? "~/Vet/Continuar" : "~/Vet/Index";
+                }
             }
             else
             {
-                return Redirect("~/Inicio/login2");
+                return View();
             }
 
+            return Redirect(modulo);
+        }
+        public ActionResult Registrar(RegistroBO registro) //Este método es el realiza el registro
+        {
+            var r =  objDAO.RegistrarUsuario(registro);
+            
+            return Redirect("~/Inicio/Index");
+        }
+
+
+        public ActionResult IniciarSesion(RegistroBO registro) //Este método es el que válida el usuario(login)
+        {
+            string Modulo = "";
+            var r = objDAO.IniciarSesion(registro.usuario, registro.contraseña);
+            if (r != null)
+            {
+                Session["id"] = r.id;
+                Session["nombre"] = r.nombre;
+                Session["idtipo"] = r.idtipo;
+                Session["foto"] = r.foto;
+                Session["status"]= r.status;
+
+                int status = r.status;
+                int tipo = r.idtipo;
+                if(tipo == 1)
+                {
+                    Modulo = "~/Admin/Index";
+                }
+                else if (tipo == 2)
+                {
+                    Modulo = (status == 0) ? "~/Usuario/Continuar" : "~/Usuario/Index";
+                }
+                else if (tipo == 3)
+                {
+                    Modulo = (status == 0) ? "~/Comercio/Continuar" : "~/Comercio/Index";
+                }
+                else if(tipo == 4)
+                {
+                    Modulo = (status == 0) ? "~/Vet/Continuar" : "~/Vet/Index";
+                }
+            }
+            else
+            {
+                return Redirect("~/Inicio/Index");
+            }
+
+            return Redirect(Modulo);
         }
         public ActionResult CerrarSesion() //Este método se va a llamar en cada master para cerrar sesión
         {
-            Session.Remove("usuario");
-            Session.Abandon();
-            if (Session == null)
+            string modulo = "";
+            Session.RemoveAll();
+            if (Session["usuario"] == null)
             {
-                return Redirect("~/Inicio/login2");
+                modulo = "~/Inicio/Index";
             }
-            return Redirect("~/Inicio/login2");
+
+            return Redirect(modulo);
         }
     }
 }

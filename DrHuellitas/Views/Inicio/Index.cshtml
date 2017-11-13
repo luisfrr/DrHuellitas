@@ -79,15 +79,17 @@
 
 
 <script>
-    var p1 = document.getElementById("pass1").value;
-    var p2 = document.getElementById("pass2").value;
+    function ValidarContraseñas() {
+        var p1 = document.getElementById("pass1").value;
+        var p2 = document.getElementById("pass2").value;
 
-    if (p1 != p2) {
-        document.getElementById("mensaje").innerText = "Las contraseñas no coinciden"
-        document.getElementById('mensaje').style.color = '#FF0000';
-    } else {
-        document.getElementById("mensaje").innerText = "Correcto"
-        document.getElementById('mensaje').style.color = '#000000';
+        if (p1 != p2) {
+            document.getElementById("mensaje").innerText = "Las contraseñas no coinciden"
+            document.getElementById('mensaje').style.color = '#FF0000';
+        } else {
+            document.getElementById("mensaje").innerText = "Correcto"
+            document.getElementById('mensaje').style.color = '#000000';
+        }
     }
 </script>
 

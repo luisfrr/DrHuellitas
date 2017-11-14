@@ -142,15 +142,20 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BO\ComercioBO.cs" />
+    <Compile Include="BO\DireccionBO.cs" />
     <Compile Include="BO\FotoBO.cs" />
     <Compile Include="BO\MascotasBO.cs" />
     <Compile Include="BO\RegistroBO.cs" />
+    <Compile Include="BO\RegistroComercio.cs" />
     <Compile Include="BO\RegistroVetBO.cs" />
+    <Compile Include="BO\UsuarioBO.cs" />
     <Compile Include="Controllers\MasterAdmin\AdminController.cs" />
     <Compile Include="Controllers\MasterComercio\ComercioController.cs" />
     <Compile Include="Controllers\MasterLogin\InicioController.cs" />
     <Compile Include="Controllers\MasterUsuario\UsuarioController.cs" />
     <Compile Include="Controllers\MasterVeterinario\VetController.cs" />
+    <Compile Include="DAO\ComercioDAO.cs" />
     <Compile Include="DAO\ConexionSQL.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
     <Compile Include="Global.asax.cs">
@@ -805,6 +810,8 @@
     <Content Include="Scripts\jquery.countdown.min.js" />
     <Content Include="Scripts\jquery.flexslider.js" />
     <Content Include="Scripts\jquery_cookie.js" />
+    <Content Include="Scripts\locationpicker.jquery.js" />
+    <Content Include="Scripts\locationpicker.jquery.min.js" />
     <Content Include="Scripts\login\index.js" />
     <Content Include="Scripts\login\jquery.min.js" />
     <Content Include="Scripts\login\vLmRVp.js" />
@@ -828,8 +835,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Comercio\" />
-    <Folder Include="Views\Vet\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -903,6 +908,8 @@
     <Content Include="Views\Shared\MasterFrontEndVet.cshtml" />
     <Content Include="Views\Cliente\cliente.cshtml" />
     <Content Include="Views\Usuario\Continuar.cshtml" />
+    <Content Include="Views\Comercio\Index.cshtml" />
+    <Content Include="Views\Vet\ContinuarRegistro.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Encriptacion\MD5.csproj">

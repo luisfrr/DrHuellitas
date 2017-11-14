@@ -1,0 +1,251 @@
+﻿@using DrHuellitas.BO;
+@model RegistroComercio
+@{
+    ViewBag.Title = "Continuar Registro";
+    Layout = "~/Views/Shared/MasterFrontEndVet.cshtml";
+}
+
+@Styles.Render("~/Content/Cliente/Step.css")
+<script type="text/javascript" src='https://maps.google.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyDSt54iG2sK1yun15GRPDJPJeGWR6LX48g'></script>
+@Scripts.Render("~/Scripts/locationpicker.jquery.min.js")
+
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Continuar registro</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+
+
+<div class="stepwizard col-md-offset-2 col-xs-12">
+    <div class="stepwizard-row setup-panel">
+        <div class="stepwizard-step">
+            <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
+            <p>Datos personales</p>
+        </div>
+        <div class="stepwizard-step">
+            <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+            <p>Datos del comercio</p>
+        </div>
+        <div class="stepwizard-step">
+            <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+            <p>Ubicación geográfica</p>
+        </div>
+        <div class="stepwizard-step">
+            <a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled">4</a>
+            <p>Finalizar</p>
+        </div>
+    </div>
+</div>
+
+
+@using (Html.BeginForm("ContinuarRegistro", "Usuario", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+{
+    <div class="row setup-content" id="step-1">
+        <div class="col-md-8 col-md-offset-2 col-xs-12 ">
+            <div class="col-md-12">
+                <h3>Datos personales</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            
+                            @Html.TextBoxFor(x => x.usuario.nombre, new { @placeholder = "Nombre(s)", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
+                            <br />
+                            @Html.TextBoxFor(x => x.usuario.ape, new { @placeholder = "Apellido(s)", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            
+                            @Html.TextBoxFor(x => x.usuario.telefono, new { @placeholder = "Teléfono", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
+
+                            <p class="control-label">Fecha de nacimiento</p>
+                            @Html.TextBoxFor(x => x.usuario.fechanacimiento, new { @required = "required", @type = "date", @class = "form-control" })
+                            <br />
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Siguiente</button>
+            </div>
+        </div>
+    </div>
+    <div class="row setup-content" id="step-2">
+        <div class="col-md-8 col-md-offset-2 col-xs-12">
+            <div class="col-md-12">
+                <h3>Datos del comercio</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                           @Html.TextBoxFor(x => x.comercio.nombreComercial, new { @placeholder = "Nombre comercial", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
+
+                            @Html.TextBoxFor(x => x.comercio.nombreFiscal, new { @placeholder = "Nombre fiscal", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
+
+                            @Html.TextBoxFor(x => x.comercio.rfc, new { @placeholder = "RFC", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.TextBoxFor(x => x.comercio.telefono1, new { @placeholder = "Teléfono 1", @maxlength = "10", @required = "required", @type = "text", @class = "form-control" })
+
+                            @Html.TextBoxFor(x => x.comercio.telefono2, new { @placeholder = "Teléfono 2 (opcional)", @maxlength = "10", @type = "text", @class = "form-control" })
+
+                            @Html.TextBoxFor(x => x.comercio.emal, new { @placeholder = "Correo electrónico", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
+                        </div>
+                    </div>
+                </div>   
+                <h3>Servicios que ofrece el comercio</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <p class="control-label">Venta de productos</p>
+                            @Html.CheckBoxFor(x => x.comercio.venderproducto)
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <p class="control-label">Veterinaria</p>
+                           @Html.CheckBoxFor(x => x.comercio.veteteirnaria)
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                           
+                            <p class="control-label">Estética/SPA</p>
+                            @Html.CheckBoxFor(x => x.comercio.estetica)
+                        </div>
+                    </div>
+                </div>  
+            </div>
+            <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Siguiente</button>
+        </div>
+    </div>
+    <div class="row setup-content" id="step-3">
+        <!-- Aquí esta la ubicaciooooooooooooooooooooooooooooooooooooooon-->
+        <div class="col-md-8 col-md-offset-2 col-xs-12 ">
+            <div class="col-md-12">
+                <h3>Ubicación geográfica</h3>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <hr />
+                        <div class="form-group">
+                            <p class="control-label">Ubicación</p>
+                            @Html.TextBoxFor(x => x.direccion.ubicacion, new { @id = "txtubicacion" })
+
+                        </div>
+                        <div class="form-group">
+                            <div id="ModalMap" style="width:100%; height:300px"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <p class="control-label">Latitud</p>
+
+                                    @Html.TextBoxFor(x => x.direccion.latitud, new { @id = "txt_latitud", @Text = "20.9675914" })
+
+
+                                </div>
+
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <p class="control-label">Longitud</p>
+                                    @Html.TextBoxFor(x => x.direccion.latitud, new { @id = "txt_longitud", @Text = "-89.6232412" })
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Siguiente</button>
+            </div>
+        </div>
+    </div>
+    <div class="row setup-content" id="step-4">
+        <div class="col-xs-6 col-md-offset-3">
+            <div class="col-md-12">
+                <h3>Finalizar</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+
+
+                            <img id="imgSalida" width="400" height="400" class="img-thumbnail img-circle" />
+                            <br /><br />
+
+                            <p class="control-label" for="file">Seleccionar una foto de perfil:</p>
+                            @Html.TextBoxFor(x => x.usuario.img, new { @type = "file", @name = "file", @id = "file" })
+
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <br />
+                <button class="btn btn-success btn-lg pull-right" type="submit" id="btnListo">Listo</button>
+            </div>
+        </div>
+    </div>
+}
+
+<br />
+<br />
+<script>
+    document.getElementById("slider").style.height = "200px"
+    document.getElementById("step-1").style.marginRight = "0px";
+    document.getElementById("step-2").style.marginRight = "0px";
+    document.getElementById("step-3").style.marginRight = "0px";
+    document.getElementById("body").style.marginTop = "0px";
+
+
+    $(document).ready(function () {
+        $(function () {
+            $('#file').change(function (e) {
+                addImage(e);
+            });
+
+            function addImage(e) {
+                var file = e.target.files[0], imageType = /image.*/;
+
+                if (!file.type.match(imageType))
+                    return;
+
+                var reader = new FileReader();
+                reader.onload = fileOnload;
+                reader.readAsDataURL(file);
+            }
+
+            function fileOnload(e) {
+                var result = e.target.result;
+                $('#imgSalida').attr("src", result);
+            }
+        });
+    });
+
+
+</script>
+
+
+<script>
+    $('#ModalMap').locationpicker({
+        radius: 0,
+        location: {
+            latitude: $('#txt_latitud').val(),
+            longitude: $('#txt_longitud').val()
+        },
+        inputBinding: {
+            latitudeInput: $('#txt_latitud'),
+            longitudeInput: $('#txt_longitud'),
+            locationNameInput: $('txtubicacion')
+
+        },
+        enableAutocomplete: true
+
+    });
+</script>
+

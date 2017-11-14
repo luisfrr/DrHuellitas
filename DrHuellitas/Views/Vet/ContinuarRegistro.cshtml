@@ -145,7 +145,7 @@
                                 <div class="form-group">
                                     <p class="control-label">Latitud</p>
 
-                                    @Html.TextBoxFor(x => x.direccion.latitud, new { @id = "txt_latitud", @Text = "20.9675914" })
+                                    @Html.TextBoxFor(x => x.direccion.latitud, new { @id = "txt_latitud", @Value = "20.9675914" })
 
 
                                 </div>
@@ -154,7 +154,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <p class="control-label">Longitud</p>
-                                    @Html.TextBoxFor(x => x.direccion.latitud, new { @id = "txt_longitud", @Text = "-89.6232412" })
+                                    @Html.TextBoxFor(x => x.direccion.latitud, new { @id = "txt_longitud", @Value = "-89.6232412" })
 
                                 </div>
 
@@ -176,7 +176,7 @@
                         <div class="form-group">
 
 
-                            <img id="imgSalida" width="400" height="400" class="img-thumbnail img-circle" />
+                            <img src="~/img/admin/avatar-2-256.png" id="imgSalida" width="256" height="256" class="img-thumbnail img-circle" />
                             <br /><br />
 
                             <p class="control-label" for="file">Seleccionar una foto de perfil:</p>
@@ -227,10 +227,8 @@
         });
     });
 
-
+    
 </script>
-
-
 <script>
     $('#ModalMap').locationpicker({
         radius: 0,
@@ -248,4 +246,5 @@
 
     });
 </script>
+
 

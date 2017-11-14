@@ -151,6 +151,7 @@
     <Compile Include="BO\RegistroVetBO.cs" />
     <Compile Include="BO\UsuarioBO.cs" />
     <Compile Include="Controllers\MasterAdmin\AdminController.cs" />
+    <Compile Include="Controllers\MasterAdmin\GestionesController.cs" />
     <Compile Include="Controllers\MasterComercio\ComercioController.cs" />
     <Compile Include="Controllers\MasterLogin\InicioController.cs" />
     <Compile Include="Controllers\MasterUsuario\UsuarioController.cs" />
@@ -912,6 +913,11 @@
     <Content Include="Views\Shared\DoctorVeterinarioView.cshtml" />
     <Content Include="Views\Vet\Index.cshtml" />
     <Content Include="Views\Vet\Continuar.cshtml" />
+    <Content Include="Views\Gestiones\Usuarios.cshtml" />
+    <Content Include="Views\Gestiones\Mascotas.cshtml" />
+    <Content Include="Views\Gestiones\Region.cshtml" />
+    <Content Include="Views\Gestiones\Propaganda.cshtml" />
+    <Content Include="Views\Gestiones\Paquetes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Encriptacion\MD5.csproj">

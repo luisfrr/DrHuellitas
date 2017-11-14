@@ -906,10 +906,12 @@
     <Content Include="Views\Shared\BackEndView.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\MasterFrontEndVet.cshtml" />
-    <Content Include="Views\Cliente\cliente.cshtml" />
     <Content Include="Views\Usuario\Continuar.cshtml" />
     <Content Include="Views\Comercio\Index.cshtml" />
-    <Content Include="Views\Vet\ContinuarRegistro.cshtml" />
+    <Content Include="Views\Comercio\Continuar.cshtml" />
+    <Content Include="Views\Shared\DoctorVeterinarioView.cshtml" />
+    <Content Include="Views\Vet\Index.cshtml" />
+    <Content Include="Views\Vet\Continuar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Encriptacion\MD5.csproj">

@@ -10,24 +10,72 @@ namespace DrHuellitas.Controllers.MasterVeterinario
 {
     public class VetController : Controller
     {
-        DireccionBO objDireccion = new DireccionBO();
-
-        
-
-        ComercioDAO ObjDAO = new ComercioDAO();
         // GET: Vet
         public ActionResult Index()
         {
-            return View();
+            string modulo = "";
+            if (Session["id"] != null)
+            {
+                if ((int)Session["idtipo"] == 1)
+                {
+                    modulo = "~/Admin/Index";
+                }
+                else if ((int)Session["idtipo"] == 2)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Usuario/Index" : "~/Usuario/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 3)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Comercio/Index" : "~/Comercio/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 4)
+                {
+                    if ((int)Session["status"] == 1)
+                        return View();
+                    else
+                        modulo = "~/Vet/Continuar";
+                }
+            }
+            else
+            {
+                modulo = "~/Inicio/Index";
+            }
+
+            return Redirect(modulo);
         }
 
 
-        public ActionResult ContinuarRegistro()
+        public ActionResult Continuar()
         {
-            objDireccion.longitud = "-89.6232412";
-                objDireccion.latitud = "20.9675914";
-            return View();
+            string modulo = "";
+            if (Session["id"] != null)
+            {
+                if ((int)Session["idtipo"] == 1)
+                {
+                    modulo = "~/Admin/Index";
+                }
+                else if ((int)Session["idtipo"] == 2)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Usuario/Index" : "~/Usuario/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 3)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Comercio/Index" : "~/Comercio/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 4)
+                {
+                    if ((int)Session["status"] == 1)
+                        modulo = "~/Vet/Index";
+                    else
+                        return View();
+                }
+            }
+            else
+            {
+                modulo = "~/Inicio/Index";
+            }
+
+            return Redirect(modulo);
         }
-        
     }
 }

@@ -131,7 +131,6 @@
                 <h3>Ubicación geográfica</h3>
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <hr />
                         <div class="form-group">
                             <p class="control-label">Ubicación</p>
                             @Html.TextBoxFor(x => x.direccion.ubicacion, new { @id = "txtubicacion" })
@@ -174,12 +173,9 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-
-
-                            <img src="~/img/admin/avatar-2-256.png" id="imgSalida" width="256" height="256" class="img-thumbnail img-circle" />
+                            <img id="imgSalida" src="~/img/admin/avatar-2-256.png" width="256" height="256" class="img-thumbnail img-circle" />
                             <br /><br />
-
-                            <p class="control-label" for="file">Seleccionar una foto de perfil:</p>
+                            <label class="control-label" for="file">Seleccionar una foto de perfil:</label>
                             @Html.TextBoxFor(x => x.usuario.img, new { @type = "file", @name = "file", @id = "file" })
 
                         </div>
@@ -200,6 +196,7 @@
     document.getElementById("step-1").style.marginRight = "0px";
     document.getElementById("step-2").style.marginRight = "0px";
     document.getElementById("step-3").style.marginRight = "0px";
+    document.getElementById("step-4").style.marginRight = "0px";
     document.getElementById("body").style.marginTop = "0px";
 
 

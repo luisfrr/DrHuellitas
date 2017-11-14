@@ -29,15 +29,15 @@ namespace DrHuellitas.Controllers
                 }
                 else if (tipo == 2)
                 {
-                    modulo = (status == 0) ? "~/Usuario/Continuar" : "~/Usuario/Index";
+                    modulo = (status == 1) ? "~/Usuario/Index": "~/Usuario/Continuar";
                 }
                 else if (tipo == 3)
                 {
-                    modulo = (status == 0) ? "~/Comercio/Continuar" : "~/Comercio/Index";
+                    modulo = (status == 1) ? "~/Comercio/Index": "~/Comercio/Continuar";
                 }
                 else if (tipo == 4)
                 {
-                    modulo = (status == 0) ? "~/Vet/Continuar" : "~/Vet/Index";
+                    modulo = (status == 1) ? "~/Vet/Index" : "~/Vet/Continuar";
                 }
             }
             else

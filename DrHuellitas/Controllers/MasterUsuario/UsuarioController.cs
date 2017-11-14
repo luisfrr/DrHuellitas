@@ -13,21 +13,70 @@ namespace DrHuellitas.Controllers
     {
         UsuarioDAO objDAO = new UsuarioDAO();
         // GET: Usuario
-        public ActionResult Index()//Hola bebe
+        public ActionResult Index()
         {
-            return View();
+            string modulo = "";
+            if (Session["id"] != null)
+            {
+                if ((int)Session["idtipo"] == 1)
+                {
+                    modulo = "~/Admin/Index";
+                }
+                else if ((int)Session["idtipo"] == 2)
+                {
+                    if ((int)Session["status"] == 1)
+                        return View();
+                    else
+                        modulo = "~/Usuario/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 3)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Comercio/Index" : "~/Comercio/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 4)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Vet/Index" : "~/Vet/Continuar";
+                }
+            }
+            else
+            {
+                modulo = "~/Inicio/Index";
+            }
+
+            return Redirect(modulo);
         }
 
         public ActionResult Continuar()
         {
-            if ((int)Session["status"] == 1)
+            string modulo = "";
+            if(Session["id"]!= null)
             {
-                return Redirect("~/Usuario/Index");
+                if ((int)Session["idtipo"] == 1)
+                {
+                    modulo = "~/Admin/Index";
+                }
+                else if ((int)Session["idtipo"] == 2)
+                {
+                    if ((int)Session["status"] == 1)
+                        modulo = "~/Usuario/Index";
+                    else
+                        return View();
+                }
+                else if ((int)Session["idtipo"] == 3)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Comercio/Index" : "~/Comercio/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 4)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Vet/Index" : "~/Vet/Continuar";
+                }
             }
             else
             {
-                return View();
+                modulo = "~/Inicio/Index";
             }
+
+            return Redirect(modulo);
         }
 
         public ActionResult ContinuarRegistro(RegistroBO objBO)

@@ -1,9 +1,9 @@
-﻿@using DrHuellitas.BO;
-@model RegistroBO
+﻿
 @{
     ViewBag.Title = "Continuar";
-    Layout = "~/Views/Shared/MasterFrontEnd.cshtml";
+    Layout = "~/Views/Shared/DoctorVeterinarioView.cshtml";
 }
+
 
 
 @Styles.Render("~/Content/Cliente/Step.css")
@@ -29,7 +29,7 @@
         </div>
         <div class="stepwizard-step">
             <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
-            <p>Agregar mascotas</p>
+            <p>Horario de trabajo</p>
         </div>
         <div class="stepwizard-step">
             <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
@@ -48,20 +48,12 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            @Html.TextBoxFor(m=>m.nombre, new { @placeholder = "Nombre(s)", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
-                          
-                            @Html.TextBoxFor(m => m.telefono, new { @placeholder = "Teléfono", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
-                          
+                           
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                          
-                            @Html.TextBoxFor(m => m.ape, new { @placeholder = "Apellidos(s)", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
-                          
-                            @Html.TextBoxFor(m => m.fechanacimiento, new { @required = "required", @type = "date", @class = "form-control" })
-                            <br />
-                            
+
                         </div>
                     </div>
                 </div>
@@ -76,34 +68,22 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            @Html.TextBoxFor(m => m.nombremascota, new { @placeholder = "Nombre mascota", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
-
-                            @Html.TextBoxFor(m => m.colorPreDominante, new { @placeholder = "Color predominante (opcional)", @maxlength = "100", @type = "text", @class = "form-control" })
-
-                            @Html.TextBoxFor(m => m.fechaNaci, new { @required = "required", @type = "date", @class = "form-control" })
-                            
+                           
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            @Html.HiddenFor(m => m.idusuario)
-
-                            @Html.TextBoxFor(m => m.colorDominate, new { @placeholder = "Color dominante", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
-
-                            @Html.TextBoxFor(m => m.colorAlternativo, new { @placeholder = "Color alternativo (opcional)", @maxlength = "100", @type = "text", @class = "form-control" })
-                            
+                          
                             <label class="control-label">Genero</label>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label">Macho </label>
-                                        @Html.RadioButtonFor(m => m.genero, "Macho", new { @checked = "checked" })
+                                       
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="control-label">Hembra </label>
-                                        @Html.RadioButtonFor(m => m.genero, "Hembra", new { @checked = "checked" })
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -121,12 +101,12 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            
+
                             <img id="imgSalida" width="256" height="256" class="img-thumbnail img-circle" />
                             <br /><br />
-                            
+
                             <label class="control-label" for="file">Seleccionar una foto de perfil:</label>
-                            @Html.TextBoxFor(m => m.img, new { @type = "file", @name = "file", @id = "file" })
+                            
 
                         </div>
                     </div>
@@ -173,8 +153,6 @@
         });
     });
 
-    
+
 </script>
-
-
 

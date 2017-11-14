@@ -31,7 +31,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6 col-sm-6 col-xs-6">
-                            <h1 class="logo"><a href="~/Usuario/index"><img src="../../img/Logo.png" alt="Logo" style="height:52px; width:auto;"></a></h1>
+                            <h1 class="logo"><a href="~/Vet/index"><img src="../../img/Logo.png" alt="Logo" style="height:52px; width:auto;"></a></h1>
                         </div>
                         <div class="col-md-6 col-sm-6 col-xs-6">
                             <ul class="top-navigation hidden-sm hidden-xs">
@@ -56,28 +56,19 @@
                             <nav class="navigation">
                                 <ul class="sf-menu">
                                     <li>
-                                        @Html.ActionLink("Inicio", "Index", "Usuario")
+                                        @Html.ActionLink("Inicio", "Index", "Vet")
                                     </li>
                                     <li>
-                                        @Html.ActionLink("Comercios", "Comercio", "Usuario")
+                                        @Html.ActionLink("Agenda", "Agenda", "Vet")
                                     </li>
                                     <li>
-                                        @Html.ActionLink("Agenda", "Agenda", "Usuario")
+                                        @Html.ActionLink("Chat", "Chat", "Vet")
                                     </li>
                                     <li>
-                                        @Html.ActionLink("Chat", "Chat", "Usuario")
-                                    </li>
-                                    <li>
-                                        @Html.ActionLink("Mis Mascotas", "Mascotas", "Usuario")
+                                        <a href="~/Usuario/Cuenta"><img src="@Session["foto"]" class="img-thumbnail img-circle img-responsive" style="width:32px; height:32px;" />@Session["nombre"]</a>
                                         <ul class="dropdown">
-                                            <li>@Html.ActionLink("Cartillas", "Cartillas", "Usuario")</li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a href="~/Usuario/Cuenta"><img src="@Session["foto"]" class="img-thumbnail img-circle img-responsive" style="width:32px; height:32px;"/>@Session["nombre"]</a>
-                                        <ul class="dropdown">
-                                            <li>@Html.ActionLink("Mi Cuenta", "Cuenta", "Usuario")</li>
-                                            <li>@Html.ActionLink("Ayuda", "Ayuda", "Usuario")</li>
+                                            <li>@Html.ActionLink("Mi Cuenta", "Cuenta", "Vet")</li>
+                                            <li>@Html.ActionLink("Ayuda", "Ayuda", "Vet")</li>
                                             <li>@Html.ActionLink("Salir", "CerrarSesion", "Inicio")</li>
                                         </ul>
                                     </li>
@@ -90,7 +81,7 @@
         </header>
         <!-- End Site Header -->
         <!-- Start Hero Slider -->
-        <div id ="slider" class="hero-slider flexslider clearfix" data-autoplay="yes" data-pagination="yes" data-arrows="yes" data-style="fade" data-pause="yes">
+        <div id="slider" class="hero-slider flexslider clearfix" data-autoplay="yes" data-pagination="yes" data-arrows="yes" data-style="fade" data-pause="yes">
             <ul class="slides">
                 <li class=" parallax" style="background-image: url(../../img/slide1.jpg);"></li>
                 <li class="parallax" style="background-image:url(../../img/slide2.jpg);"></li>
@@ -101,7 +92,6 @@
         <!-- Start Content -->
         @RenderBody()
         <!-- End Content-->
-
         <!-- Start Footer -->
         <footer class="site-footer">
             <div class="container">
@@ -150,7 +140,7 @@
     </div>
 
 
-    
+
     @Scripts.Render("~/Scripts/prettyphoto.js")
     @Scripts.Render("~/Scripts/helper-plugins.js")
     @Scripts.Render("~/Scripts/bootstrap.js")
@@ -162,7 +152,7 @@
     @Scripts.Render("~/Scripts/jquery_cookie.js")
     @Scripts.Render("~/Scripts/script.js")
     @Scripts.Render("~/Scripts/Cliente/Step.js")
-    
+
     <!-- Style Switcher Start -->
     <div class="styleswitcher visible-lg visible-md">
         <div class="arrow-box"><a class="switch-button"><span class="fa fa-cogs fa-lg"></span></a> </div>
@@ -215,3 +205,4 @@
     </div>
 </body>
 </html>
+

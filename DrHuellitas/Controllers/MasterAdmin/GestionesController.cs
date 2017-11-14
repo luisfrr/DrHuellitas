@@ -33,5 +33,10 @@ namespace DrHuellitas.Controllers.MasterAdmin
         {
             return View();
         }
+
+        public ActionResult Comentarios()
+        {
+            return View();
+        }
     }
 }

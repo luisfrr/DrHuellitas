@@ -39,6 +39,10 @@ namespace DrHuellitas.Controllers
                 {
                     modulo = (status == 1) ? "~/Vet/Index" : "~/Vet/Continuar";
                 }
+                else if (tipo == 0)
+                {
+                    return View();
+                }
             }
             else
             {
@@ -57,7 +61,7 @@ namespace DrHuellitas.Controllers
 
         public ActionResult IniciarSesion(RegistroBO registro) //Este método es el que válida el usuario(login)
         {
-            string Modulo = "";
+            string Modulo = "~/Inicio/Index";
             var r = objDAO.IniciarSesion(registro.usuario, registro.contraseña);
             if (r != null)
             {
@@ -67,6 +71,7 @@ namespace DrHuellitas.Controllers
                 Session["foto"] = r.foto;
                 Session["status"]= r.status;
 
+                int id = r.id;
                 int status = r.status;
                 int tipo = r.idtipo;
                 if(tipo == 1)
@@ -85,10 +90,14 @@ namespace DrHuellitas.Controllers
                 {
                     Modulo = (status == 0) ? "~/Vet/Continuar" : "~/Vet/Index";
                 }
+                else if(tipo == 0 && id == 0)
+                {
+                    Modulo = "~/Inicio/Index";
+                }
             }
             else
             {
-                return Redirect("~/Inicio/Index");
+                Modulo = "~/Inicio/Index";
             }
 
             return Redirect(Modulo);

@@ -920,6 +920,7 @@
     <Content Include="Views\Gestiones\Region.cshtml" />
     <Content Include="Views\Gestiones\Propaganda.cshtml" />
     <Content Include="Views\Gestiones\Paquetes.cshtml" />
+    <Content Include="Views\Gestiones\Comentarios.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Encriptacion\MD5.csproj">

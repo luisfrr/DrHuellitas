@@ -83,7 +83,7 @@ namespace DrHuellitas.Controllers
         {
             int id = (int)Session["id"];
             var r = objDAO.ContinuarRegistro(objBO, id);
-
+            Session["status"] = 1;
             return Redirect("~/Usuario/Index");
         }
 

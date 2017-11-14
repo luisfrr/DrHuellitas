@@ -6,8 +6,15 @@
 }
 
 @Styles.Render("~/Content/Cliente/Step.css")
-<script type="text/javascript" src='https://maps.google.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyDSt54iG2sK1yun15GRPDJPJeGWR6LX48g'></script>
-@Scripts.Render("~/Scripts/locationpicker.jquery.min.js")
+
+<style>
+    #map {
+        height: 400px;
+        width: auto;
+    }
+</style>
+
+
 
 <div class="page-header">
     <div class="container">
@@ -131,35 +138,28 @@
                 <h3>Ubicación geográfica</h3>
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <div class="form-group">
-                            <p class="control-label">Ubicación</p>
-                            @Html.TextBoxFor(x => x.direccion.ubicacion, new { @id = "txtubicacion" })
-
-                        </div>
-                        <div class="form-group">
-                            <div id="ModalMap" style="width:100%; height:300px"></div>
-                        </div>
                         <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <p class="control-label">Latitud</p>
-
-                                    @Html.TextBoxFor(x => x.direccion.latitud, new { @id = "txt_latitud", @Value = "20.9675914" })
-
-
-                                </div>
-
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <p class="control-label">Longitud</p>
-                                    @Html.TextBoxFor(x => x.direccion.latitud, new { @id = "txt_longitud", @Value = "-89.6232412" })
-
-                                </div>
-
-                            </div>
-
+                            
+                            <div id="map"></div>
+                            <script>
+                                function initMap() {
+                                    var uluru = { lat: 20.9515958, lng: -89.64287996 };
+                                    var map = new google.maps.Map(document.getElementById('map'), {
+                                        zoom: 15,
+                                        center: uluru,
+                                        mapTypeId: 'terrain'
+                                    });
+                                    var marker = new google.maps.Marker({
+                                        position: uluru,
+                                        map: map
+                                    });
+                                }
+                            </script>
+                            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDVASv9bQGgacK4HFcuD7PDPtS5lr4L8Ic&callback=initMap"
+                                    async defer>
+                            </script>
                         </div>
+
                     </div>
                 </div>
                 <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Siguiente</button>
@@ -226,22 +226,9 @@
 
     
 </script>
-<script>
-    $('#ModalMap').locationpicker({
-        radius: 0,
-        location: {
-            latitude: $('#txt_latitud').val(),
-            longitude: $('#txt_longitud').val()
-        },
-        inputBinding: {
-            latitudeInput: $('#txt_latitud'),
-            longitudeInput: $('#txt_longitud'),
-            locationNameInput: $('txtubicacion')
 
-        },
-        enableAutocomplete: true
 
-    });
-</script>
+
+
 
 

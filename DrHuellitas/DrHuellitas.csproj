@@ -798,6 +798,8 @@
     <Content Include="Scripts\admin\jquery-3.2.1.min.js" />
     <Content Include="Scripts\admin\jquery-ui.min.js" />
     <Content Include="Scripts\admin\jquery.matchHeight.min.js" />
+    <Content Include="Scripts\admin\jquery.peity.min.js" />
+    <Content Include="Scripts\admin\jquery.tabledit.min.js" />
     <Content Include="Scripts\admin\loader.js" />
     <Content Include="Scripts\admin\lobipanel.min.js" />
     <Content Include="Scripts\admin\plugins.js" />

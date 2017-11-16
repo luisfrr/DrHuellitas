@@ -21,7 +21,7 @@ namespace DrHuellitas.DAO
             conex = new ConexionSQL();
         }
 
-        public int ContinuarRegistro(RegistroBO registro, int usuario)
+        public int ContinuarRegistroComercio(RegistroBO registro, int usuario)
         {
             string predominante = (registro.colorPreDominante != null) ? registro.colorPreDominante : "-";
             string alternativo = (registro.colorAlternativo != null) ? registro.colorAlternativo : "-";

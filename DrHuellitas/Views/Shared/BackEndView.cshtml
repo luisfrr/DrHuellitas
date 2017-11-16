@@ -16,6 +16,7 @@
     @Styles.Render("~/Content/admin/font-awesome.min.css")
     @Styles.Render("~/Content/admin/bootstrap.min.css")
     @Styles.Render("~/Content/admin/main.css")
+    @Scripts.Render("~/Scripts/admin/jquery-3.2.1.min.js")
 
 </head>
 <body class="with-side-menu control-panel control-panel-compact">
@@ -475,8 +476,6 @@
     @Scripts.Render("~/Scripts/admin/lobipanel.min.js")
     @Scripts.Render("~/Scripts/admin/jquery.matchHeight.min.js")
     @Scripts.Render("~/Scripts/admin/loader.js")
-    @Scripts.Render("~/Scripts/admin/jquery.peity.min.js")
-    @Scripts.Render("~/Scripts/admin/jquery.tabledit.min.js")
 
     <script>
         $(document).ready(function () {
@@ -576,25 +575,7 @@
             });
         });
 
-        $(function () {
-            $(".bar-chart").peity("bar", {
-                delimiter: ",",
-                fill: ["#919fa9"],
-                height: 16,
-                max: null,
-                min: 0,
-                padding: 0.1,
-                width: 384
-            });
-
-            $('#table-edit').Tabledit({
-                url: 'example.php',
-                columns: {
-                    identifier: [0, 'id'],
-                    editable: [[1, 'name'], [2, 'description']]
-                }
-            });
-        });
+       
     </script>
     @Scripts.Render("~/Scripts/admin/app.js")
 </body>

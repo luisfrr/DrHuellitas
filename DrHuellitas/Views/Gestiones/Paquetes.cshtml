@@ -1,8 +1,180 @@
-﻿
+﻿@using DrHuellitas.BO;
+@model PaquetesBO
 @{
     ViewBag.Title = "Paquetes";
     Layout = "~/Views/Shared/BackEndView.cshtml";
 }
 
-<h2>Paquetes</h2>
 
+   
+
+    
+<div class="page-content">
+    <div class="container-fluid">
+
+        <div class="tbl-cell">
+            <h3>Gestión paquetes y precios</h3>
+            <ol class="breadcrumb breadcrumb-simple">
+                <li><a href="~/Admin/Index">Inicio</a></li>
+                <li><a href="#">Gestiones</a></li>
+                <li class="active">Paquetes</li>
+            </ol>
+        </div>
+
+        <a href="#" class="btn btn-info" onclick="AgregarNuevoPaquete(0)">Añadir nuevo paquete</a> <br /><br />
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Descripcion</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+
+                </tr>
+            </thead>
+            <tbody id="SetStudentList">
+                <tr id="CargarTabla" style="color:black"></tr>
+            </tbody>
+        </table>
+
+        <div class="modal fade" id="MyModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a href="#" class="close" data-dismiss="modal">&times;</a>
+                        <h4 id="ModalTitle"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form">
+                            <fieldset id="SubmitForm">
+                                @Html.HiddenFor(m => m.id, new { @id = "idPaquete" })
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.nombre, new { @id = "nomPaquete", @class = "form-control", @placeholder = "Nombre" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.precio, new { @id = "precioPaquete", @class = "form-control", @placeholder = "Precio" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m => m.descripcion, new { @id = "descripcion", @class = "form-control", @placeholder = "Descripción" })
+                                </div>
+                                <div class="form-group">
+                                    <a href="#" class="btn btn-block btn-danger" id="GuardarCambios">Guardar</a>
+                                </div>
+
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*Create A PopUp Modal For DeleteConfirmation*@
+
+        <div class="modal fade" id="VentanaEliminado">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a href="#" class="close" data-dismiss="modal">&times;</a>
+                        <h4>Delete Student Record</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4>¿Esta usted seguro que lo desea eliminar?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-primary" data-dismiss="modal" id="r">Cancelar</a>
+                        <a href="#" class="btn btn-danger" onclick="ConfirmDelete()">Comfirmar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+
+        
+        <script>
+            $("#CargarTabla").html("");
+            $.get("/Gestiones/ObtenerListaPaquetes", null, DataBind);
+            function DataBind(PackList) {
+                var SetData = $("#SetStudentList");
+                for (var i = 0; i < PackList.length; i++) {
+                    var Data = "<tr class='row_" + PackList[i].id + "'>" +
+                        "<td>" + PackList[i].id + "</td>" +
+                        "<td>" + PackList[i].nombre + "</td>" +
+                        "<td>" + PackList[i].precio + "</td>" +
+                        "<td>" + PackList[i].descripcion + "</td>" +
+                        "<td>" + "<a href='#' class='btn btn-warning' onclick='EditarPaquete(" + PackList[i].id + ")' ><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
+                        "<td>" + "<a href='#' class='btn btn-danger' onclick='EliminarPaquete(" + PackList[i].id + ")'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
+                        "</tr>";
+                    SetData.append(Data);
+                    $("#LoadingStatus").html(" ");
+
+                }
+            }
+
+            //Show The Popup Modal For Add New Student
+
+            function AgregarNuevoPaquete(idPaquete) {
+                $("#form")[0].reset();
+                $("#idPaquete").val(0);
+                $("#ModalTitle").html("Añadir nuevo paquete");
+                $("#MyModal").modal();
+
+            }
+
+            //Show The Popup Modal For Edit Student Record
+
+            function EditarPaquete(idPaquete) {
+                var url = "/Gestiones/ObtenerPaquete?idPaquete=" + idPaquete;
+                $("#ModalTitle").html("Actualizar datos del paquete");
+                $("#MyModal").modal();
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    success: function (data) {
+                        var obj = JSON.parse(data);
+                        $("#idPaquete").val(obj.idPaquete);
+                        $("#nomPaquete").val(obj.nombre);
+                        $("#precioPaquete").val(obj.precio);
+                        $("#descripcion").val(obj.descripcion);
+                    }
+                })
+            }
+
+            $("#GuardarCambios").click(function () {
+                var data = $("#SubmitForm").serialize();
+                $.ajax({
+                    type: "Post",
+                    url: "/Gestiones/GuardarPaquetes",
+                    data: data,
+                    success: function (result) {
+                        alert("¡Operación realizada con éxito!");
+                        window.location.href = "/Gestiones/Paquetes";
+                        $("#MyModal").modal("hide");
+
+                    }
+                })
+            })
+
+            //Show The Popup Modal For DeleteComfirmation
+            var EliminarPaquete = function (idPaquete) {
+                $("#idPaquete").val(idPaquete);
+                $("#VentanaEliminado").modal("show");
+            }
+            var ConfirmDelete = function () {
+                var idPaquete = $("#idPaquete").val();
+                $.ajax({
+                    type: "POST",
+                    url: "/Gestiones/EliminarPaquete?idPaquete=" + idPaquete,
+                    success: function (result) {
+                        $("#VentanaEliminado").modal("hide");
+                        $(".row_" + idPaquete).remove();
+                    }
+                })
+            }
+            
+        </script>
+        
+    </div><!--.container-fluid-->
+</div><!--.page-content-->

@@ -92,14 +92,5 @@ namespace DrHuellitas.DAO
             return paquetes;
         }
 
-        /*public DataTable ObtenerPaquete(int idPaquete)
-        {
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Paquetes WHERE id=@id");
-            cmd.Parameters.Add("@id", SqlDbType.Int).Value = idPaquete;
-
-            return con.EjecutarSentencia(cmd);
-        }*/
-
-
     }
 }

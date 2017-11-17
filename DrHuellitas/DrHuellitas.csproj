@@ -142,11 +142,18 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BO\CiudadesBO.cs" />
     <Compile Include="BO\ComercioBO.cs" />
     <Compile Include="BO\DireccionBO.cs" />
+    <Compile Include="BO\EspeciesBO.cs" />
+    <Compile Include="BO\EstadosBO.cs" />
     <Compile Include="BO\FotoBO.cs" />
+    <Compile Include="BO\GestionMascotasBO.cs" />
     <Compile Include="BO\MascotasBO.cs" />
+    <Compile Include="BO\PaisesBO.cs" />
     <Compile Include="BO\PaquetesBO.cs" />
+    <Compile Include="BO\RazasBO.cs" />
+    <Compile Include="BO\RegionesBO.cs" />
     <Compile Include="BO\RegistroBO.cs" />
     <Compile Include="BO\RegistroComercio.cs" />
     <Compile Include="BO\RegistroVetBO.cs" />
@@ -159,7 +166,9 @@
     <Compile Include="Controllers\MasterVeterinario\VetController.cs" />
     <Compile Include="DAO\ComercioDAO.cs" />
     <Compile Include="DAO\ConexionSQL.cs" />
+    <Compile Include="DAO\GestionUsuariosDAO.cs" />
     <Compile Include="DAO\PaquetesDAO.cs" />
+    <Compile Include="DAO\RegionesDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

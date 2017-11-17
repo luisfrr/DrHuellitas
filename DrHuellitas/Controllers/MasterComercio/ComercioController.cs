@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DrHuellitas.BO;
+using DrHuellitas.DAO;
 
 namespace DrHuellitas.Controllers.MasterComercio
 {
     public class ComercioController : Controller
     {
+        ComercioDAO objDAO = new ComercioDAO();
         // GET: Comercio
         public ActionResult Index()
         {
@@ -73,6 +76,14 @@ namespace DrHuellitas.Controllers.MasterComercio
             }
 
             return Redirect(modulo);
+        }
+        public ActionResult completarregistro(RegistroComercio dato)
+        {
+            int id = (int)Session["id"];
+            var onda = objDAO.ContinuarRegistroComercio(dato, id);
+            Session["status"] = 1;
+            return Redirect("~/Comercio/Index");
+
         }
     }
 }

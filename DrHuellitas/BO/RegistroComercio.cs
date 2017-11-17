@@ -10,5 +10,6 @@ namespace DrHuellitas.BO
         public UsuarioBO usuario { get; set; }
         public ComercioBO comercio { get; set; }
         public DireccionBO direccion { get; set; }
+        public HorarioBO horario { get; set; }
     }
 }

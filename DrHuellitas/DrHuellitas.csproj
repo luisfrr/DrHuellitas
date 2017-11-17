@@ -145,6 +145,7 @@
     <Compile Include="BO\ComercioBO.cs" />
     <Compile Include="BO\DireccionBO.cs" />
     <Compile Include="BO\FotoBO.cs" />
+    <Compile Include="BO\HorarioBO.cs" />
     <Compile Include="BO\MascotasBO.cs" />
     <Compile Include="BO\RegistroBO.cs" />
     <Compile Include="BO\RegistroComercio.cs" />

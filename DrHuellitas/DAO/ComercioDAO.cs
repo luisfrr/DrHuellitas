@@ -21,26 +21,86 @@ namespace DrHuellitas.DAO
             conex = new ConexionSQL();
         }
 
-        public int ContinuarRegistroComercio(RegistroBO registro, int usuario)
+        public int ContinuarRegistroComercio(RegistroComercio objBo, int usuario)
         {
-            string predominante = (registro.colorPreDominante != null) ? registro.colorPreDominante : "-";
-            string alternativo = (registro.colorAlternativo != null) ? registro.colorAlternativo : "-";
-            SqlCommand cmd = new SqlCommand("EXEC ContinuarRegUsuario @nombre=@nombre,@apellidos=@apellidos,@telefono=@telefono,@fechaUsuario=@fechaUsuario,@fotoUsuario=@fotoUsuario,@nomMascota=@nomMascota,@CDominante=@Dominante,@CPreDominante=@PreDominante,@CAlternativo=@Alternativo,@genero=@genero,@fechaMascota=@fechaMascota, @fotoMascota=@fotoMascota, @idUsuario=@idUsuario");
-            cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = registro.nombre;
-            cmd.Parameters.Add("@apellidos", SqlDbType.VarChar).Value = registro.ape;
-            cmd.Parameters.Add("@telefono", SqlDbType.VarChar).Value = registro.telefono;
-            cmd.Parameters.Add("@fechaUsuario", SqlDbType.Date).Value = registro.fechanacimiento.ToString("dd-MM-yyyy");
-            cmd.Parameters.Add("@fotoUsuario", SqlDbType.Image).Value = Foto.ConvertirAFoto(registro.img);
-            cmd.Parameters.Add("@nomMascota", SqlDbType.VarChar).Value = registro.nombremascota;
-            cmd.Parameters.Add("@Dominante", SqlDbType.VarChar).Value = registro.colorDominate;
-            cmd.Parameters.Add("@PreDominante", SqlDbType.VarChar).Value = predominante;
-            cmd.Parameters.Add("@Alternativo", SqlDbType.VarChar).Value = alternativo;
-            cmd.Parameters.Add("@genero", SqlDbType.VarChar).Value = registro.genero;
-            cmd.Parameters.Add("@fechaMascota", SqlDbType.Date).Value = registro.fechaNaci.ToString("dd-MM-yyyy");
-            cmd.Parameters.Add("@fotoMascota", SqlDbType.Image).Value = Foto.ConvertirAFoto(registro.imgmas);
-            cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = usuario;
+            if (objBo.horario.inicioLunes != null && objBo.horario.finalLunes != null)
+            {
 
-            return conex.EjecutarComando(cmd);
+                SqlCommand comando = new SqlCommand("exec horariosUsu @horaini,@horfin,@dia,@idusuario");
+                comando.Parameters.Add("@horaini", SqlDbType.Time).Value = objBo.horario.inicioLunes;
+                comando.Parameters.Add("@horfin", SqlDbType.Time).Value = objBo.horario.finalLunes;
+                comando.Parameters.Add("@dia", SqlDbType.VarChar).Value = objBo.horario.dia = "Lunes";
+                comando.Parameters.Add("@idusuario", SqlDbType.Int).Value = usuario;
+                comando.CommandType = CommandType.Text;
+                 conex.EjecutarComando(comando);
+            }
+            if (objBo.horario.inicioMarte != null && objBo.horario.finalMartes != null)
+            {
+
+                SqlCommand comando = new SqlCommand("exec horariosUsu @horaini,@horfin,@dia,@idusuario");
+                comando.Parameters.Add("@horaini", SqlDbType.Time).Value = objBo.horario.inicioMarte;
+                comando.Parameters.Add("@horfin", SqlDbType.Time).Value = objBo.horario.finalMartes;
+                comando.Parameters.Add("@dia", SqlDbType.VarChar).Value = objBo.horario.dia = "Martes";
+                comando.Parameters.Add("@idusuario", SqlDbType.Int).Value = usuario;
+                comando.CommandType = CommandType.Text;
+                conex.EjecutarComando(comando);
+            }
+            if (objBo.horario.inicioMiercoles != null && objBo.horario.finalMiercoles != null)
+            {
+
+                SqlCommand comando = new SqlCommand("exec horariosUsu @horaini,@horfin,@dia,@idusuario");
+                comando.Parameters.Add("@horaini", SqlDbType.Time).Value = objBo.horario.inicioMiercoles;
+                comando.Parameters.Add("@horfin", SqlDbType.Time).Value = objBo.horario.finalMiercoles;
+                comando.Parameters.Add("@dia", SqlDbType.VarChar).Value = objBo.horario.dia = "Miercoles";
+                comando.Parameters.Add("@idusuario", SqlDbType.Int).Value = usuario;
+                comando.CommandType = CommandType.Text;
+                conex.EjecutarComando(comando);
+            }
+            if (objBo.horario.inicioJueves != null && objBo.horario.finalJueves != null)
+            {
+
+                SqlCommand comando = new SqlCommand("exec horariosUsu @horaini,@horfin,@dia,@idusuario");
+                comando.Parameters.Add("@horaini", SqlDbType.Time).Value = objBo.horario.inicioJueves;
+                comando.Parameters.Add("@horfin", SqlDbType.Time).Value = objBo.horario.finalJueves;
+                comando.Parameters.Add("@dia", SqlDbType.VarChar).Value = objBo.horario.dia = "Jueves";
+                comando.Parameters.Add("@idusuario", SqlDbType.Int).Value = usuario;
+                comando.CommandType = CommandType.Text;
+                 conex.EjecutarComando(comando);
+            }
+            if (objBo.horario.inicioViernes != null && objBo.horario.finalViernes != null)
+            {
+
+                SqlCommand comando = new SqlCommand("exec horariosUsu @horaini,@horfin,@dia,@idusuario");
+                comando.Parameters.Add("@horaini", SqlDbType.Time).Value = objBo.horario.inicioViernes;
+                comando.Parameters.Add("@horfin", SqlDbType.Time).Value = objBo.horario.finalViernes;
+                comando.Parameters.Add("@dia", SqlDbType.VarChar).Value = objBo.horario.dia = "Viernes";
+                comando.Parameters.Add("@idusuario", SqlDbType.Int).Value = usuario;
+                comando.CommandType = CommandType.Text;
+                 conex.EjecutarComando(comando);
+            }
+            if (objBo.horario.inicioSabado != null && objBo.horario.finalSabado != null)
+            {
+
+                SqlCommand comando = new SqlCommand("exec horariosUsu @horaini,@horfin,@dia,@idusuario");
+                comando.Parameters.Add("@horaini", SqlDbType.Time).Value = objBo.horario.inicioSabado;
+                comando.Parameters.Add("@horfin", SqlDbType.Time).Value = objBo.horario.finalSabado;
+                comando.Parameters.Add("@dia", SqlDbType.VarChar).Value = objBo.horario.dia = "Sabado";
+                comando.Parameters.Add("@idusuario", SqlDbType.Int).Value = usuario;
+                comando.CommandType = CommandType.Text;
+                 conex.EjecutarComando(comando);
+            }
+            if (objBo.horario.inicioDomingo != null && objBo.horario.finalDomingo != null)
+            {
+
+                SqlCommand comando = new SqlCommand("exec horariosUsu @horaini,@horfin,@dia,@idusuario");
+                comando.Parameters.Add("@horaini", SqlDbType.Time).Value = objBo.horario.inicioDomingo;
+                comando.Parameters.Add("@horfin", SqlDbType.Time).Value = objBo.horario.finalDomingo;
+                comando.Parameters.Add("@dia", SqlDbType.VarChar).Value = objBo.horario.dia = "Domingo";
+                comando.Parameters.Add("@idusuario", SqlDbType.Int).Value = usuario;
+                comando.CommandType = CommandType.Text;
+                 conex.EjecutarComando(comando);
+            }
+            return 1;
         }
     }
 }

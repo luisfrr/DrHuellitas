@@ -24,7 +24,7 @@ namespace DrHuellitas.DAO
 
         public int ModificarPaquete(PaquetesBO objBO)
         {
-            SqlCommand cmd = new SqlCommand("UPDATE Paquetes SET nombre=@nombre,precio=@precio,descripcion=@precio WHERE id=@id");
+            SqlCommand cmd = new SqlCommand("UPDATE Paquetes SET nombre=@nombre,precio=@precio,descripcion=@descripcion WHERE id=@id");
             cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = objBO.nombre;
             cmd.Parameters.Add("@precio", SqlDbType.Real).Value = objBO.precio;
             cmd.Parameters.Add("@descripcion", SqlDbType.VarChar).Value = objBO.descripcion;

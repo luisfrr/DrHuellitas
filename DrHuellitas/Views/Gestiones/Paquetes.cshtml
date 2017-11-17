@@ -52,7 +52,7 @@
                             <fieldset id="SubmitForm">
                                 @Html.HiddenFor(m => m.id, new { @id = "idPaquete" })
                                 <div class="form-group">
-                                    @Html.TextBoxFor(m => m.nombre, new { @id = "nomPaquete", @class = "form-control", @placeholder = "Nombre" })
+                                    @Html.TextBoxFor(m => m.nombre, new { @id = "nomPaquete", @class = "form-control", @placeholder = "Nombre", @autofocus="autofocus"})
                                 </div>
                                 <div class="form-group">
                                     @Html.TextBoxFor(m => m.precio, new { @id = "precioPaquete", @class = "form-control", @placeholder = "Precio" })
@@ -112,7 +112,6 @@
 
                 }
             }
-
             //Show The Popup Modal For Add New Student
 
             function AgregarNuevoPaquete(idPaquete) {
@@ -120,26 +119,27 @@
                 $("#idPaquete").val(0);
                 $("#ModalTitle").html("Añadir nuevo paquete");
                 $("#MyModal").modal();
-
             }
+
 
             //Show The Popup Modal For Edit Student Record
 
             function EditarPaquete(idPaquete) {
-                var url = "/Gestiones/ObtenerPaquete?idPaquete=" + idPaquete;
+                //var url = "ObtenerPaquete/"
+                $.get("/Gestiones/ObtenerPaquete?idPaquete="+idPaquete, null, llamada);
+                function llamada(PackList) {
+                   
+                    for (var i = 0; i < PackList.length; i++) {
+
+                        $("#idPaquete").val(PackList[i].id);
+                        $("#nomPaquete").val(PackList[i].nombre);
+                        $("#precioPaquete").val(PackList[i].precio);
+                        $("#descripcion").val(PackList[i].descripcion);
+                    }
+                }
                 $("#ModalTitle").html("Actualizar datos del paquete");
                 $("#MyModal").modal();
-                $.ajax({
-                    type: "GET",
-                    url: url,
-                    success: function (data) {
-                        var obj = JSON.parse(data);
-                        $("#idPaquete").val(obj.idPaquete);
-                        $("#nomPaquete").val(obj.nombre);
-                        $("#precioPaquete").val(obj.precio);
-                        $("#descripcion").val(obj.descripcion);
-                    }
-                })
+               
             }
 
             $("#GuardarCambios").click(function () {

@@ -52,7 +52,7 @@ namespace DrHuellitas.Controllers.MasterAdmin
             return Json(PackList, JsonRequestBehavior.AllowGet);
         }
 
-        /*public JsonResult ObtenerPaquete(int idPaquete)
+       /* public JsonResult ObtenerPaquete(int idPaquete)
         {
             DataTable dt = objPaqueteDAO.ObtenerPaquete(idPaquete);
             string value = string.Empty;

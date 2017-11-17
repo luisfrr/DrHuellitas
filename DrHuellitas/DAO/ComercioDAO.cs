@@ -14,7 +14,7 @@ namespace DrHuellitas.DAO
         ConexionSQL conex;
         EncriptarMD5 MD5 = new EncriptarMD5();
         FotoBO Foto = new FotoBO();
-        SqlCommand cmd;
+        
 
         public ComercioDAO()
         {

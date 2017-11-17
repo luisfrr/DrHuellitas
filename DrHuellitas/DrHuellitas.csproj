@@ -147,6 +147,7 @@
     <Compile Include="BO\FotoBO.cs" />
     <Compile Include="BO\HorarioBO.cs" />
     <Compile Include="BO\MascotasBO.cs" />
+    <Compile Include="BO\PaquetesBO.cs" />
     <Compile Include="BO\RegistroBO.cs" />
     <Compile Include="BO\RegistroComercio.cs" />
     <Compile Include="BO\RegistroVetBO.cs" />
@@ -159,6 +160,7 @@
     <Compile Include="Controllers\MasterVeterinario\VetController.cs" />
     <Compile Include="DAO\ComercioDAO.cs" />
     <Compile Include="DAO\ConexionSQL.cs" />
+    <Compile Include="DAO\PaquetesDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -148,6 +148,7 @@
     <Compile Include="BO\EspeciesBO.cs" />
     <Compile Include="BO\EstadosBO.cs" />
     <Compile Include="BO\FotoBO.cs" />
+    <Compile Include="BO\HorarioBO.cs" />
     <Compile Include="BO\GestionMascotasBO.cs" />
     <Compile Include="BO\MascotasBO.cs" />
     <Compile Include="BO\PaisesBO.cs" />

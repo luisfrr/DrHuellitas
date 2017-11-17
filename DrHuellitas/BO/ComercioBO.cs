@@ -9,8 +9,7 @@ namespace DrHuellitas.BO
     {
         public int idempresa { get; set; }
         public string nombreComercial { get; set; }
-        public int idUsuario { get; set; }
-        public bool veteteirnaria { get; set; }
+        public bool veterinaria { get; set; }
         public bool estetica { get; set; }
         public bool venderproducto { get; set; }
         public string nombreFiscal { get; set; }

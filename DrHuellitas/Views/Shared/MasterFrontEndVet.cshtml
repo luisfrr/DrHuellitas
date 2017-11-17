@@ -23,10 +23,11 @@
       ================================================== -->
     @Scripts.Render("~/Scripts/modernizr.js")
     @Scripts.Render("~/Scripts/jquery-2.0.0.min.js")
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src='https://maps.google.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyAiD6FCgvk_ymjVo2xxrPXEzDuqty27VT0'></script>
+    @Scripts.Render("~/Scripts/locationpicker.jquery.js")
 </head>
 <body id="style1">
-    <div class="body">
+    <div class="body" >
         <!-- Start Site Header -->
         <header class="site-header">
             <div class="topbar">
@@ -425,3 +426,18 @@
     </div>-->
 </body>
 </html>
+<script>
+    $('#ModalMapPreview').locationpicker({
+        radius: 0,
+        location: {
+            latitude: 20.938297181414647,
+            longitude: -89.61501516379462
+        },
+        enableAutocomplete: true,
+        inputBinding: {
+            latitudeInput: $('#ModalMapLat'),
+            longitudeInput: $('#ModalMapLon'),
+            locationNameInput: $('#modal')
+        }
+    });
+</script>

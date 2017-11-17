@@ -81,6 +81,7 @@ namespace DrHuellitas.Controllers.MasterComercio
         {
             int id = (int)Session["id"];
             var onda = objDAO.ContinuarRegistroComercio(dato, id);
+            var comercio = objDAO.ComercioDireccion(dato, id);
             Session["status"] = 1;
             return Redirect("~/Comercio/Index");
 

@@ -1,0 +1,183 @@
+﻿@using DrHuellitas.BO;
+@model RegionesBO
+@{
+    ViewBag.Title = "Ciudades";
+    Layout = "~/Views/Shared/BackEndView.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <div class="tbl-cell">
+            <h3>Gestión Ciudadeses</h3>
+            <ol class="breadcrumb breadcrumb-simple">
+                <li><a href="~/Admin/Index">Inicio</a></li>
+                <li><a href="#">Gestiones</a></li>
+                <li class="active">Ciudades</li>
+            </ol>
+        </div>
+
+        <!--Ciudades-->
+        <div class="tbl-cell">
+            <h4>Ciudades</h4>
+        </div>
+
+        <a href="#" class="btn btn-info" onclick="AgregarNuevaCiudad(0)">Añadir nueva ciudad</a> <br /><br />
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Estado</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody id="ListaCiudades">
+                <tr id="CargarTabla1" style="color:black"></tr>
+            </tbody>
+        </table>
+
+
+       
+
+        <!--Modal Ciudades-->
+
+        <div class="modal fade" id="MyModal1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a href="#" class="close" data-dismiss="modal">&times;</a>
+                        <h4 id="ModalTitle1"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form1">
+                            <fieldset id="SubmitForm1">
+                                @Html.HiddenFor(x => x.ciudad.id, new { @id = "idCiudad" })
+                                <div class="form-group">
+                                    @Html.TextBoxFor(x => x.ciudad.nombre, new { @id = "nomCiudad", @class = "form-control", @placeholder = "Nombre", @autofocus = "autofocus" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.DropDownListFor(x => x.estado.id, ViewBag.ListaDeEstados as SelectList, "Seleccionar", new { @id = "DropDwn", @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    <a href="#" class="btn btn-block btn-danger" id="GuardarCambios">Guardar</a>
+                                </div>
+
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="VentanaEliminado1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a href="#" class="close" data-dismiss="modal">&times;</a>
+                        <h4>Eliminar ciudad</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4>¿Esta usted seguro que lo desea eliminar?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-primary" data-dismiss="modal" id="r">Cancelar</a>
+                        <a href="#" class="btn btn-danger" onclick="ConfirmDelete()">Confirmar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      
+
+        <!--Scrips-->
+        <script>
+            //CIUDADES
+
+
+
+            $("#CargarTabla1").html("");
+            $.get("/Gestiones/ObtenerListaCiudades", null, DataBind);
+            function DataBind(PackCiudades) {
+                var SetData = $("#ListaCiudades");
+                for (var i = 0; i < PackCiudades.length; i++) {
+                    var Data = "<tr class='row_" + PackCiudades[i].ciudad.id + "'>" +
+                        "<td>" + PackCiudades[i].ciudad.id + "</td>" +
+                        "<td>" + PackCiudades[i].ciudad.nombre + "</td>" +
+                        "<td>" + PackCiudades[i].ciudad.nomEstado + "</td>" +
+                        "<td>" + "<a href='#' class='btn btn-warning' onclick='EditarCiudad(" + PackCiudades[i].ciudad.id + ")' ><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
+                        "<td>" + "<a href='#' class='btn btn-danger' onclick='EliminarCiudad(" + PackCiudades[i].ciudad.id + ")'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
+                        "</tr>";
+                    SetData.append(Data);
+                    $("#LoadingStatus").html(" ");
+
+                }
+            }
+
+            function AgregarNuevaCiudad(idCiudad) {
+                $("#form1")[0].reset();
+                $("#idCiudad").val(0);
+                $("#DropDwn option:selected").text("Seleccionar");
+                $("#ModalTitle1").html("Añadir nueva ciudad");
+                $("#MyModal1").modal();
+            }
+
+            function EditarCiudad(idCiudad) {
+                $.get("/Gestiones/ObtenerCiudad?idCiudad=" + idCiudad, null, llamada);
+                function llamada(PackCiudades) {
+
+                    for (var i = 0; i < PackCiudades.length; i++) {
+
+                        $("#idCiudad").val(PackCiudades[i].ciudad.id);
+                        $("#nomCiudad").val(PackCiudades[i].ciudad.nombre);
+                        $("#DropDwn option:selected").text(PackCiudades[i].estado.nomEstado);
+                        $("#DropDwn option:selected").val(PackCiudades[i].estado.idEstado);
+                    }
+                }
+                $("#ModalTitle1").html("Actualizar datos del paquete");
+                $("#MyModal1").modal();
+
+            }
+
+            $("#GuardarCambios").click(function () {
+                var data = $("#SubmitForm1").serialize();
+                $.ajax({
+                    type: "Post",
+                    url: "/Gestiones/GuardarCiudades",
+                    data: data,
+                    success: function (result) {
+                        alert("¡Operación realizada con éxito!");
+                        window.location.href = "/Gestiones/Ciudades";
+                        $("#MyModal1").modal("hide");
+
+                    }
+                })
+            })
+
+            var EliminarCiudad = function (idCiudad) {
+                $("#idCiudad").val(idCiudad);
+                $("#VentanaEliminado1").modal("show");
+            }
+            var ConfirmDelete = function () {
+                var idCiudad = $("#idCiudad").val();
+                $.ajax({
+                    type: "POST",
+                    url: "/Gestiones/EliminarCiudad?idCiudad=" + idCiudad,
+                    success: function (result) {
+                        $("#VentanaEliminado1").modal("hide");
+                        $(".row_" + idCiudad).remove();
+                    }
+                })
+            }
+
+
+
+
+        </script>
+
+
+    </div><!--.container-fluid-->
+</div><!--.page-content-->
+

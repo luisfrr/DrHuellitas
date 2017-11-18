@@ -149,15 +149,12 @@
     <Compile Include="BO\EstadosBO.cs" />
     <Compile Include="BO\FotoBO.cs" />
     <Compile Include="BO\HorarioBO.cs" />
-    <Compile Include="BO\GestionMascotasBO.cs" />
     <Compile Include="BO\MascotasBO.cs" />
     <Compile Include="BO\PaisesBO.cs" />
     <Compile Include="BO\PaquetesBO.cs" />
     <Compile Include="BO\RazasBO.cs" />
     <Compile Include="BO\RegionesBO.cs" />
-    <Compile Include="BO\RegistroBO.cs" />
-    <Compile Include="BO\RegistroComercio.cs" />
-    <Compile Include="BO\RegistroVetBO.cs" />
+    <Compile Include="BO\RegistrosBO.cs" />
     <Compile Include="BO\UsuarioBO.cs" />
     <Compile Include="Controllers\MasterAdmin\AdminController.cs" />
     <Compile Include="Controllers\MasterAdmin\GestionesController.cs" />
@@ -930,7 +927,7 @@
     <Content Include="Views\Vet\Continuar.cshtml" />
     <Content Include="Views\Gestiones\Usuarios.cshtml" />
     <Content Include="Views\Gestiones\Mascotas.cshtml" />
-    <Content Include="Views\Gestiones\Region.cshtml" />
+    <Content Include="Views\Gestiones\Ciudades.cshtml" />
     <Content Include="Views\Gestiones\Propaganda.cshtml" />
     <Content Include="Views\Gestiones\Paquetes.cshtml" />
     <Content Include="Views\Gestiones\Comentarios.cshtml" />

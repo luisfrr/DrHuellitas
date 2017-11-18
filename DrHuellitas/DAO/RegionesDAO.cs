@@ -181,7 +181,7 @@ namespace DrHuellitas.DAO
         public int AgregarCiudad(RegionesBO objBO)
         {
             SqlCommand cmd = new SqlCommand("INSERT INTO Ciudad (nombre, idestado) VALUES (@nombre,@idestado)");
-            cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = objBO.estado.nombre;
+            cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = objBO.ciudad.nombre;
             cmd.Parameters.Add("@idestado", SqlDbType.Int).Value = objBO.ciudad.idEstado;
 
             return con.EjecutarComando(cmd);
@@ -208,7 +208,7 @@ namespace DrHuellitas.DAO
         public List<RegionesBO> ListaCiudades()
         {
             var ciudades = new List<RegionesBO>();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Ciudad");
+            SqlCommand cmd = new SqlCommand("SELECT c.id, c.nombre,e.nombre AS nombreestado FROM Ciudad c JOIN Estado e ON e.id=c.idestado");
 
             cmd.Connection = con.establecerConexion();
             con.AbrirConexion();
@@ -223,7 +223,7 @@ namespace DrHuellitas.DAO
                         {
                             id = Convert.ToInt32(dr["id"].ToString()),
                             nombre = dr["nombre"].ToString(),
-                            idEstado = Convert.ToInt32(dr["idestado"].ToString())
+                            nomEstado = dr["nombreestado"].ToString()
                         }
                     };
                     ciudades.Add(p);

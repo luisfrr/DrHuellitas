@@ -21,7 +21,7 @@ namespace DrHuellitas.DAO
             //Gerardo
             //string cadena = "Data Source=DESKTOP-JE5SO9B\\SQLEXPRESS;Initial Catalog=PHuellitas;Integrated Security=True";
             //Willy
-            string cadena = "Data Source=LAPTOP-ELH53H70\\WILLYSERVER;Initial Catalog=PHuellitas;Integrated Security=True";
+            //string cadena = "Data Source=LAPTOP-ELH53H70\\WILLYSERVER;Initial Catalog=PHuellitas;Integrated Security=True";
             con = new SqlConnection(cadena);
             adaptador = new SqlDataAdapter();
             ComandoSQL = new SqlCommand();

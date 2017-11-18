@@ -17,9 +17,8 @@ namespace DrHuellitas.BO
         public DateTime fecharegistro { get; set; }
         public DateTime fechanacimiento { get; set; }
         public int status { get; set; }
-        public byte[] qr { get; set; }
         public String foto { get; set; }
-        public string ape { get; set; }
+        public string apellidos { get; set; }
         public HttpPostedFileBase img { get; set; }
     }
 }

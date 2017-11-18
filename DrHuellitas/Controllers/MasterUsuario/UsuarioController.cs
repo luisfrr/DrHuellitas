@@ -79,7 +79,7 @@ namespace DrHuellitas.Controllers
             return Redirect(modulo);
         }
 
-        public ActionResult ContinuarRegistro(RegistroBO objBO)
+        public ActionResult ContinuarRegistro(RegistrosBO objBO)
         {
             int id = (int)Session["id"];
             var r = objDAO.ContinuarRegistro(objBO, id);

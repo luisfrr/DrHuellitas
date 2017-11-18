@@ -21,7 +21,7 @@ namespace DrHuellitas.DAO
             conex = new ConexionSQL();
         }
 
-        public int ContinuarRegistroComercio(RegistroComercio objBo, int usuario)
+        public int ContinuarRegistroComercio(RegistrosBO objBo, int usuario)
         {
             if (objBo.horario.inicioLunes != null && objBo.horario.finalLunes != null)
             {
@@ -103,11 +103,11 @@ namespace DrHuellitas.DAO
             return 1;
         }
 
-        public int ComercioDireccion(RegistroComercio objbo, int id)
+        public int ComercioDireccion(RegistrosBO objbo, int id)
         {
             SqlCommand comando = new SqlCommand("exec comercioDireccion  @nom,@apell,@telefono,@fechanaci,@foto,@id,@comernom,@vete,@estetica,@vender,@nomfis,@rfc,@tele1,@tele2,@email,@idempresa,@calle,@numero,@cruzamineto,@lon,@lati,@colonia,@cp,@idciudad,@idus");
             comando.Parameters.Add("@nom", SqlDbType.VarChar).Value = objbo.usuario.nombre;
-            comando.Parameters.Add("@apell", SqlDbType.VarChar).Value = objbo.usuario.ape;
+            comando.Parameters.Add("@apell", SqlDbType.VarChar).Value = objbo.usuario.apellidos;
             comando.Parameters.Add("@telefono", SqlDbType.Char).Value = objbo.usuario.telefono;
             comando.Parameters.Add("@fechanaci", SqlDbType.Date).Value = objbo.usuario.fechanacimiento.ToString("dd-MM-yyyy");
             comando.Parameters.Add("@foto", SqlDbType.Image).Value = Foto.ConvertirAFoto(objbo.usuario.img);

@@ -63,7 +63,7 @@ namespace DrHuellitas.Controllers
         {
             string Modulo = "~/Inicio/Index";
             var r = objDAO.IniciarSesion(registro.usuario.usuario, registro.usuario.contraseña);
-            if (r != null)
+            if (r.usuario != null)
             {
                 Session["id"] = r.usuario.id;
                 Session["nombre"] = r.usuario.nombre;

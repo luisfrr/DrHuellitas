@@ -32,7 +32,7 @@ namespace DrHuellitas.Controllers.MasterAdmin
         //Region
         public ActionResult Ciudades()
         {
-            List<RegionesBO> Estados = objRegionesDAO.ListaEstados().ToList();
+            List<EstadosBO> Estados = objRegionesDAO.DropDownEstado().ToList();
             ViewBag.ListaDeEstados = new SelectList(Estados, "id", "nombre");
             return View();
         }

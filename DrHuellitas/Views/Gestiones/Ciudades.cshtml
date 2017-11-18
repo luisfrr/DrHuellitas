@@ -59,7 +59,7 @@
                                     @Html.TextBoxFor(x => x.ciudad.nombre, new { @id = "nomCiudad", @class = "form-control", @placeholder = "Nombre", @autofocus = "autofocus" })
                                 </div>
                                 <div class="form-group">
-                                    @Html.DropDownListFor(x => x.estado.id, ViewBag.ListaDeEstados as SelectList, "Seleccionar", new { @id = "DropDwn", @class = "form-control" })
+                                    @Html.DropDownListFor(x=>x.ciudad.idEstado, ViewBag.ListaDeEstados as SelectList, "Seleccionar", new { @id = "DropDwn", @class = "form-control" })
                                 </div>
                                 <div class="form-group">
                                     <a href="#" class="btn btn-block btn-danger" id="GuardarCambios">Guardar</a>
@@ -132,8 +132,8 @@
 
                         $("#idCiudad").val(PackCiudades[i].ciudad.id);
                         $("#nomCiudad").val(PackCiudades[i].ciudad.nombre);
-                        $("#DropDwn option:selected").text(PackCiudades[i].estado.nomEstado);
-                        $("#DropDwn option:selected").val(PackCiudades[i].estado.idEstado);
+                        $("#DropDwn option:selected").text(PackCiudades[i].ciudad.nomEstado);
+                        $("#DropDwn option:selected").val(PackCiudades[i].ciudad.idEstado);
                     }
                 }
                 $("#ModalTitle1").html("Actualizar datos del paquete");

@@ -77,7 +77,7 @@ namespace DrHuellitas.Controllers.MasterComercio
 
             return Redirect(modulo);
         }
-        public ActionResult completarregistro(RegistroComercio dato)
+        public ActionResult completarregistro(RegistrosBO dato)
         {
             int id = (int)Session["id"];
             var onda = objDAO.ContinuarRegistroComercio(dato, id);

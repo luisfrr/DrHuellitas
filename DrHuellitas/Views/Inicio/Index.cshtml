@@ -1,5 +1,5 @@
 ﻿@using DrHuellitas.BO;
-@model RegistroBO 
+@model RegistrosBO 
 @{
     ViewBag.Title = "Bienvenidos a Dr. Huellitas - Más que un amigo";
     Layout = "~/Views/Shared/MasterLoginView.cshtml";
@@ -38,11 +38,11 @@
                         <h2>Iniciar Sesión</h2>
                         @using (Html.BeginForm("IniciarSesion", "Inicio", FormMethod.Post))
                         {
-                            @Html.HiddenFor(x => x.id)
+                            @Html.HiddenFor(m => m.usuario.id)
 
-                            @Html.TextBoxFor(x => x.usuario, new {  @placeholder = "Usuario..." })
+                            @Html.TextBoxFor(m => m.usuario.usuario, new {  @placeholder = "Usuario..." })
 
-                            @Html.TextBoxFor(x => x.contraseña, new { @placeholder = "Contraseña...", @type = "password" })
+                            @Html.TextBoxFor(m => m.usuario.contraseña, new { @placeholder = "Contraseña...", @type = "password" })
 
 
                             <button type="submit" >Aceptar</button>
@@ -56,18 +56,18 @@
                         <h2>¡Resgistrate!</h2>
                         @using (Html.BeginForm("Registrar", "Inicio", FormMethod.Post))
                         {
-                           @Html.HiddenFor(x => x.id)
+                           @Html.HiddenFor(m => m.usuario.id)
 
-                            @Html.TextBoxFor(x => x.email,new { @placeholder = "Correo electronico" })
+                            @Html.TextBoxFor(m => m.usuario.email,new { @placeholder = "Correo electronico" })
 
-                            @Html.TextBoxFor(x => x.usuario, new { @placeholder = "Usuario" })
+                            @Html.TextBoxFor(m => m.usuario.usuario, new { @placeholder = "Usuario" })
 
-                            @Html.TextBoxFor(x => x.contraseña, new { @id = "pass1", @placeholder = "Contraseña", @type="password"})
+                            @Html.TextBoxFor(m => m.usuario.contraseña, new { @id = "pass1", @placeholder = "Contraseña", @type="password"})
 
-                            @Html.TextBoxFor(x => x.nombre, new { @id = "pass2", @placeholder ="Repetir contraseña", @type="password"})<label id="mensaje"></label>
+                            @Html.TextBoxFor(m => m.usuario.nombre, new { @id = "pass2", @placeholder ="Repetir contraseña", @type="password"})<label id="mensaje"></label>
                             <div class="row">
                                 <div class="col-md-2">
-                                    @Html.RadioButtonFor(x => x.idtipo, 2, new { @style = "width:100%; padding-bottom:5px;" })
+                                    @Html.RadioButtonFor(m => m.usuario.idtipo, 2, new { @style = "width:100%; padding-bottom:5px;" })
                                 </div>
                                 <div class="col-md-10">
                                     <label>Público</label>
@@ -75,7 +75,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    @Html.RadioButtonFor(x => x.idtipo, 3, new { @style = "width:100%; padding-bottom:5px;" })
+                                    @Html.RadioButtonFor(m => m.usuario.idtipo, 3, new { @style = "width:100%; padding-bottom:5px;" })
                                 </div>
                                 <div class="col-md-10">
                                     <label>Empresa</label>

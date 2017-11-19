@@ -16,12 +16,7 @@ namespace DrHuellitas.BO
         public string latitud { get; set; }
         public string colonia { get; set; }
         public string CP { get; set; }
-        public string ubicacion { get; set; }
         public int idCiudad { get; set; }
-        public string nombreCiudad { get; set; }
-        public int idEstado { get; set; }
-        public string nombreEstado { get; set; }
-        public int idPais { get; set; }
-        public string nombrePais { get; set; }
+
     }
 }

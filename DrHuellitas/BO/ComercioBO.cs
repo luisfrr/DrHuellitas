@@ -7,7 +7,7 @@ namespace DrHuellitas.BO
 {
     public class ComercioBO
     {
-        public int idempresa { get; set; }
+        public int id { get; set; }
         public string nombreComercial { get; set; }
         public bool veterinaria { get; set; }
         public bool estetica { get; set; }

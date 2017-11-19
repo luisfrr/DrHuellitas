@@ -7,14 +7,14 @@ namespace DrHuellitas.BO
 {
     public class MascotasBO
     {
-        public int idmascota { get; set; }
+        public int id { get; set; }
         public string nombremascota { get; set; }
-        public int idusuario { get; set; }
         public string colorDominate { get; set; }
         public string colorPreDominante { get; set; }
         public string colorAlternativo { get; set; }
         public int genero { get; set; }
         public DateTime fechaNaci { get; set; }
         public HttpPostedFileBase img { get; set; }
+        public String foto { get; set; }
     }
 }

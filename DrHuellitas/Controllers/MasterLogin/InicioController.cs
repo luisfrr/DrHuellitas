@@ -51,7 +51,7 @@ namespace DrHuellitas.Controllers
 
             return Redirect(modulo);
         }
-        public ActionResult Registrar(RegistroBO registro) //Este método es el realiza el registro
+        public ActionResult Registrar(RegistrosBO registro) //Este método es el realiza el registro
         {
             var r =  objDAO.RegistrarUsuario(registro);
             
@@ -59,21 +59,21 @@ namespace DrHuellitas.Controllers
         }
 
 
-        public ActionResult IniciarSesion(RegistroBO registro) //Este método es el que válida el usuario(login)
+        public ActionResult IniciarSesion(RegistrosBO registro) //Este método es el que válida el usuario(login)
         {
             string Modulo = "~/Inicio/Index";
-            var r = objDAO.IniciarSesion(registro.usuario, registro.contraseña);
-            if (r != null)
+            var r = objDAO.IniciarSesion(registro.usuario.usuario, registro.usuario.contraseña);
+            if (r.usuario != null)
             {
-                Session["id"] = r.id;
-                Session["nombre"] = r.nombre;
-                Session["idtipo"] = r.idtipo;
-                Session["foto"] = r.foto;
-                Session["status"]= r.status;
+                Session["id"] = r.usuario.id;
+                Session["nombre"] = r.usuario.nombre;
+                Session["idtipo"] = r.usuario.idtipo;
+                Session["foto"] = r.usuario.foto;
+                Session["status"]= r.usuario.status;
 
-                int id = r.id;
-                int status = r.status;
-                int tipo = r.idtipo;
+                int id = r.usuario.id;
+                int status = r.usuario.status;
+                int tipo = r.usuario.idtipo;
                 if(tipo == 1)
                 {
                     Modulo = "~/Admin/Index";

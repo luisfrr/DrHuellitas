@@ -124,7 +124,7 @@ namespace DrHuellitas.DAO
         public List<RegionesBO> ListaEstados()
         {
             var estados = new List<RegionesBO>();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Estado");
+            SqlCommand cmd = new SqlCommand("SELECT e.id, e.nombre, p.nombre AS nombrepais, e.idPais FROM Estado e JOIN Pais p ON p.id=e.idPais");
 
             cmd.Connection = con.establecerConexion();
             con.AbrirConexion();
@@ -139,6 +139,7 @@ namespace DrHuellitas.DAO
                         {
                             id = Convert.ToInt32(dr["id"].ToString()),
                             nombre = dr["nombre"].ToString(),
+                            nomPais = dr["nombrepais"].ToString(),
                             idPais = Convert.ToInt32(dr["idPais"].ToString())
                         }
                     };
@@ -174,10 +175,32 @@ namespace DrHuellitas.DAO
             return estados;
         }
 
+        public List<PaisesBO> DropDownPais()
+        {
+            var paises = new List<PaisesBO>();
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Pais");
+            cmd.Connection = con.establecerConexion();
+            con.AbrirConexion();
+            var query = cmd;
+            using(var dr= query.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    var p = new BO.PaisesBO
+                    {
+                        id = Convert.ToInt32(dr["id"].ToString()),
+                        nombre = dr["nombre"].ToString()
+                    };
+                    paises.Add(p);
+                }
+            }
+            return paises;
+        }
+
         public List<RegionesBO> ObtenertEstado(int id)
         {
             var estado = new List<RegionesBO>();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Estado WHERE id=@id");
+            SqlCommand cmd = new SqlCommand("SELECT e.id, e.nombre, p.nombre AS nombrepais, e.idPais FROM Estado e JOIN Pais p ON p.id=e.idPais WHERE e.id=@id");
             cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
 
             cmd.Connection = con.establecerConexion();
@@ -193,6 +216,7 @@ namespace DrHuellitas.DAO
                         {
                             id = Convert.ToInt32(dr["id"]),
                             nombre = dr["nombre"].ToString(),
+                            nomPais = dr["nombrepais"].ToString(),
                             idPais = Convert.ToInt32(dr["idPais"].ToString())
                         }
                     };
@@ -262,7 +286,7 @@ namespace DrHuellitas.DAO
 
         public List<RegionesBO> ObtenerCiudad(int id)
         {
-            var ciudad = new List<RegionesBO>();
+            var ciudades = new List<RegionesBO>();
             SqlCommand cmd = new SqlCommand("SELECT c.id, c.nombre,e.nombre AS nombreestado, c.idestado FROM Ciudad c JOIN Estado e ON e.id=c.idestado WHERE c.id=@id");
             cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
 
@@ -284,10 +308,10 @@ namespace DrHuellitas.DAO
 
                         }
                     };
-                    ciudad.Add(p);
+                    ciudades.Add(p);
                 }
             }
-            return ciudad;
+            return ciudades;
         }
     }
 }

@@ -14,11 +14,65 @@ namespace DrHuellitas.Controllers.MasterAdmin
     {
         PaquetesDAO objPaqueteDAO = new PaquetesDAO();
         RegionesDAO objRegionesDAO = new RegionesDAO();
+        UsuarioDAO objUsuariosDAO = new UsuarioDAO();
 
         // GET: Gestiones
+
+        //Usuarios
         public ActionResult Usuarios()
         {
+            List<TipoUsuarioBO> TipoUser = objUsuariosDAO.DropDownTipoUs().ToList();
+            ViewBag.ListaTipoUs = new SelectList(TipoUser, "id", "nombre");
             return View();
+        }
+
+        public JsonResult ObtenerListaUsuarios()
+        {
+            List<RegistrosBO> PackUsuarios = objUsuariosDAO.ObtenerListaUsuarios().ToList();
+            return Json(PackUsuarios, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ObtenerUsuario(int idUsuario)
+        {
+            List<RegistrosBO> PackUsuarios = objUsuariosDAO.ObtenerUsuario(idUsuario).ToList();
+            return Json(PackUsuarios, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GuardarUsuario(RegistrosBO model)
+        {
+            var result = false;
+            try
+            {
+                if (model.usuario.id > 0)
+                {
+                    objUsuariosDAO.ActualizarUsuario(model);
+                    result = true;
+                }
+                else
+                {
+                    objUsuariosDAO.AgregarUsuario(model);
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult EliminarUsuario(int idUsuario)
+        {
+            bool result = false;
+
+            int x = objUsuariosDAO.EliminarUsuario(idUsuario);
+            if (x != 0)
+            {
+                result = true;
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -29,13 +83,14 @@ namespace DrHuellitas.Controllers.MasterAdmin
         }
 
 
-        //Region
+        //Ciudades
         public ActionResult Ciudades()
         {
             List<EstadosBO> Estados = objRegionesDAO.DropDownEstado().ToList();
             ViewBag.ListaDeEstados = new SelectList(Estados, "id", "nombre");
             return View();
         }
+
         public JsonResult ObtenerListaCiudades()
         {
             List<RegionesBO> PackCiudades = objRegionesDAO.ListaCiudades().ToList();
@@ -85,6 +140,119 @@ namespace DrHuellitas.Controllers.MasterAdmin
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+
+        //Estados
+        public ActionResult Estados()
+        {
+            List<PaisesBO> Paises = objRegionesDAO.DropDownPais().ToList();
+            ViewBag.ListaDePaises = new SelectList(Paises, "id", "nombre");
+            return View();
+        }
+
+        public JsonResult ObtenerListaEstados()
+        {
+            List<RegionesBO> PackEstados = objRegionesDAO.ListaEstados().ToList();
+            return Json(PackEstados, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ObtenerEstado(int idEstado)
+        {
+            List<RegionesBO> PackEstados = objRegionesDAO.ObtenertEstado(idEstado).ToList();
+            return Json(PackEstados, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GuardarEstados(RegionesBO model)
+        {
+            var result = false;
+            try
+            {
+                if (model.estado.id > 0)
+                {
+                    objRegionesDAO.ActualizarEstado(model);
+                    result = true;
+                }
+                else
+                {
+                    objRegionesDAO.AgregarEstado(model);
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult EliminarEstado(int idEstado)
+        {
+            bool result = false;
+
+            int x = objRegionesDAO.EliminarEstado(idEstado);
+            if (x != 0)
+            {
+                result = true;
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
+        //Paises
+        public ActionResult Paises()
+        {
+            return View();
+        }
+
+        public JsonResult ObtenerListaPaises()
+        {
+            List<RegionesBO> PackPaises = objRegionesDAO.ListaPaises().ToList();
+            return Json(PackPaises, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ObtenerPais(int idPais)
+        {
+            List<RegionesBO> PackPaises = objRegionesDAO.ObtenerPais(idPais).ToList();
+            return Json(PackPaises, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GuardarPaises(RegionesBO model)
+        {
+            var result = false;
+            try
+            {
+                if (model.pais.id > 0)
+                {
+                    objRegionesDAO.ActualizarPais(model);
+                    result = true;
+                }
+                else
+                {
+                    objRegionesDAO.AgregarPais(model);
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult EliminarPais(int idPais)
+        {
+            bool result = false;
+
+            int x = objRegionesDAO.EliminarPais(idPais);
+            if (x != 0)
+            {
+                result = true;
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 
         //Propaganda
         public ActionResult Propaganda()

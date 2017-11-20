@@ -1,70 +1,240 @@
-﻿
+﻿@using DrHuellitas.BO;
+@model RegistrosBO
 @{
     ViewBag.Title = "Usuarios";
     Layout = "~/Views/Shared/BackEndView.cshtml";
 }
 
 
-
 <div class="page-content">
     <div class="container-fluid">
 
         <div class="tbl-cell">
-            <h3>Gestión usuarios</h3>
+            <h3>Gestión Usuarios</h3>
             <ol class="breadcrumb breadcrumb-simple">
-                <li><a href="#">Inicio</a></li>
+                <li><a href="~/Admin/Index">Inicio</a></li>
                 <li><a href="#">Gestiones</a></li>
                 <li class="active">Usuarios</li>
             </ol>
         </div>
 
-        <table id="table-edit" class="table table-bordered table-hover">
+        <a href="#" class="btn btn-info" onclick="AgregarNuevoUsuario(0)">Añadir nuevo usuario</a> <br /><br />
+
+        <table class="table table-striped">
             <thead>
                 <tr>
-                    <th width="1">
-                        #
-                    </th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th class="table-icon-cell">
-                        <i class="font-icon font-icon-heart"></i>
-                    </th>
-                    <th class="table-icon-cell">
-                        <i class="font-icon font-icon-comment"></i>
-                    </th>
-                    <th width="120">Date Created</th>
-                    <th></th>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Usuario</th>
+                    <th>Tipo de usuario</th>
+                    <th>E-mail</th>
+                    <th>Fecha de nacimiento</th>
+                    <th>Fecha de registro</th>
+                    <th>Foto</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Last quarter revene</td>
-                    <td class="color-blue-grey-lighter">Revene for last quarter in state America for year 2013, whith...</td>
-                    <td class="table-icon-cell">5</td>
-                    <td class="table-icon-cell">24</td>
-                    <td class="table-date">6 minutes ago</td>
-                    <td class="table-photo">
-                        <img src="img/photo-64-1.jpg" alt="" data-toggle="tooltip" data-placement="bottom" title="Nicholas<br/>Barrett">
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Last quarter revene</td>
-                    <td class="color-blue-grey-lighter">Revene for last quarter in state America for year 2013, whith...</td>
-                    <td class="table-icon-cell">5</td>
-                    <td class="table-icon-cell">24</td>
-                    <td class="table-date">6 minutes ago</td>
-                    <td class="table-photo">
-                        <img src="img/photo-64-1.jpg" alt="" data-toggle="tooltip" data-placement="bottom" title="Nicholas<br/>Barrett">
-                    </td>
-                </tr>
+            <tbody id="ListaUsuarios">
+                <tr id="CargarTabla" style="color:black"></tr>
             </tbody>
         </table>
-        
+
+
+
+
+        <!--Modal usuarios-->
+
+        <div class="modal fade" id="MyModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a href="#" class="close" data-dismiss="modal">&times;</a>
+                        <h4 id="ModalTitle"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form">
+                            <fieldset id="SubmitForm">
+                                @Html.HiddenFor(x=> x.usuario.id, new { @id = "idUsuario" })
+                                <div class="form-group">
+                                    @Html.TextBoxFor(x => x.usuario.nombre, new { @id = "nombre", @class = "form-control", @placeholder = "Nombre(s)"})
+                                </div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(x => x.usuario.apellidos, new { @id = "apellidos", @class = "form-control", @placeholder = "Apellido(s)"})
+                                </div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(x => x.usuario.usuario, new { @id = "usuario", @class = "form-control", @placeholder = "Usuario"})
+                                </div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(x => x.usuario.contraseña, new { @id = "contraseña", @class = "form-control", @placeholder = "Contraseña", @type="password"})
+                                </div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(x => x.usuario.email, new { @id = "email", @class = "form-control", @placeholder = "Email"})
+                                </div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(x => x.usuario.fechanacimiento, new { @id = "fechanaci", @class = "form-control", @type = "date" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.DropDownListFor(x => x.usuario.idtipo, ViewBag.ListaTipoUs as SelectList, "Seleccionar", new { @id = "DropDwn", @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    <img id="imgSalida" src="~/img/admin/avatar-1-128.png" width="128" height="128" class="img-thumbnail img-circle" />
+                                    <br />
+
+                                    <label class="control-label" for="file">Seleccionar una foto de perfil:</label>
+                                    @Html.TextBoxFor(x => x.usuario.img, new { @type = "file", @name = "file", @id = "file" })
+                                </div>
+                                <div class="form-group">
+                                    <a href="#" class="btn btn-block btn-danger" id="GuardarCambios">Guardar</a>
+                                </div>
+
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="VentanaEliminado">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a href="#" class="close" data-dismiss="modal">&times;</a>
+                        <h4>Eliminar Usuario</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4>¿Esta usted seguro que lo desea eliminar?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-primary" data-dismiss="modal" id="r">Cancelar</a>
+                        <a href="#" class="btn btn-danger" onclick="ConfirmDelete()">Confirmar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!--Scrips-->
+        <script>
+           //usuarios
+
+
+
+            $("#CargarTabla").html("");
+            $.get("/Gestiones/ObtenerListaUsuarios", null, DataBind);
+            function DataBind(PackUsuarios) {
+                var SetData = $("#ListaUsuarios");
+                for (var i = 0; i < PackUsuarios.length; i++) {
+                    var Data = "<tr class='row_" + PackUsuarios[i].usuario.id + "'>" +
+                        "<td>" + PackUsuarios[i].usuario.id + "</td>" +
+                        "<td>" + PackUsuarios[i].usuario.nombre + "</td>" +
+                        "<td>" + PackUsuarios[i].usuario.usuario + "</td>" +
+                        "<td>" + PackUsuarios[i].usuario.tipoUs + "</td>" +
+                        "<td>" + PackUsuarios[i].usuario.email + "</td>" +
+                        "<td>" + PackUsuarios[i].usuario.fnacimiento + "</td>" +
+                        "<td>" + PackUsuarios[i].usuario.fregistro+ "</td>" +
+                        "<td>" + "<img src='" + PackUsuarios[i].usuario.foto + "' width='64' height='64' class='img-thumbnail img-circle'/> " + "</td>" +
+                        "<td>" + "<a href='#' class='btn btn-warning' onclick='Editarusuario(" + PackUsuarios[i].usuario.id + ")' ><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
+                        "<td>" + "<a href='#' class='btn btn-danger' onclick='Eliminarusuario(" + PackUsuarios[i].usuario.id + ")'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
+                        "</tr>";
+                    SetData.append(Data);
+                    $("#LoadingStatus").html(" ");
+
+                }
+            }
+
+            function AgregarNuevoUsuario(idUsuario) {
+                $("#form")[0].reset();
+                $("#idUsuario").val(0);
+                $("#DropDwn option:selected").text("Seleccionar");
+                $("#imgSalida").attr("src", "../../img/admin/avatar-1-128.png");
+                $("#ModalTitle").html("Añadir nuevo usuario");
+                $("#MyModal").modal();
+            }
+
+            function Editarusuario(idUsuario) {
+                $.get("/Gestiones/ObtenerUsuario?idUsuario=" + idUsuario, null, llamada);
+                function llamada(PackUsuarios) {
+
+                    for (var i = 0; i < PackUsuarios.length; i++) {
+
+                        $("#idUsuario").val(PackUsuarios[i].usuario.id);
+                        $("#nombre").val(PackUsuarios[i].usuario.nombre);
+                        $("#apellidos").val(PackUsuarios[i].usuario.apellidos);
+                        $("#usuario").val(PackUsuarios[i].usuario.usuario);
+                        $("#contraseña").val(PackUsuarios[i].usuario.contraseña);
+                        $("#email").val(PackUsuarios[i].usuario.email);
+                        $("#fechanaci").val(PackUsuarios[i].usuario.fechanacimiento);
+                        $("#imgSalida").attr("src", PackUsuarios[i].usuario.foto);
+                        $("#DropDwn option:selected").text(PackUsuarios[i].usuario.tipoUs);
+                        $("#DropDwn option:selected").val(PackUsuarios[i].usuario.idUsuario);
+                    }
+                }
+                $("#ModalTitle").html("Actualizar datos del usuario");
+                $("#MyModal").modal();
+
+            }
+
+            $("#GuardarCambios").click(function () {
+                var data = $("#SubmitForm").serialize();
+                $.ajax({
+                    type: "Post",
+                    url: "/Gestiones/GuardarUsuario",
+                    data: data,
+                    success: function (result) {
+                        alert("¡Operación realizada con éxito!");
+                        window.location.href = "/Gestiones/Usuarios";
+                        $("#MyModal").modal("hide");
+
+                    }
+                })
+            })
+
+            var Eliminarusuario = function (idUsuario) {
+                $("#idUsuario").val(idUsuario);
+                $("#VentanaEliminado").modal("show");
+            }
+            var ConfirmDelete = function () {
+                var idUsuario = $("#idUsuario").val();
+                $.ajax({
+                    type: "POST",
+                    url: "/Gestiones/EliminarUsuario?idUsuario=" + idUsuario,
+                    success: function (result) {
+                        $("#VentanaEliminado").modal("hide");
+                        $(".row_" + idUsuario).remove();
+                    }
+                })
+            }
+
+
+            $(document).ready(function () {
+                $(function () {
+                    $('#file').change(function (e) {
+                        addImage(e);
+                    });
+
+                    function addImage(e) {
+                        var file = e.target.files[0], imageType = /image.*/;
+
+                        if (!file.type.match(imageType))
+                            return;
+
+                        var reader = new FileReader();
+                        reader.onload = fileOnload;
+                        reader.readAsDataURL(file);
+                    }
+
+                    function fileOnload(e) {
+                        var result = e.target.result;
+                        $('#imgSalida').attr("src", result);
+                    }
+                });
+            });
+
+        </script>
+
+
     </div><!--.container-fluid-->
 </div><!--.page-content-->
-
-
-
 

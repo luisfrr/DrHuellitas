@@ -16,8 +16,11 @@ namespace DrHuellitas.BO
         public string telefono { get; set; }
         public DateTime fecharegistro { get; set; }
         public DateTime fechanacimiento { get; set; }
+        public string fnacimiento { get; set; }
+        public string fregistro { get; set; }
         public int status { get; set; }
         public String foto { get; set; }
+        public string tipoUs { get; set; }
         public string apellidos { get; set; }
         public HttpPostedFileBase img { get; set; }
     }

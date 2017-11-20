@@ -155,6 +155,7 @@
     <Compile Include="BO\RazasBO.cs" />
     <Compile Include="BO\RegionesBO.cs" />
     <Compile Include="BO\RegistrosBO.cs" />
+    <Compile Include="BO\TipoUsuarioBO.cs" />
     <Compile Include="BO\UsuarioBO.cs" />
     <Compile Include="Controllers\MasterAdmin\AdminController.cs" />
     <Compile Include="Controllers\MasterAdmin\GestionesController.cs" />
@@ -931,6 +932,8 @@
     <Content Include="Views\Gestiones\Propaganda.cshtml" />
     <Content Include="Views\Gestiones\Paquetes.cshtml" />
     <Content Include="Views\Gestiones\Comentarios.cshtml" />
+    <Content Include="Views\Gestiones\Estados.cshtml" />
+    <Content Include="Views\Gestiones\Paises.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Encriptacion\MD5.csproj">

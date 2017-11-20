@@ -1,0 +1,179 @@
+﻿@using DrHuellitas.BO;
+@model RegionesBO
+@{
+    ViewBag.Title = "Estados";
+    Layout = "~/Views/Shared/BackEndView.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <div class="tbl-cell">
+            <h3>Gestión Estados</h3>
+            <ol class="breadcrumb breadcrumb-simple">
+                <li><a href="~/Admin/Index">Inicio</a></li>
+                <li><a href="#">Gestiones</a></li>
+                <li class="active">Estados</li>
+            </ol>
+        </div>
+
+        <a href="#" class="btn btn-info" onclick="AgregarNuevoEstado(0)">Añadir nuevo Estado</a> <br /><br />
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>País</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody id="ListaEstados">
+                <tr id="CargarTabla" style="color:black"></tr>
+            </tbody>
+        </table>
+
+
+
+
+        <!--Modal Estados-->
+
+        <div class="modal fade" id="MyModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a href="#" class="close" data-dismiss="modal">&times;</a>
+                        <h4 id="ModalTitle"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form">
+                            <fieldset id="SubmitForm">
+                                @Html.HiddenFor(x => x.estado.id, new { @id = "idEstado" })
+                                <div class="form-group">
+                                    @Html.TextBoxFor(x => x.estado.nombre, new { @id = "nomEstado", @class = "form-control", @placeholder = "Nombre", @autofocus = "autofocus" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.DropDownListFor(x => x.estado.idPais, ViewBag.ListaDePaises as SelectList, "Seleccionar", new { @id = "DropDwn", @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    <a href="#" class="btn btn-block btn-danger" id="GuardarCambios">Guardar</a>
+                                </div>
+
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="VentanaEliminado">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a href="#" class="close" data-dismiss="modal">&times;</a>
+                        <h4>Eliminar Estado</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4>¿Esta usted seguro que lo desea eliminar?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-primary" data-dismiss="modal" id="r">Cancelar</a>
+                        <a href="#" class="btn btn-danger" onclick="ConfirmDelete()">Confirmar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!--Scrips-->
+        <script>
+           //Estados
+
+
+
+            $("#CargarTabla").html("");
+            $.get("/Gestiones/ObtenerListaEstados", null, DataBind);
+            function DataBind(PackEstados) {
+                var SetData = $("#ListaEstados");
+                for (var i = 0; i < PackEstados.length; i++) {
+                    var Data = "<tr class='row_" + PackEstados[i].estado.id + "'>" +
+                        "<td>" + PackEstados[i].estado.id + "</td>" +
+                        "<td>" + PackEstados[i].estado.nombre + "</td>" +
+                        "<td>" + PackEstados[i].estado.nomPais + "</td>" +
+                        "<td>" + "<a href='#' class='btn btn-warning' onclick='EditarEstado(" + PackEstados[i].estado.id + ")' ><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
+                        "<td>" + "<a href='#' class='btn btn-danger' onclick='EliminarEstado(" + PackEstados[i].estado.id + ")'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
+                        "</tr>";
+                    SetData.append(Data);
+                    $("#LoadingStatus").html(" ");
+
+                }
+            }
+
+            function AgregarNuevoEstado(idEstado) {
+                $("#form")[0].reset();
+                $("#idEstado").val(0);
+                $("#DropDwn option:selected").text("Seleccionar");
+                $("#ModalTitle").html("Añadir nuevo Estado");
+                $("#MyModal").modal();
+            }
+
+            function EditarEstado(idEstado) {
+                $.get("/Gestiones/ObtenerEstado?idEstado=" + idEstado, null, llamada);
+                function llamada(PackEstados) {
+
+                    for (var i = 0; i < PackEstados.length; i++) {
+
+                        $("#idEstado").val(PackEstados[i].estado.id);
+                        $("#nomEstado").val(PackEstados[i].estado.nombre);
+                        $("#DropDwn option:selected").text(PackEstados[i].estado.nomPais);
+                        $("#DropDwn option:selected").val(PackEstados[i].estado.idPais);
+                    }
+                }
+                $("#ModalTitle").html("Actualizar datos del Estado");
+                $("#MyModal").modal();
+
+            }
+
+            $("#GuardarCambios").click(function () {
+                var data = $("#SubmitForm").serialize();
+                $.ajax({
+                    type: "Post",
+                    url: "/Gestiones/GuardarEstados",
+                    data: data,
+                    success: function (result) {
+                        alert("¡Operación realizada con éxito!");
+                        window.location.href = "/Gestiones/Estados";
+                        $("#MyModal").modal("hide");
+
+                    }
+                })
+            })
+
+            var EliminarEstado = function (idEstado) {
+                $("#idEstado").val(idEstado);
+                $("#VentanaEliminado").modal("show");
+            }
+            var ConfirmDelete = function () {
+                var idEstado = $("#idEstado").val();
+                $.ajax({
+                    type: "POST",
+                    url: "/Gestiones/EliminarEstado?idEstado=" + idEstado,
+                    success: function (result) {
+                        $("#VentanaEliminado").modal("hide");
+                        $(".row_" + idEstado).remove();
+                    }
+                })
+            }
+
+
+
+
+        </script>
+
+
+    </div><!--.container-fluid-->
+</div><!--.page-content-->
+
+

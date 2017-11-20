@@ -1,0 +1,170 @@
+﻿@using DrHuellitas.BO;
+@model RegionesBO
+@{
+    ViewBag.Title = "Paises";
+    Layout = "~/Views/Shared/BackEndView.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <div class="tbl-cell">
+            <h3>Gestión Países</h3>
+            <ol class="breadcrumb breadcrumb-simple">
+                <li><a href="~/Admin/Index">Inicio</a></li>
+                <li><a href="#">Gestiones</a></li>
+                <li class="active">Países</li>
+            </ol>
+        </div>
+
+        <a href="#" class="btn btn-info" onclick="AgregarNuevoPais(0)">Añadir nuevo país</a> <br /><br />
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody id="ListaPaises">
+                <tr id="CargarTabla" style="color:black"></tr>
+            </tbody>
+        </table>
+
+
+
+
+        <!--Modal paiss-->
+
+        <div class="modal fade" id="MyModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a href="#" class="close" data-dismiss="modal">&times;</a>
+                        <h4 id="ModalTitle"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form">
+                            <fieldset id="SubmitForm">
+                                @Html.HiddenFor(x => x.pais.id, new { @id = "idPais" })
+                                <div class="form-group">
+                                    @Html.TextBoxFor(x => x.pais.nombre, new { @id = "nomPais", @class = "form-control", @placeholder = "Nombre", @autofocus = "autofocus" })
+                                </div>
+                                <div class="form-group">
+                                    <a href="#" class="btn btn-block btn-danger" id="GuardarCambios">Guardar</a>
+                                </div>
+
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="VentanaEliminado">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a href="#" class="close" data-dismiss="modal">&times;</a>
+                        <h4>Eliminar país</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4>¿Esta usted seguro que lo desea eliminar?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-primary" data-dismiss="modal" id="r">Cancelar</a>
+                        <a href="#" class="btn btn-danger" onclick="ConfirmDelete()">Confirmar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!--Scrips-->
+        <script>
+           //paiss
+
+
+
+            $("#CargarTabla").html("");
+            $.get("/Gestiones/ObtenerListaPaises", null, DataBind);
+            function DataBind(PackPaises) {
+                var SetData = $("#ListaPaises");
+                for (var i = 0; i < PackPaises.length; i++) {
+                    var Data = "<tr class='row_" + PackPaises[i].pais.id + "'>" +
+                        "<td>" + PackPaises[i].pais.id + "</td>" +
+                        "<td>" + PackPaises[i].pais.nombre + "</td>" +
+                        "<td>" + "<a href='#' class='btn btn-warning' onclick='EditarPais(" + PackPaises[i].pais.id + ")' ><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
+                        "<td>" + "<a href='#' class='btn btn-danger' onclick='EliminarPais(" + PackPaises[i].pais.id + ")'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
+                        "</tr>";
+                    SetData.append(Data);
+                    $("#LoadingStatus").html(" ");
+
+                }
+            }
+
+            function AgregarNuevoPais(idPais) {
+                $("#form")[0].reset();
+                $("#idPais").val(0);
+                $("#DropDwn option:selected").text("Seleccionar");
+                $("#ModalTitle").html("Añadir nuevo pais");
+                $("#MyModal").modal();
+            }
+
+            function EditarPais(idPais) {
+                $.get("/Gestiones/ObtenerPais?idPais=" + idPais, null, llamada);
+                function llamada(PackPaises) {
+
+                    for (var i = 0; i < PackPaises.length; i++) {
+
+                        $("#idPais").val(PackPaises[i].pais.id);
+                        $("#nomPais").val(PackPaises[i].pais.nombre);
+                    }
+                }
+                $("#ModalTitle").html("Actualizar datos del pais");
+                $("#MyModal").modal();
+
+            }
+
+            $("#GuardarCambios").click(function () {
+                var data = $("#SubmitForm").serialize();
+                $.ajax({
+                    type: "Post",
+                    url: "/Gestiones/GuardarPaises",
+                    data: data,
+                    success: function (result) {
+                        alert("¡Operación realizada con éxito!");
+                        window.location.href = "/Gestiones/Paises";
+                        $("#MyModal").modal("hide");
+
+                    }
+                })
+            })
+
+            var EliminarPais = function (idPais) {
+                $("#idPais").val(idPais);
+                $("#VentanaEliminado").modal("show");
+            }
+            var ConfirmDelete = function () {
+                var idPais = $("#idPais").val();
+                $.ajax({
+                    type: "POST",
+                    url: "/Gestiones/EliminarPais?idPais=" + idPais,
+                    success: function (result) {
+                        $("#VentanaEliminado").modal("hide");
+                        $(".row_" + idPais).remove();
+                    }
+                })
+            }
+
+
+
+
+        </script>
+
+
+    </div><!--.container-fluid-->
+</div><!--.page-content-->

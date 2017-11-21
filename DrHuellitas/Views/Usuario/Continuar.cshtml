@@ -1,5 +1,5 @@
 ﻿@using DrHuellitas.BO;
-@model RegistroBO
+@model RegistrosBO
 @{
     ViewBag.Title = "Continuar";
     Layout = "~/Views/Shared/MasterFrontEnd.cshtml";
@@ -48,18 +48,18 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            @Html.TextBoxFor(m=>m.nombre, new { @placeholder = "Nombre(s)", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
+                            @Html.TextBoxFor(x=>x.usuario.nombre, new { @placeholder = "Nombre(s)", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
                           
-                            @Html.TextBoxFor(m => m.telefono, new { @placeholder = "Teléfono", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
+                            @Html.TextBoxFor(x=>x.usuario.telefono, new { @placeholder = "Teléfono", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
                           
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                           
-                            @Html.TextBoxFor(m => m.ape, new { @placeholder = "Apellidos(s)", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
+                            @Html.TextBoxFor(x=>x.usuario.apellidos, new { @placeholder = "Apellidos(s)", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
                           
-                            @Html.TextBoxFor(m => m.fechanacimiento, new { @required = "required", @type = "date", @class = "form-control" })
+                            @Html.TextBoxFor(x=>x.usuario.fechanacimiento, new { @required = "required", @type = "date", @class = "form-control" })
                             <br />
                             
                         </div>
@@ -76,34 +76,34 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            @Html.TextBoxFor(m => m.nombremascota, new { @placeholder = "Nombre mascota", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
+                            @Html.TextBoxFor(x=>x.mascota.nombremascota, new { @placeholder = "Nombre mascota", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
 
-                            @Html.TextBoxFor(m => m.colorPreDominante, new { @placeholder = "Color predominante (opcional)", @maxlength = "100", @type = "text", @class = "form-control" })
+                            @Html.TextBoxFor(x=>x.mascota.colorPreDominante, new { @placeholder = "Color predominante (opcional)", @maxlength = "100", @type = "text", @class = "form-control" })
 
-                            @Html.TextBoxFor(m => m.fechaNaci, new { @required = "required", @type = "date", @class = "form-control" })
+                            @Html.TextBoxFor(x=>x.mascota.fechaNaci, new { @required = "required", @type = "date", @class = "form-control" })
                             
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            @Html.HiddenFor(m => m.idusuario)
+                            @Html.HiddenFor(x=>x.usuario.id)
 
-                            @Html.TextBoxFor(m => m.colorDominate, new { @placeholder = "Color dominante", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
+                            @Html.TextBoxFor(x=>x.mascota.colorDominate, new { @placeholder = "Color dominante", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
 
-                            @Html.TextBoxFor(m => m.colorAlternativo, new { @placeholder = "Color alternativo (opcional)", @maxlength = "100", @type = "text", @class = "form-control" })
+                            @Html.TextBoxFor(x=>x.mascota.colorAlternativo, new { @placeholder = "Color alternativo (opcional)", @maxlength = "100", @type = "text", @class = "form-control" })
                             
                             <label class="control-label">Genero</label>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Macho </label>
-                                        @Html.RadioButtonFor(m => m.genero, "Macho", new { @checked = "checked" })
+                                        @Html.RadioButtonFor(x=>x.mascota.genero, "Macho", new { @checked = "checked" })
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Hembra </label>
-                                        @Html.RadioButtonFor(m => m.genero, "Hembra", new { @checked = "checked" })
+                                        @Html.RadioButtonFor(x=>x.mascota.genero, "Hembra", new { @checked = "checked" })
                                     </div>
                                 </div>
                             </div>
@@ -122,11 +122,11 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             
-                            <img id="imgSalida" width="256" height="256" class="img-thumbnail img-circle" />
+                            <img id="imgSalida" src="~/img/admin/avatar-2-256.png" width="256" height="256" class="img-circle" />
                             <br /><br />
                             
                             <label class="control-label" for="file">Seleccionar una foto de perfil:</label>
-                            @Html.TextBoxFor(m => m.img, new { @type = "file", @name = "file", @id = "file" })
+                            @Html.TextBoxFor(x=>x.usuario.img, new { @type = "file", @name = "file", @id = "file" })
 
                         </div>
                     </div>

@@ -62,6 +62,7 @@ namespace DrHuellitas.DAO
                     paises.Add(p);
                 }
             }
+            con.CerrarConexion();
             return paises;
         }
 
@@ -89,6 +90,7 @@ namespace DrHuellitas.DAO
                     pais.Add(p);
                 }
             }
+            con.CerrarConexion();
             return pais;
         }
 
@@ -146,6 +148,7 @@ namespace DrHuellitas.DAO
                     estados.Add(p);
                 }
             }
+            con.CerrarConexion();
             return estados;
         }
 
@@ -163,15 +166,14 @@ namespace DrHuellitas.DAO
                 {
                     var p = new BO.EstadosBO
                     {
-
                             id = Convert.ToInt32(dr["id"].ToString()),
                             nombre = dr["nombre"].ToString(),
                             idPais = Convert.ToInt32(dr["idPais"].ToString())
-                        
                     };
                     estados.Add(p);
                 }
             }
+            con.CerrarConexion();
             return estados;
         }
 
@@ -194,6 +196,7 @@ namespace DrHuellitas.DAO
                     paises.Add(p);
                 }
             }
+            con.CerrarConexion();
             return paises;
         }
 
@@ -223,6 +226,7 @@ namespace DrHuellitas.DAO
                     estado.Add(p);
                 }
             }
+            con.CerrarConexion();
             return estado;
         }
 
@@ -281,6 +285,7 @@ namespace DrHuellitas.DAO
                     ciudades.Add(p);
                 }
             }
+            con.CerrarConexion();
             return ciudades;
         }
 
@@ -311,6 +316,7 @@ namespace DrHuellitas.DAO
                     ciudades.Add(p);
                 }
             }
+            con.CerrarConexion();
             return ciudades;
         }
     }

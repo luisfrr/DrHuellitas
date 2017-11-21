@@ -148,6 +148,7 @@
     <Compile Include="BO\EspeciesBO.cs" />
     <Compile Include="BO\EstadosBO.cs" />
     <Compile Include="BO\FotoBO.cs" />
+    <Compile Include="BO\GestionMascotaBO.cs" />
     <Compile Include="BO\HorarioBO.cs" />
     <Compile Include="BO\MascotasBO.cs" />
     <Compile Include="BO\PaisesBO.cs" />
@@ -157,6 +158,7 @@
     <Compile Include="BO\RegistrosBO.cs" />
     <Compile Include="BO\TipoUsuarioBO.cs" />
     <Compile Include="BO\UsuarioBO.cs" />
+    <Compile Include="BO\VacunasBO.cs" />
     <Compile Include="Controllers\MasterAdmin\AdminController.cs" />
     <Compile Include="Controllers\MasterAdmin\GestionesController.cs" />
     <Compile Include="Controllers\MasterComercio\ComercioController.cs" />
@@ -165,10 +167,14 @@
     <Compile Include="Controllers\MasterVeterinario\VetController.cs" />
     <Compile Include="DAO\ComercioDAO.cs" />
     <Compile Include="DAO\ConexionSQL.cs" />
+    <Compile Include="DAO\EspeciesDAO.cs" />
     <Compile Include="DAO\GestionUsuariosDAO.cs" />
+    <Compile Include="DAO\MascotasDAO.cs" />
     <Compile Include="DAO\PaquetesDAO.cs" />
+    <Compile Include="DAO\RazasDAO.cs" />
     <Compile Include="DAO\RegionesDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
+    <Compile Include="DAO\VacunasDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -934,6 +940,9 @@
     <Content Include="Views\Gestiones\Comentarios.cshtml" />
     <Content Include="Views\Gestiones\Estados.cshtml" />
     <Content Include="Views\Gestiones\Paises.cshtml" />
+    <Content Include="Views\Gestiones\Especies.cshtml" />
+    <Content Include="Views\Gestiones\Razas.cshtml" />
+    <Content Include="Views\Gestiones\Vacunas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Encriptacion\MD5.csproj">

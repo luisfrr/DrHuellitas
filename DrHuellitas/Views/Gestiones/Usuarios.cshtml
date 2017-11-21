@@ -53,37 +53,37 @@
                         <h4 id="ModalTitle"></h4>
                     </div>
                     <div class="modal-body">
-                        <form id="form">
-                            <fieldset id="SubmitForm">
-                                @Html.HiddenFor(x=> x.usuario.id, new { @id = "idUsuario" })
+                        <form id="form" enctype = "multipart/form-data">
+                            <fieldset id="SubmitForm" enctype = "multipart/form-data">
+                                @Html.HiddenFor(m => m.usuario.id, new { @id = "idUsuario" })
                                 <div class="form-group">
-                                    @Html.TextBoxFor(x => x.usuario.nombre, new { @id = "nombre", @class = "form-control", @placeholder = "Nombre(s)"})
+                                    @Html.TextBoxFor(m => m.usuario.nombre, new { @id = "nombre", @class = "form-control", @placeholder = "Nombre(s)"})
                                 </div>
                                 <div class="form-group">
-                                    @Html.TextBoxFor(x => x.usuario.apellidos, new { @id = "apellidos", @class = "form-control", @placeholder = "Apellido(s)"})
+                                    @Html.TextBoxFor(m => m.usuario.apellidos, new { @id = "apellidos", @class = "form-control", @placeholder = "Apellido(s)"})
                                 </div>
                                 <div class="form-group">
-                                    @Html.TextBoxFor(x => x.usuario.usuario, new { @id = "usuario", @class = "form-control", @placeholder = "Usuario"})
+                                    @Html.TextBoxFor(m => m.usuario.usuario, new { @id = "usuario", @class = "form-control", @placeholder = "Usuario"})
                                 </div>
                                 <div class="form-group">
-                                    @Html.TextBoxFor(x => x.usuario.contraseña, new { @id = "contraseña", @class = "form-control", @placeholder = "Contraseña", @type="password"})
+                                    @Html.TextBoxFor(m => m.usuario.contraseña, new { @id = "contraseña", @class = "form-control", @placeholder = "Contraseña", @type="password"})
                                 </div>
                                 <div class="form-group">
-                                    @Html.TextBoxFor(x => x.usuario.email, new { @id = "email", @class = "form-control", @placeholder = "Email"})
+                                    @Html.TextBoxFor(m => m.usuario.email, new { @id = "email", @class = "form-control", @placeholder = "Email"})
                                 </div>
                                 <div class="form-group">
-                                    @Html.TextBoxFor(x => x.usuario.fechanacimiento, new { @id = "fechanaci", @class = "form-control", @type = "date" })
+                                    @Html.TextBoxFor(m => m.usuario.fechanacimiento, new { @id = "fechanaci", @class = "form-control", @type = "date" })
                                 </div>
                                 <div class="form-group">
-                                    @Html.DropDownListFor(x => x.usuario.idtipo, ViewBag.ListaTipoUs as SelectList, "Seleccionar", new { @id = "DropDwn", @class = "form-control" })
+                                    @Html.DropDownListFor(m => m.usuario.idtipo, ViewBag.ListaTipoUs as SelectList, "Seleccionar", new { @id = "DropDwn", @class = "form-control" })
                                 </div>
-                                <div class="form-group">
-                                    <img id="imgSalida" src="~/img/admin/avatar-1-128.png" width="128" height="128" class="img-thumbnail img-circle" />
+                                <!--<div class="form-group">
+                                    <img id="imgSalida" src="~/img/admin/avatar-1-128.png" width="128" height="128" class="img-circle" />
                                     <br />
 
                                     <label class="control-label" for="file">Seleccionar una foto de perfil:</label>
-                                    @Html.TextBoxFor(x => x.usuario.img, new { @type = "file", @name = "file", @id = "file" })
-                                </div>
+                                    @Html.TextBoxFor(m => m.usuario.img, new { @type = "file", @name = "file", @id = "file" })
+                                </div>-->
                                 <div class="form-group">
                                     <a href="#" class="btn btn-block btn-danger" id="GuardarCambios">Guardar</a>
                                 </div>

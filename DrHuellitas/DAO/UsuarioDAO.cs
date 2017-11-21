@@ -54,7 +54,7 @@ namespace DrHuellitas.DAO
                     id = int.Parse(Reader[0].ToString()),
                     nombre = Reader[1].ToString(),
                     status = int.Parse(Reader[2].ToString()),
-                    foto = (Reader[3] != null) ? "data:image/jpeg;base64," + Convert.ToBase64String((byte[])Reader[3]) : "",
+                    foto = (Reader[3] != null) ? @"data:image/jpeg;base64," + Convert.ToBase64String((byte[])Reader[3]) : " ",
                     idtipo = int.Parse(Reader[4].ToString())
                 };
             }
@@ -91,7 +91,8 @@ namespace DrHuellitas.DAO
         public int AgregarUsuario(RegistrosBO objBO)
         {
             string contraseña = MD5.Encriptar(objBO.usuario.contraseña);
-            cmd = new SqlCommand("INSERT INTO Usuario(usuario,nombre,apellidos,idTipo,contraseña,email,status,fechanacimiento,fecharegistro,foto)values(@usuario,@nombre,@apellidos,@idTipo,@contraseña,@email,@status,@fechanacimiento,@fecharegistro,@fotoUsuario)");
+            cmd = new SqlCommand("INSERT INTO Usuario(usuario,nombre,apellidos,idTipo,contraseña,email,status,fechanacimiento,fecharegistro)values(@usuario,@nombre,@apellidos,@idTipo,@contraseña,@email,@status,@fechanacimiento,@fecharegistro)");
+            //cmd = new SqlCommand("INSERT INTO Usuario(usuario,nombre,apellidos,idTipo,contraseña,email,status,fechanacimiento,fecharegistro,foto)values(@usuario,@nombre,@apellidos,@idTipo,@contraseña,@email,@status,@fechanacimiento,@fecharegistro,@fotoUsuario)");
             cmd.Parameters.Add("@usuario", SqlDbType.VarChar).Value = objBO.usuario.usuario;
             cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = objBO.usuario.nombre;
             cmd.Parameters.Add("@apellidos", SqlDbType.VarChar).Value = objBO.usuario.apellidos;
@@ -101,7 +102,7 @@ namespace DrHuellitas.DAO
             cmd.Parameters.Add("@status", SqlDbType.Bit).Value = 0;
             cmd.Parameters.Add("@fechanacimiento", SqlDbType.Date).Value = objBO.usuario.fechanacimiento.ToString("dd-MM-yyyy");
             cmd.Parameters.Add("@fecharegistro", SqlDbType.Date).Value = DateTime.Now.ToString("dd-MM-yyyy");
-            cmd.Parameters.Add("@fotoUsuario", SqlDbType.Image).Value = Foto.ConvertirAFoto(objBO.usuario.img);
+            //cmd.Parameters.Add("@fotoUsuario", SqlDbType.Image).Value = Foto.ConvertirAFoto(objBO.usuario.img);
 
             return con.EjecutarComando(cmd);
         }
@@ -109,17 +110,18 @@ namespace DrHuellitas.DAO
         public int ActualizarUsuario(RegistrosBO objBO)
         {
             string contraseña = MD5.Encriptar(objBO.usuario.contraseña);
-            cmd = new SqlCommand("UPDATE Usuario SET usuario=@usuario,nombre=@nombre,apellidos=@apellidos,idTipo=@idTipo,contraseña=@contraseña,email=@email,status=@status,fechanacimiento=@fechanacimiento,fecharegistro=@fecharegistro,foto=@fotoUsuario WHERE id=@id");
+            cmd = new SqlCommand("UPDATE Usuario SET usuario=@usuario,nombre=@nombre,apellidos=@apellidos,idTipo=@idTipo,contraseña=@contraseña,email=@email,status=@status,fechanacimiento=@fechanacimiento WHERE id=@id");
+            //cmd = new SqlCommand("UPDATE Usuario SET usuario=@usuario,nombre=@nombre,apellidos=@apellidos,idTipo=@idTipo,contraseña=@contraseña,email=@email,status=@status,fechanacimiento=@fechanacimiento, foto=@fotoUsuario WHERE id=@id");
             cmd.Parameters.Add("@usuario", SqlDbType.VarChar).Value = objBO.usuario.usuario;
             cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = objBO.usuario.nombre;
             cmd.Parameters.Add("@apellidos", SqlDbType.VarChar).Value = objBO.usuario.apellidos;
             cmd.Parameters.Add("@idTipo", SqlDbType.Int).Value = objBO.usuario.idtipo;
             cmd.Parameters.Add("@contraseña", SqlDbType.VarChar).Value = contraseña;
             cmd.Parameters.Add("@email", SqlDbType.VarChar).Value = objBO.usuario.email;
-            cmd.Parameters.Add("@status", SqlDbType.Int).Value = 0;
+            cmd.Parameters.Add("@status", SqlDbType.Int).Value = 1;
             cmd.Parameters.Add("@fechanacimiento", SqlDbType.Date).Value = objBO.usuario.fechanacimiento.ToString("dd-MM-yyyy");
-            cmd.Parameters.Add("@fecharegistro", SqlDbType.Date).Value = DateTime.Now.ToString("dd-MM-yyyy");
-            cmd.Parameters.Add("@fotoUsuario", SqlDbType.Image).Value = Foto.ConvertirAFoto(objBO.usuario.img);
+            //cmd.Parameters.Add("@fecharegistro", SqlDbType.Date).Value = DateTime.Now.ToString("dd-MM-yyyy");
+            //cmd.Parameters.Add("@fotoUsuario", SqlDbType.Image).Value = Foto.ConvertirAFoto(objBO.usuario.img);
             cmd.Parameters.Add("@id", SqlDbType.Int).Value = objBO.usuario.id;
 
             return con.EjecutarComando(cmd);
@@ -147,21 +149,46 @@ namespace DrHuellitas.DAO
             {
                 while (dr.Read())
                 {
-                    var p = new BO.RegistrosBO
+                    String fotos = Convert.ToBase64String((byte[])dr["foto"]);
+                    if(fotos == "0")
                     {
-                        usuario = new BO.UsuarioBO
+                        var p = new BO.RegistrosBO
                         {
-                            id = Convert.ToInt32(dr["id"].ToString()),
-                            nombre = dr["nombre"].ToString(),
-                            usuario = dr["usuario"].ToString(),
-                            tipoUs = dr["tipo"].ToString(),
-                            email = dr["email"].ToString(),
-                            fnacimiento= Convert.ToDateTime(dr["fechanacimiento"]).ToString("dd/MM/yyyy"),
-                            fregistro = Convert.ToDateTime(dr["fecharegistro"]).ToString("dd/MM/yyyy"),
-                            foto = "data:image/jpeg;base64," +Convert.ToBase64String((byte[])dr["foto"])
-                        }
-                    };
-                    usuarios.Add(p);
+
+                            usuario = new BO.UsuarioBO
+                            {
+                                id = Convert.ToInt32(dr["id"].ToString()),
+                                nombre = dr["nombre"].ToString(),
+                                usuario = dr["usuario"].ToString(),
+                                tipoUs = dr["tipo"].ToString(),
+                                email = dr["email"].ToString(),
+                                fnacimiento = Convert.ToDateTime(dr["fechanacimiento"]).ToString("dd/MM/yyyy"),
+                                fregistro = Convert.ToDateTime(dr["fecharegistro"]).ToString("dd/MM/yyyy"),
+                                foto = " "   
+                            }
+                        };
+                        usuarios.Add(p);
+                    }
+                    else
+                    {
+                        var p = new BO.RegistrosBO
+                        {
+
+                            usuario = new BO.UsuarioBO
+                            {
+                                id = Convert.ToInt32(dr["id"].ToString()),
+                                nombre = dr["nombre"].ToString(),
+                                usuario = dr["usuario"].ToString(),
+                                tipoUs = dr["tipo"].ToString(),
+                                email = dr["email"].ToString(),
+                                fnacimiento = Convert.ToDateTime(dr["fechanacimiento"]).ToString("dd/MM/yyyy"),
+                                fregistro = Convert.ToDateTime(dr["fecharegistro"]).ToString("dd/MM/yyyy"),
+                                foto = "data:image/jpeg;base64," + Convert.ToBase64String((byte[])dr["foto"])
+                            }
+                        };
+                        usuarios.Add(p);
+                    }
+                    
                 }
             }
             return usuarios;
@@ -180,23 +207,45 @@ namespace DrHuellitas.DAO
             {
                 while (dr.Read())
                 {
-                    var p = new BO.RegistrosBO
+                    String fotos = Convert.ToBase64String((byte[])dr["foto"]);
+                    if (fotos == "0")
                     {
-                        usuario = new BO.UsuarioBO
+                        var p = new BO.RegistrosBO
                         {
-                            id = Convert.ToInt32(dr["id"].ToString()),
-                            nombre = dr["nombre"].ToString(),
-                            apellidos=dr["apellidos"].ToString(),
-                            usuario = dr["usuario"].ToString(),
-                            contraseña = MD5.Desencriptar(dr["contraseña"].ToString()),
-                            tipoUs = dr["tipo"].ToString(),
-                            idtipo = Convert.ToInt32(dr["idTipo"].ToString()),
-                            email = dr["email"].ToString(),
-                            fnacimiento = Convert.ToDateTime(dr["fechanacimiento"]).ToString("dd/MM/yyyy"),
-                            foto = "data:image/jpeg;base64," + Convert.ToBase64String((byte[])dr["foto"])
-                        }
-                    };
-                    usuarios.Add(p);
+
+                            usuario = new BO.UsuarioBO
+                            {
+                                id = Convert.ToInt32(dr["id"].ToString()),
+                                nombre = dr["nombre"].ToString(),
+                                usuario = dr["usuario"].ToString(),
+                                tipoUs = dr["tipo"].ToString(),
+                                email = dr["email"].ToString(),
+                                fnacimiento = Convert.ToDateTime(dr["fechanacimiento"]).ToString("dd/MM/yyyy"),
+                                fregistro = Convert.ToDateTime(dr["fecharegistro"]).ToString("dd/MM/yyyy"),
+                                foto = " "
+                            }
+                        };
+                        usuarios.Add(p);
+                    }
+                    else
+                    {
+                        var p = new BO.RegistrosBO
+                        {
+
+                            usuario = new BO.UsuarioBO
+                            {
+                                id = Convert.ToInt32(dr["id"].ToString()),
+                                nombre = dr["nombre"].ToString(),
+                                usuario = dr["usuario"].ToString(),
+                                tipoUs = dr["tipo"].ToString(),
+                                email = dr["email"].ToString(),
+                                fnacimiento = Convert.ToDateTime(dr["fechanacimiento"]).ToString("dd/MM/yyyy"),
+                                fregistro = Convert.ToDateTime(dr["fecharegistro"]).ToString("dd/MM/yyyy"),
+                                foto = "data:image/jpeg;base64," + Convert.ToBase64String((byte[])dr["foto"])
+                            }
+                        };
+                        usuarios.Add(p);
+                    }
                 }
             }
             return usuarios;

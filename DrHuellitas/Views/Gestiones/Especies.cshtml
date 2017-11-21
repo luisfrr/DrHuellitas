@@ -1,7 +1,7 @@
 ﻿@using DrHuellitas.BO;
-@model RegionesBO
+@model EspeciesBO
 @{
-    ViewBag.Title = "Paises";
+    ViewBag.Title = "Especies";
     Layout = "~/Views/Shared/BackEndView.cshtml";
 }
 
@@ -9,26 +9,27 @@
     <div class="container-fluid">
 
         <div class="tbl-cell">
-            <h3>Gestión Países</h3>
+            <h3>Gestión especies</h3>
             <ol class="breadcrumb breadcrumb-simple">
                 <li><a href="~/Admin/Index">Inicio</a></li>
                 <li><a href="#">Gestiones</a></li>
-                <li class="active">Países</li>
+                <li class="active">Especies</li>
             </ol>
         </div>
 
-        <a href="#" class="btn btn-info" onclick="AgregarNuevoPais(0)">Añadir nuevo país</a> <br /><br />
+        <a href="#" class="btn btn-info" onclick="AgregarNuevaEspecie(0)">Añadir nueva especie</a> <br /><br />
 
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nombre</th>
+                    <th>Nombre Científico</th>
+                    <th>Nombre Común</th>
                     <th>Editar</th>
                     <th>Eliminar</th>
                 </tr>
             </thead>
-            <tbody id="ListaPaises">
+            <tbody id="ListaEspecies">
                 <tr id="CargarTabla" style="color:black"></tr>
             </tbody>
         </table>
@@ -48,9 +49,12 @@
                     <div class="modal-body">
                         <form id="form">
                             <fieldset id="SubmitForm">
-                                @Html.HiddenFor(x => x.pais.id, new { @id = "idPais" })
+                                @Html.HiddenFor(m=>m.id, new { @id = "idEspecie" })
                                 <div class="form-group">
-                                    @Html.TextBoxFor(x => x.pais.nombre, new { @id = "nomPais", @class = "form-control", @placeholder = "Nombre", @autofocus = "autofocus" })
+                                    @Html.TextBoxFor(m=>m.nomCientifico, new { @id = "nomCientifico", @class = "form-control", @placeholder = "Nombre científico", @autofocus = "autofocus" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(m=>m.nomComun, new { @id = "nomComun", @class = "form-control", @placeholder = "Nombre común", @autofocus = "autofocus" })
                                 </div>
                                 <div class="form-group">
                                     <a href="#" class="btn btn-block btn-danger" id="GuardarCambios">Guardar</a>
@@ -68,7 +72,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <a href="#" class="close" data-dismiss="modal">&times;</a>
-                        <h4>Eliminar país</h4>
+                        <h4>Eliminar especie</h4>
                     </div>
                     <div class="modal-body">
                         <h4>¿Esta usted seguro que lo desea eliminar?</h4>
@@ -90,15 +94,16 @@
 
 
             $("#CargarTabla").html("");
-            $.get("/Gestiones/ObtenerListaPaises", null, DataBind);
-            function DataBind(PackPaises) {
-                var SetData = $("#ListaPaises");
-                for (var i = 0; i < PackPaises.length; i++) {
-                    var Data = "<tr class='row_" + PackPaises[i].pais.id + "'>" +
-                        "<td>" + PackPaises[i].pais.id + "</td>" +
-                        "<td>" + PackPaises[i].pais.nombre + "</td>" +
-                        "<td>" + "<a href='#' class='btn btn-warning' onclick='EditarPais(" + PackPaises[i].pais.id + ")' ><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
-                        "<td>" + "<a href='#' class='btn btn-danger' onclick='EliminarPais(" + PackPaises[i].pais.id + ")'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
+            $.get("/Gestiones/ObtenerListaEspecies", null, DataBind);
+            function DataBind(PackEspecies) {
+                var SetData = $("#ListaEspecies");
+                for (var i = 0; i < PackEspecies.length; i++) {
+                    var Data = "<tr class='row_" + PackEspecies[i].id + "'>" +
+                        "<td>" + PackEspecies[i].id + "</td>" +
+                        "<td>" + PackEspecies[i].nomCientifico + "</td>" +
+                        "<td>" + PackEspecies[i].nomComun + "</td>" +
+                        "<td>" + "<a href='#' class='btn btn-warning' onclick='EditarPais(" + PackEspecies[i].id + ")' ><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
+                        "<td>" + "<a href='#' class='btn btn-danger' onclick='EliminarPais(" + PackEspecies[i].id + ")'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
                         "</tr>";
                     SetData.append(Data);
                     $("#LoadingStatus").html(" ");
@@ -106,24 +111,25 @@
                 }
             }
 
-            function AgregarNuevoPais(idPais) {
+            function AgregarNuevaEspecie(idEspecie) {
                 $("#form")[0].reset();
-                $("#idPais").val(0);
-                $("#ModalTitle").html("Añadir nuevo país");
+                $("#idEspecie").val(0);
+                $("#ModalTitle").html("Añadir nueva especie");
                 $("#MyModal").modal();
             }
 
-            function EditarPais(idPais) {
-                $.get("/Gestiones/ObtenerPais?idPais=" + idPais, null, llamada);
-                function llamada(PackPaises) {
+            function EditarPais(idEspecie) {
+                $.get("/Gestiones/ObtenerEspecie?idEspecie=" + idEspecie, null, llamada);
+                function llamada(PackEspecies) {
 
-                    for (var i = 0; i < PackPaises.length; i++) {
+                    for (var i = 0; i < PackEspecies.length; i++) {
 
-                        $("#idPais").val(PackPaises[i].pais.id);
-                        $("#nomPais").val(PackPaises[i].pais.nombre);
+                        $("#idEspecie").val(PackEspecies[i].id);
+                        $("#nomCientifico").val(PackEspecies[i].nomCientifico);
+                        $("#nomComun").val(PackEspecies[i].nomComun);
                     }
                 }
-                $("#ModalTitle").html("Actualizar datos del país");
+                $("#ModalTitle").html("Actualizar datos de la especie");
                 $("#MyModal").modal();
 
             }
@@ -132,29 +138,29 @@
                 var data = $("#SubmitForm").serialize();
                 $.ajax({
                     type: "Post",
-                    url: "/Gestiones/GuardarPaises",
+                    url: "/Gestiones/GuardarEspecie",
                     data: data,
                     success: function (result) {
                         alert("¡Operación realizada con éxito!");
-                        window.location.href = "/Gestiones/Paises";
+                        window.location.href = "/Gestiones/Especies";
                         $("#MyModal").modal("hide");
 
                     }
                 })
             })
 
-            var EliminarPais = function (idPais) {
-                $("#idPais").val(idPais);
+            var EliminarPais = function (idEspecie) {
+                $("#idEspecie").val(idEspecie);
                 $("#VentanaEliminado").modal("show");
             }
             var ConfirmDelete = function () {
-                var idPais = $("#idPais").val();
+                var idEspecie = $("#idEspecie").val();
                 $.ajax({
                     type: "POST",
-                    url: "/Gestiones/EliminarPais?idPais=" + idPais,
+                    url: "/Gestiones/EliminarEspecie?idEspecie=" + idEspecie,
                     success: function (result) {
                         $("#VentanaEliminado").modal("hide");
-                        $(".row_" + idPais).remove();
+                        $(".row_" + idEspecie).remove();
                     }
                 })
             }

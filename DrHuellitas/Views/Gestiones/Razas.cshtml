@@ -1,34 +1,36 @@
 ﻿@using DrHuellitas.BO;
-@model RegionesBO
+@model RazasBO
 @{
-    ViewBag.Title = "Paises";
+    ViewBag.Title = "Razas";
     Layout = "~/Views/Shared/BackEndView.cshtml";
 }
+
 
 <div class="page-content">
     <div class="container-fluid">
 
         <div class="tbl-cell">
-            <h3>Gestión Países</h3>
+            <h3>Gestión Razas</h3>
             <ol class="breadcrumb breadcrumb-simple">
                 <li><a href="~/Admin/Index">Inicio</a></li>
                 <li><a href="#">Gestiones</a></li>
-                <li class="active">Países</li>
+                <li class="active">Razas</li>
             </ol>
         </div>
 
-        <a href="#" class="btn btn-info" onclick="AgregarNuevoPais(0)">Añadir nuevo país</a> <br /><br />
+        <a href="#" class="btn btn-info" onclick="AgregarNuevaRaza(0)">Añadir nueva raza</a> <br /><br />
 
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nombre</th>
+                    <th>Raza</th>
+                    <th>Especie</th>
                     <th>Editar</th>
                     <th>Eliminar</th>
                 </tr>
             </thead>
-            <tbody id="ListaPaises">
+            <tbody id="ListaRazas">
                 <tr id="CargarTabla" style="color:black"></tr>
             </tbody>
         </table>
@@ -36,7 +38,7 @@
 
 
 
-        <!--Modal paiss-->
+        <!--Modal Estados-->
 
         <div class="modal fade" id="MyModal">
             <div class="modal-dialog">
@@ -48,9 +50,12 @@
                     <div class="modal-body">
                         <form id="form">
                             <fieldset id="SubmitForm">
-                                @Html.HiddenFor(x => x.pais.id, new { @id = "idPais" })
+                                @Html.HiddenFor(x=>x.id, new { @id = "idRaza" })
                                 <div class="form-group">
-                                    @Html.TextBoxFor(x => x.pais.nombre, new { @id = "nomPais", @class = "form-control", @placeholder = "Nombre", @autofocus = "autofocus" })
+                                    @Html.TextBoxFor(x=>x.nombre, new { @id = "nombre", @class = "form-control", @placeholder = "Nombre", @autofocus = "autofocus" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.DropDownListFor(x => x.idEspecie, ViewBag.ListaDeEspecies as SelectList, "Seleccionar", new { @id = "DropDwn", @class = "form-control" })
                                 </div>
                                 <div class="form-group">
                                     <a href="#" class="btn btn-block btn-danger" id="GuardarCambios">Guardar</a>
@@ -68,7 +73,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <a href="#" class="close" data-dismiss="modal">&times;</a>
-                        <h4>Eliminar país</h4>
+                        <h4>Eliminar especie</h4>
                     </div>
                     <div class="modal-body">
                         <h4>¿Esta usted seguro que lo desea eliminar?</h4>
@@ -85,20 +90,21 @@
 
         <!--Scrips-->
         <script>
-           //paiss
+            //Estados
 
 
 
             $("#CargarTabla").html("");
-            $.get("/Gestiones/ObtenerListaPaises", null, DataBind);
-            function DataBind(PackPaises) {
-                var SetData = $("#ListaPaises");
-                for (var i = 0; i < PackPaises.length; i++) {
-                    var Data = "<tr class='row_" + PackPaises[i].pais.id + "'>" +
-                        "<td>" + PackPaises[i].pais.id + "</td>" +
-                        "<td>" + PackPaises[i].pais.nombre + "</td>" +
-                        "<td>" + "<a href='#' class='btn btn-warning' onclick='EditarPais(" + PackPaises[i].pais.id + ")' ><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
-                        "<td>" + "<a href='#' class='btn btn-danger' onclick='EliminarPais(" + PackPaises[i].pais.id + ")'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
+            $.get("/Gestiones/ObtenerListaRazas", null, DataBind);
+            function DataBind(PackRazas) {
+                var SetData = $("#ListaRazas");
+                for (var i = 0; i < PackRazas.length; i++) {
+                    var Data = "<tr class='row_" + PackRazas[i].id + "'>" +
+                        "<td>" + PackRazas[i].id + "</td>" +
+                        "<td>" + PackRazas[i].nombre + "</td>" +
+                        "<td>" + PackRazas[i].nomEspecie + "</td>" +
+                        "<td>" + "<a href='#' class='btn btn-warning' onclick='EditarEstado(" + PackRazas[i].id + ")' ><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
+                        "<td>" + "<a href='#' class='btn btn-danger' onclick='EliminarEstado(" + PackRazas[i].id + ")'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
                         "</tr>";
                     SetData.append(Data);
                     $("#LoadingStatus").html(" ");
@@ -106,24 +112,27 @@
                 }
             }
 
-            function AgregarNuevoPais(idPais) {
+            function AgregarNuevaRaza(idRaza) {
                 $("#form")[0].reset();
-                $("#idPais").val(0);
-                $("#ModalTitle").html("Añadir nuevo país");
+                $("#idRaza").val(0);
+                $("#DropDwn option:selected").text("Seleccionar");
+                $("#ModalTitle").html("Añadir nueva raza");
                 $("#MyModal").modal();
             }
 
-            function EditarPais(idPais) {
-                $.get("/Gestiones/ObtenerPais?idPais=" + idPais, null, llamada);
-                function llamada(PackPaises) {
+            function EditarEstado(idRaza) {
+                $.get("/Gestiones/ObtenerRaza?idRaza=" + idRaza, null, llamada);
+                function llamada(PackRazas) {
 
-                    for (var i = 0; i < PackPaises.length; i++) {
+                    for (var i = 0; i < PackRazas.length; i++) {
 
-                        $("#idPais").val(PackPaises[i].pais.id);
-                        $("#nomPais").val(PackPaises[i].pais.nombre);
+                        $("#idRaza").val(PackRazas[i].id);
+                        $("#nombre").val(PackRazas[i].nombre);
+                        $("#DropDwn option:selected").text(PackRazas[i].nomEspecie);
+                        $("#DropDwn option:selected").val(PackRazas[i].idEspecie);
                     }
                 }
-                $("#ModalTitle").html("Actualizar datos del país");
+                $("#ModalTitle").html("Actualizar datos de la raza");
                 $("#MyModal").modal();
 
             }
@@ -132,29 +141,29 @@
                 var data = $("#SubmitForm").serialize();
                 $.ajax({
                     type: "Post",
-                    url: "/Gestiones/GuardarPaises",
+                    url: "/Gestiones/GuardarRaza",
                     data: data,
                     success: function (result) {
                         alert("¡Operación realizada con éxito!");
-                        window.location.href = "/Gestiones/Paises";
+                        window.location.href = "/Gestiones/Razas";
                         $("#MyModal").modal("hide");
 
                     }
                 })
             })
 
-            var EliminarPais = function (idPais) {
-                $("#idPais").val(idPais);
+            var EliminarEstado = function (idRaza) {
+                $("#idRaza").val(idRaza);
                 $("#VentanaEliminado").modal("show");
             }
             var ConfirmDelete = function () {
-                var idPais = $("#idPais").val();
+                var idRaza = $("#idRaza").val();
                 $.ajax({
                     type: "POST",
-                    url: "/Gestiones/EliminarPais?idPais=" + idPais,
+                    url: "/Gestiones/EliminarRaza?idRaza=" + idRaza,
                     success: function (result) {
                         $("#VentanaEliminado").modal("hide");
-                        $(".row_" + idPais).remove();
+                        $(".row_" + idRaza).remove();
                     }
                 })
             }
@@ -167,3 +176,6 @@
 
     </div><!--.container-fluid-->
 </div><!--.page-content-->
+
+
+

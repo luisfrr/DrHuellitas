@@ -1,7 +1,7 @@
 ﻿@using DrHuellitas.BO;
-@model RegionesBO
+@model VacunasBO
 @{
-    ViewBag.Title = "Paises";
+    ViewBag.Title = "Vacunas";
     Layout = "~/Views/Shared/BackEndView.cshtml";
 }
 
@@ -9,26 +9,26 @@
     <div class="container-fluid">
 
         <div class="tbl-cell">
-            <h3>Gestión Países</h3>
+            <h3>Gestión Vacunas</h3>
             <ol class="breadcrumb breadcrumb-simple">
                 <li><a href="~/Admin/Index">Inicio</a></li>
                 <li><a href="#">Gestiones</a></li>
-                <li class="active">Países</li>
+                <li class="active">Vacunas</li>
             </ol>
         </div>
 
-        <a href="#" class="btn btn-info" onclick="AgregarNuevoPais(0)">Añadir nuevo país</a> <br /><br />
+        <a href="#" class="btn btn-info" onclick="AgregarNuevaVacuna(0)">Añadir nueva vacuna</a> <br /><br />
 
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nombre</th>
+                    <th>Vacuna</th>
                     <th>Editar</th>
                     <th>Eliminar</th>
                 </tr>
             </thead>
-            <tbody id="ListaPaises">
+            <tbody id="ListaVacunas">
                 <tr id="CargarTabla" style="color:black"></tr>
             </tbody>
         </table>
@@ -36,7 +36,7 @@
 
 
 
-        <!--Modal paiss-->
+        <!--Modal Estados-->
 
         <div class="modal fade" id="MyModal">
             <div class="modal-dialog">
@@ -48,9 +48,9 @@
                     <div class="modal-body">
                         <form id="form">
                             <fieldset id="SubmitForm">
-                                @Html.HiddenFor(x => x.pais.id, new { @id = "idPais" })
+                                @Html.HiddenFor(x => x.id, new { @id = "idVacuna" })
                                 <div class="form-group">
-                                    @Html.TextBoxFor(x => x.pais.nombre, new { @id = "nomPais", @class = "form-control", @placeholder = "Nombre", @autofocus = "autofocus" })
+                                    @Html.TextBoxFor(x => x.nombre, new { @id = "nombre", @class = "form-control", @placeholder = "Nombre", @autofocus = "autofocus" })
                                 </div>
                                 <div class="form-group">
                                     <a href="#" class="btn btn-block btn-danger" id="GuardarCambios">Guardar</a>
@@ -68,7 +68,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <a href="#" class="close" data-dismiss="modal">&times;</a>
-                        <h4>Eliminar país</h4>
+                        <h4>Eliminar vacuna</h4>
                     </div>
                     <div class="modal-body">
                         <h4>¿Esta usted seguro que lo desea eliminar?</h4>
@@ -85,20 +85,20 @@
 
         <!--Scrips-->
         <script>
-           //paiss
+            //Estados
 
 
 
             $("#CargarTabla").html("");
-            $.get("/Gestiones/ObtenerListaPaises", null, DataBind);
-            function DataBind(PackPaises) {
-                var SetData = $("#ListaPaises");
-                for (var i = 0; i < PackPaises.length; i++) {
-                    var Data = "<tr class='row_" + PackPaises[i].pais.id + "'>" +
-                        "<td>" + PackPaises[i].pais.id + "</td>" +
-                        "<td>" + PackPaises[i].pais.nombre + "</td>" +
-                        "<td>" + "<a href='#' class='btn btn-warning' onclick='EditarPais(" + PackPaises[i].pais.id + ")' ><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
-                        "<td>" + "<a href='#' class='btn btn-danger' onclick='EliminarPais(" + PackPaises[i].pais.id + ")'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
+            $.get("/Gestiones/ObtenerListasVacunas", null, DataBind);
+            function DataBind(PackVacunas) {
+                var SetData = $("#ListaVacunas");
+                for (var i = 0; i < PackVacunas.length; i++) {
+                    var Data = "<tr class='row_" + PackVacunas[i].id + "'>" +
+                        "<td>" + PackVacunas[i].id + "</td>" +
+                        "<td>" + PackVacunas[i].nombre + "</td>" +
+                        "<td>" + "<a href='#' class='btn btn-warning' onclick='EditarEstado(" + PackVacunas[i].id + ")' ><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
+                        "<td>" + "<a href='#' class='btn btn-danger' onclick='EliminarEstado(" + PackVacunas[i].id + ")'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
                         "</tr>";
                     SetData.append(Data);
                     $("#LoadingStatus").html(" ");
@@ -106,24 +106,24 @@
                 }
             }
 
-            function AgregarNuevoPais(idPais) {
+            function AgregarNuevaVacuna(idVacuna) {
                 $("#form")[0].reset();
-                $("#idPais").val(0);
-                $("#ModalTitle").html("Añadir nuevo país");
+                $("#idVacuna").val(0);
+                $("#ModalTitle").html("Añadir nueva vacuna");
                 $("#MyModal").modal();
             }
 
-            function EditarPais(idPais) {
-                $.get("/Gestiones/ObtenerPais?idPais=" + idPais, null, llamada);
-                function llamada(PackPaises) {
+            function EditarEstado(idVacuna) {
+                $.get("/Gestiones/ObtenerVacuna?idVacuna=" + idVacuna, null, llamada);
+                function llamada(PackVacunas) {
 
-                    for (var i = 0; i < PackPaises.length; i++) {
+                    for (var i = 0; i < PackVacunas.length; i++) {
 
-                        $("#idPais").val(PackPaises[i].pais.id);
-                        $("#nomPais").val(PackPaises[i].pais.nombre);
+                        $("#idVacuna").val(PackVacunas[i].id);
+                        $("#nombre").val(PackVacunas[i].nombre);
                     }
                 }
-                $("#ModalTitle").html("Actualizar datos del país");
+                $("#ModalTitle").html("Actualizar datos de la vacuna");
                 $("#MyModal").modal();
 
             }
@@ -132,29 +132,29 @@
                 var data = $("#SubmitForm").serialize();
                 $.ajax({
                     type: "Post",
-                    url: "/Gestiones/GuardarPaises",
+                    url: "/Gestiones/GuardarVacuna",
                     data: data,
                     success: function (result) {
                         alert("¡Operación realizada con éxito!");
-                        window.location.href = "/Gestiones/Paises";
+                        window.location.href = "/Gestiones/Vacunas";
                         $("#MyModal").modal("hide");
 
                     }
                 })
             })
 
-            var EliminarPais = function (idPais) {
-                $("#idPais").val(idPais);
+            var EliminarEstado = function (idVacuna) {
+                $("#idVacuna").val(idVacuna);
                 $("#VentanaEliminado").modal("show");
             }
             var ConfirmDelete = function () {
-                var idPais = $("#idPais").val();
+                var idVacuna = $("#idVacuna").val();
                 $.ajax({
                     type: "POST",
-                    url: "/Gestiones/EliminarPais?idPais=" + idPais,
+                    url: "/Gestiones/EliminarVacuna?idVacuna=" + idVacuna,
                     success: function (result) {
                         $("#VentanaEliminado").modal("hide");
-                        $(".row_" + idPais).remove();
+                        $(".row_" + idVacuna).remove();
                     }
                 })
             }
@@ -167,3 +167,5 @@
 
     </div><!--.container-fluid-->
 </div><!--.page-content-->
+
+

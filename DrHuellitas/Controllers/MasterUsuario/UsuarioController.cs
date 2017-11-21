@@ -12,6 +12,7 @@ namespace DrHuellitas.Controllers
     public class UsuarioController : Controller
     {
         UsuarioDAO objDAO = new UsuarioDAO();
+        FotoBO objFoto = new FotoBO();
         // GET: Usuario
         public ActionResult Index()
         {
@@ -83,6 +84,8 @@ namespace DrHuellitas.Controllers
         {
             int id = (int)Session["id"];
             var r = objDAO.ContinuarRegistro(objBO, id);
+            Session["foto"] = "data:image/jpeg;base64," + Convert.ToBase64String(objFoto.ConvertirAFoto(objBO.usuario.img));
+            Session["nombre"] = objBO.usuario.nombre;
             Session["status"] = 1;
             return Redirect("~/Usuario/Index");
         }

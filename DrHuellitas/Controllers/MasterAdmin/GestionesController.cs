@@ -15,6 +15,10 @@ namespace DrHuellitas.Controllers.MasterAdmin
         PaquetesDAO objPaqueteDAO = new PaquetesDAO();
         RegionesDAO objRegionesDAO = new RegionesDAO();
         UsuarioDAO objUsuariosDAO = new UsuarioDAO();
+        EspeciesDAO objEspeciesDAO = new EspeciesDAO();
+        RazasDAO objRazasDAO = new RazasDAO();
+        VacunasDAO objVacunasDAO = new VacunasDAO();
+        RegistrosBO model = new RegistrosBO();
 
         // GET: Gestiones
 
@@ -82,6 +86,180 @@ namespace DrHuellitas.Controllers.MasterAdmin
             return View();
         }
 
+        //Especies 
+        public ActionResult Especies()
+        {
+            return View();
+        }
+
+        public JsonResult ObtenerListaEspecies()
+        {
+            List<EspeciesBO> PackEspecies = objEspeciesDAO.ObteterListaEspecies().ToList();
+            return Json(PackEspecies, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ObtenerEspecie(int idEspecie)
+        {
+            List<EspeciesBO> PackEspecies = objEspeciesDAO.ObtenerEspecie(idEspecie).ToList();
+            return Json(PackEspecies, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GuardarEspecie(EspeciesBO model)
+        {
+            var result = false;
+            try
+            {
+                if (model.id > 0)
+                {
+                    objEspeciesDAO.ActualizarEspecie(model);
+                    result = true;
+                }
+                else
+                {
+                    objEspeciesDAO.AgregarEspecie(model);
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult EliminarEspecie(int idEspecie)
+        {
+            bool result = false;
+
+            int x = objEspeciesDAO.EliminarEspecie(idEspecie);
+            if (x != 0)
+            {
+                result = true;
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        //Razas
+        public ActionResult Razas()
+        {
+            List<EspeciesBO> Especies = objEspeciesDAO.ObteterListaEspecies().ToList();
+            ViewBag.ListaDeEspecies = new SelectList(Especies, "id", "nomCientifico");
+            return View();
+        }
+
+        public JsonResult ObtenerListaRazas()
+        {
+            List<RazasBO> PackRazas = objRazasDAO.ObtenerListaRazas().ToList();
+            return Json(PackRazas, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ObtenerRaza(int idRaza)
+        {
+            List<RazasBO> PackRazas = objRazasDAO.ObtenerRaza(idRaza).ToList();
+            return Json(PackRazas, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GuardarRaza(RazasBO model)
+        {
+            var result = false;
+            try
+            {
+                if (model.id > 0)
+                {
+                    objRazasDAO.ActulizarRazo(model);
+                    result = true;
+                }
+                else
+                {
+                    objRazasDAO.AgregarRaza(model);
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult EliminarRaza(int idRaza)
+        {
+            bool result = false;
+
+            int x = objRazasDAO.EliminarRaza(idRaza);
+            if (x != 0)
+            {
+                result = true;
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
+        //Comercios
+        public ActionResult Comercios()
+        {
+            return View();
+        }
+
+
+        //Vacunas
+        public ActionResult Vacunas()
+        {
+            return View();
+        }
+
+        public JsonResult ObtenerListasVacunas()
+        {
+            List<VacunasBO> PackVacunas = objVacunasDAO.ObtenerListaVacunas().ToList();
+            return Json(PackVacunas, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ObtenerVacuna(int idVacuna)
+        {
+            List<VacunasBO> PackVacunas = objVacunasDAO.ObtenerVacuna(idVacuna).ToList();
+            return Json(PackVacunas, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GuardarVacuna(VacunasBO model)
+        {
+            var result = false;
+            try
+            {
+                if (model.id > 0)
+                {
+                    objVacunasDAO.ActualizarVacuna(model);
+                    result = true;
+                }
+                else
+                {
+                    objVacunasDAO.AgregarVacuna(model);
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult EliminarVacuna(int idVacuna)
+        {
+            bool result = false;
+
+            int x = objVacunasDAO.EliminarVacuna(idVacuna);
+            if (x != 0)
+            {
+                result = true;
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
 
         //Ciudades
         public ActionResult Ciudades()
@@ -316,6 +494,8 @@ namespace DrHuellitas.Controllers.MasterAdmin
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+
+        //Comentarios
         public ActionResult Comentarios()
         {
             return View();

@@ -1,5 +1,5 @@
 ﻿@using DrHuellitas.BO;
-@model RegistroComercio
+@model RegistrosBO
 @{
     ViewBag.Title = "Continuar Registro";
     Layout = "~/Views/Shared/MasterFrontEndVet.cshtml";
@@ -63,7 +63,7 @@
                             
                             @Html.TextBoxFor(x => x.usuario.nombre, new { @placeholder = "Nombre(s)", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
                             <br />
-                            @Html.TextBoxFor(x => x.usuario.ape, new { @placeholder = "Apellido(s)", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
+                            @Html.TextBoxFor(x => x.usuario.apellidos, new { @placeholder = "Apellido(s)", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
                         </div>
                     </div>
                     <div class="col-md-6">

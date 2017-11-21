@@ -53,7 +53,7 @@
                         <h4 id="ModalTitle"></h4>
                     </div>
                     <div class="modal-body">
-                        <form id="form" enctype = "multipart/form-data">
+                        <form id="form" enctype = "multipart/form-data" action="~/Gestiones/GuardarUsuario" method="post">
                             <fieldset id="SubmitForm" enctype = "multipart/form-data">
                                 @Html.HiddenFor(m => m.usuario.id, new { @id = "idUsuario" })
                                 <div class="form-group">
@@ -179,7 +179,7 @@
             $("#GuardarCambios").click(function () {
                 var data = $("#form").serialize();
                 var img = $("#file").val();
-                
+
                 alert(data);
                 $.ajax({
                     type: "Post",

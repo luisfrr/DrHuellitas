@@ -88,11 +88,11 @@ namespace DrHuellitas.DAO
 
 
         //Gestios Usuarios
-        public int AgregarUsuario(RegistrosBO objBO)
+        public int AgregarUsuario(RegistrosBO objBO, HttpPostedFileBase img)
         {
             string contraseña = MD5.Encriptar(objBO.usuario.contraseña);
-            cmd = new SqlCommand("INSERT INTO Usuario(usuario,nombre,apellidos,idTipo,contraseña,email,status,fechanacimiento,fecharegistro)values(@usuario,@nombre,@apellidos,@idTipo,@contraseña,@email,@status,@fechanacimiento,@fecharegistro)");
-            //cmd = new SqlCommand("INSERT INTO Usuario(usuario,nombre,apellidos,idTipo,contraseña,email,status,fechanacimiento,fecharegistro,foto)values(@usuario,@nombre,@apellidos,@idTipo,@contraseña,@email,@status,@fechanacimiento,@fecharegistro,@fotoUsuario)");
+            //cmd = new SqlCommand("INSERT INTO Usuario(usuario,nombre,apellidos,idTipo,contraseña,email,status,fechanacimiento,fecharegistro)values(@usuario,@nombre,@apellidos,@idTipo,@contraseña,@email,@status,@fechanacimiento,@fecharegistro)");
+            cmd = new SqlCommand("INSERT INTO Usuario(usuario,nombre,apellidos,idTipo,contraseña,email,status,fechanacimiento,fecharegistro,foto)values(@usuario,@nombre,@apellidos,@idTipo,@contraseña,@email,@status,@fechanacimiento,@fecharegistro,@fotoUsuario)");
             cmd.Parameters.Add("@usuario", SqlDbType.VarChar).Value = objBO.usuario.usuario;
             cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = objBO.usuario.nombre;
             cmd.Parameters.Add("@apellidos", SqlDbType.VarChar).Value = objBO.usuario.apellidos;
@@ -102,16 +102,16 @@ namespace DrHuellitas.DAO
             cmd.Parameters.Add("@status", SqlDbType.Bit).Value = 0;
             cmd.Parameters.Add("@fechanacimiento", SqlDbType.Date).Value = objBO.usuario.fechanacimiento.ToString("dd-MM-yyyy");
             cmd.Parameters.Add("@fecharegistro", SqlDbType.Date).Value = DateTime.Now.ToString("dd-MM-yyyy");
-            //cmd.Parameters.Add("@fotoUsuario", SqlDbType.Image).Value = Foto.ConvertirAFoto(objBO.usuario.img);
+            cmd.Parameters.Add("@fotoUsuario", SqlDbType.Image).Value = Foto.ConvertirAFoto(img);
 
             return con.EjecutarComando(cmd);
         }
 
-        public int ActualizarUsuario(RegistrosBO objBO)
+        public int ActualizarUsuario(RegistrosBO objBO, HttpPostedFileBase img)
         {
             string contraseña = MD5.Encriptar(objBO.usuario.contraseña);
-            cmd = new SqlCommand("UPDATE Usuario SET usuario=@usuario,nombre=@nombre,apellidos=@apellidos,idTipo=@idTipo,contraseña=@contraseña,email=@email,status=@status,fechanacimiento=@fechanacimiento WHERE id=@id");
-            //cmd = new SqlCommand("UPDATE Usuario SET usuario=@usuario,nombre=@nombre,apellidos=@apellidos,idTipo=@idTipo,contraseña=@contraseña,email=@email,status=@status,fechanacimiento=@fechanacimiento, foto=@fotoUsuario WHERE id=@id");
+            //cmd = new SqlCommand("UPDATE Usuario SET usuario=@usuario,nombre=@nombre,apellidos=@apellidos,idTipo=@idTipo,contraseña=@contraseña,email=@email,status=@status,fechanacimiento=@fechanacimiento WHERE id=@id");
+            cmd = new SqlCommand("UPDATE Usuario SET usuario=@usuario,nombre=@nombre,apellidos=@apellidos,idTipo=@idTipo,contraseña=@contraseña,email=@email,status=@status,fechanacimiento=@fechanacimiento, foto=@fotoUsuario WHERE id=@id");
             cmd.Parameters.Add("@usuario", SqlDbType.VarChar).Value = objBO.usuario.usuario;
             cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = objBO.usuario.nombre;
             cmd.Parameters.Add("@apellidos", SqlDbType.VarChar).Value = objBO.usuario.apellidos;
@@ -121,7 +121,7 @@ namespace DrHuellitas.DAO
             cmd.Parameters.Add("@status", SqlDbType.Int).Value = 1;
             cmd.Parameters.Add("@fechanacimiento", SqlDbType.Date).Value = objBO.usuario.fechanacimiento.ToString("dd-MM-yyyy");
             //cmd.Parameters.Add("@fecharegistro", SqlDbType.Date).Value = DateTime.Now.ToString("dd-MM-yyyy");
-            //cmd.Parameters.Add("@fotoUsuario", SqlDbType.Image).Value = Foto.ConvertirAFoto(objBO.usuario.img);
+            cmd.Parameters.Add("@fotoUsuario", SqlDbType.Image).Value = Foto.ConvertirAFoto(img);
             cmd.Parameters.Add("@id", SqlDbType.Int).Value = objBO.usuario.id;
 
             return con.EjecutarComando(cmd);

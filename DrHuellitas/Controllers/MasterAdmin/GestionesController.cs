@@ -42,19 +42,19 @@ namespace DrHuellitas.Controllers.MasterAdmin
             return Json(PackUsuarios, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GuardarUsuario(RegistrosBO model)
+        public JsonResult GuardarUsuario(RegistrosBO model, HttpPostedFileBase img)
         {
             var result = false;
             try
             {
                 if (model.usuario.id > 0)
                 {
-                    objUsuariosDAO.ActualizarUsuario(model);
+                    objUsuariosDAO.ActualizarUsuario(model, img);
                     result = true;
                 }
                 else
                 {
-                    objUsuariosDAO.AgregarUsuario(model);
+                    objUsuariosDAO.AgregarUsuario(model,img);
                     result = true;
                 }
             }

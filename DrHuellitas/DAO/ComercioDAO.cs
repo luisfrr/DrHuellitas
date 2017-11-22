@@ -103,9 +103,9 @@ namespace DrHuellitas.DAO
             return 1;
         }
 
-        public int ComercioDireccion(RegistrosBO objbo, int id)
+        public int ComercioDatos(RegistrosBO objbo, int id)
         {
-            SqlCommand comando = new SqlCommand("exec comercioDireccion  @nom,@apell,@telefono,@fechanaci,@foto,@id,@comernom,@vete,@estetica,@vender,@nomfis,@rfc,@tele1,@tele2,@email,@idempresa,@calle,@numero,@cruzamineto,@lon,@lati,@colonia,@cp,@idciudad,@idus");
+            SqlCommand comando = new SqlCommand("exec comercioDireccion  @nom,@apell,@telefono,@fechanaci,@foto,@id,@comernom,@vete,@estetica,@vender,@nomfis,@rfc,@tele1,@tele2,@email,@idempresa");
             comando.Parameters.Add("@nom", SqlDbType.VarChar).Value = objbo.usuario.nombre;
             comando.Parameters.Add("@apell", SqlDbType.VarChar).Value = objbo.usuario.apellidos;
             comando.Parameters.Add("@telefono", SqlDbType.Char).Value = objbo.usuario.telefono;
@@ -122,18 +122,23 @@ namespace DrHuellitas.DAO
             comando.Parameters.Add("@tele2",SqlDbType.Char).Value=objbo.comercio.telefono2;
             comando.Parameters.Add("@email",SqlDbType.VarChar).Value=objbo.comercio.emal;
             comando.Parameters.Add("@idempresa", SqlDbType.Int).Value = id;
-            comando.Parameters.Add("@calle", SqlDbType.VarChar).Value = objbo.direccion.calle;
-            comando.Parameters.Add("@numero", SqlDbType.VarChar).Value = objbo.direccion.numero;
-            comando.Parameters.Add("@cruzamiento", SqlDbType.VarChar).Value = objbo.direccion.cruzamiento;
-            comando.Parameters.Add("@lon", SqlDbType.VarChar).Value = objbo.direccion.longitud;
-            comando.Parameters.Add("@lati", SqlDbType.VarChar).Value = objbo.direccion.latitud;
-            comando.Parameters.Add("@colonia", SqlDbType.VarChar).Value = objbo.direccion.colonia;
-            comando.Parameters.Add("@cp", SqlDbType.VarChar).Value = objbo.direccion.CP;
-            comando.Parameters.Add("@idciudad", SqlDbType.Int).Value = objbo.direccion.idCiudad = 1;
-            comando.Parameters.Add("@idus", SqlDbType.Int).Value = id;
-
             comando.CommandType = CommandType.Text;
             return conex.EjecutarComando(comando);
+        }
+        public int comercioDireccion(RegistrosBO objbo,int id)
+        {
+            SqlCommand cmd = new SqlCommand("exec DireccionUusario @calle,@numero,@cruzamiento,@lon,@lati,@colonia,@cp,@idciudad,@idusuario");
+            cmd.Parameters.Add("@calle", SqlDbType.VarChar).Value = objbo.direccion.calle;
+            cmd.Parameters.Add("@numero", SqlDbType.VarChar).Value = objbo.direccion.numero;
+            cmd.Parameters.Add("@cruzamiento", SqlDbType.VarChar).Value = objbo.direccion.cruzamiento;
+            cmd.Parameters.Add("@lon", SqlDbType.VarChar).Value = objbo.direccion.longitud;
+            cmd.Parameters.Add("@latit", SqlDbType.VarChar).Value = objbo.direccion.latitud;
+            cmd.Parameters.Add("@colonia", SqlDbType.VarChar).Value = objbo.direccion.colonia;
+            cmd.Parameters.Add("@cp", SqlDbType.VarChar).Value = objbo.direccion.CP;
+            cmd.Parameters.Add("@idciudad", SqlDbType.Int).Value = objbo.direccion.idCiudad = 1;
+            cmd.Parameters.Add("@idusuario", SqlDbType.Int).Value = id;
+            cmd.CommandType = CommandType.Text;
+            return conex.EjecutarComando(cmd);
         }
     }
 }

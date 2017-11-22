@@ -23,8 +23,6 @@
       ================================================== -->
     @Scripts.Render("~/Scripts/modernizr.js")
     @Scripts.Render("~/Scripts/jquery-2.0.0.min.js")
-    <script type="text/javascript" src='https://maps.google.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyAiD6FCgvk_ymjVo2xxrPXEzDuqty27VT0'></script>
-    @Scripts.Render("~/Scripts/locationpicker.jquery.js")
 </head>
 <body id="style1">
     <div class="body" id="body">
@@ -424,8 +422,6 @@
         <a id="back-to-top"><i class="fa fa-angle-double-up"></i></a>
     </div>
 
-
-    @Scripts.Render("~/Scripts/jquery-2.0.0.min.js")
     @Scripts.Render("~/Scripts/prettyphoto.js")
     @Scripts.Render("~/Scripts/helper-plugins.js")
     @Scripts.Render("~/Scripts/bootstrap.js")
@@ -490,18 +486,3 @@
     </div>-->
 </body>
 </html>
-<script>
-    $('#ModalMapPreview').locationpicker({
-        radius: 0,
-        location: {
-            latitude: 20.938297181414647,
-            longitude: -89.61501516379462
-        },
-        enableAutocomplete: true,
-        inputBinding: {
-            latitudeInput: $('#ModalMapLat'),
-            longitudeInput: $('#ModalMapLon'),
-            locationNameInput: $('#modal')
-        }
-    });
-</script>

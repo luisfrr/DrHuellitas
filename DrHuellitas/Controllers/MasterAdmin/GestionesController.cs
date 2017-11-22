@@ -42,19 +42,19 @@ namespace DrHuellitas.Controllers.MasterAdmin
             return Json(PackUsuarios, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GuardarUsuario(RegistrosBO model, HttpPostedFileBase img)
+        public JsonResult GuardarUsuario(RegistrosBO model, String img)
         {
             var result = false;
             try
             {
                 if (model.usuario.id > 0)
                 {
-                    objUsuariosDAO.ActualizarUsuario(model, img);
+                    objUsuariosDAO.ActualizarUsuario(model);
                     result = true;
                 }
                 else
                 {
-                    objUsuariosDAO.AgregarUsuario(model,img);
+                    objUsuariosDAO.AgregarUsuario(model);
                     result = true;
                 }
             }
@@ -64,6 +64,19 @@ namespace DrHuellitas.Controllers.MasterAdmin
             }
 
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        string modulo = "";
+        public ActionResult SubirImagen(RegistrosBO model)
+        {
+            
+            int resultado = objUsuariosDAO.ActualizarFoto(model);
+            if (resultado != 0)
+                modulo = "~/Gestiones/Usuarios";
+            else
+                modulo = "~/Admin/Index";
+
+            return Redirect(modulo);
         }
 
         public JsonResult EliminarUsuario(int idUsuario)

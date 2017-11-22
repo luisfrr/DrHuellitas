@@ -78,18 +78,25 @@
                                     @Html.DropDownListFor(m => m.usuario.idtipo, ViewBag.ListaTipoUs as SelectList, "Seleccionar", new { @id = "DropDwn", @class = "form-control" })
                                 </div>
                                 <div class="form-group">
-                                    <img id="imgSalida" src="~/img/admin/avatar-1-128.png" width="128" height="128" class="img-circle" />
-                                    <br />
-
-                                    <label class="control-label" for="file">Seleccionar una foto de perfil:</label>
-                                    @Html.TextBoxFor(m => m.usuario.img, new { @type = "file", @name = "file", @id = "file" })
-                                </div>
-                                <div class="form-group">
                                     <a href="#" class="btn btn-block btn-danger" id="GuardarCambios">Guardar</a>
                                 </div>
-
                             </fieldset>
                         </form>
+                        @using (Html.BeginForm("SubirImagen", "Gestiones", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                        {
+                            @Html.HiddenFor(m => m.usuario.id, new { @id = "idImagen" })
+                            <div class="form-group">
+                                <img id="imgSalida" src="~/img/admin/avatar-1-128.png" width="128" height="128" class="img-circle" />
+                                <br />
+
+                                <label class="control-label" for="file">Seleccionar una foto de perfil:</label>
+                                @Html.TextBoxFor(m => m.usuario.img, new { @type = "file", @name = "file", @id = "file", @class = "btn btn-file" })
+                            </div>
+                            
+                                <button class=" btn btn-block btn-success" type="submit" id="btnListo">Subir Imagen</button>
+                            
+                        }
+                        
                     </div>
                 </div>
             </div>
@@ -160,6 +167,7 @@
                     for (var i = 0; i < PackUsuarios.length; i++) {
 
                         $("#idUsuario").val(PackUsuarios[i].usuario.id);
+                        $("#idImagen").val(PackUsuarios[i].usuario.id);
                         $("#nombre").val(PackUsuarios[i].usuario.nombre);
                         $("#apellidos").val(PackUsuarios[i].usuario.apellidos);
                         $("#usuario").val(PackUsuarios[i].usuario.usuario);
@@ -178,13 +186,12 @@
 
             $("#GuardarCambios").click(function () {
                 var data = $("#form").serialize();
-                var img = $("#file").val();
 
                 alert(data);
                 $.ajax({
                     type: "Post",
                     url: "/Gestiones/GuardarUsuario",
-                    data: data, img,
+                    data: data,
                     success: function (result) {
                         alert("¡Operación realizada con éxito!");
                         window.location.href = "/Gestiones/Usuarios";
@@ -209,7 +216,6 @@
                     }
                 })
             }
-
 
             $(document).ready(function () {
                 $(function () {

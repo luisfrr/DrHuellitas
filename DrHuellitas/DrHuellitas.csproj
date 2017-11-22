@@ -187,6 +187,7 @@
     <Content Include="Content\admin\jquery-ui.min.css" />
     <Content Include="Content\admin\lobipanel.min.css" />
     <Content Include="Content\admin\main.css" />
+    <Content Include="Content\admin\jquery.fileupload.css" />
     <Content Include="Content\admin\vendor\lobipanel.min.css" />
     <Content Include="Content\admin\widgets.min.css" />
     <Content Include="Content\animations.css" />
@@ -815,9 +816,12 @@
     <Content Include="Scripts\admin\bootstrap.min.js" />
     <Content Include="Scripts\admin\jquery-3.2.1.min.js" />
     <Content Include="Scripts\admin\jquery-ui.min.js" />
+    <Content Include="Scripts\admin\jquery.fileupload.js" />
+    <Content Include="Scripts\admin\jquery.iframe-transport.js" />
     <Content Include="Scripts\admin\jquery.matchHeight.min.js" />
     <Content Include="Scripts\admin\jquery.peity.min.js" />
     <Content Include="Scripts\admin\jquery.tabledit.min.js" />
+    <Content Include="Scripts\admin\jquery.ui.widget.js" />
     <Content Include="Scripts\admin\loader.js" />
     <Content Include="Scripts\admin\lobipanel.min.js" />
     <Content Include="Scripts\admin\plugins.js" />

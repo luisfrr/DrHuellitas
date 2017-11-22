@@ -75,7 +75,16 @@
                                         </ul>
                                     </li>
                                     <li>
-                                        <a><img src="@Session["foto"]" class="img-thumbnail img-circle img-responsive" style="width:32px; height:32px;" />@Session["nombre"]</a>
+                                        <a>
+                                            @if ((String)Session["foto"] == "0" || Session["foto"] == null)
+                                            {
+                                                <img src="~/img/admin/avatar-1-32.png" class="img-thumbnail img-circle img-responsive" style="width:32px; height:32px;" />@Session["nombre"]
+                                            }
+                                            else
+                                            {
+                                                <img src="@Session["foto"]" class="img-thumbnail img-circle img-responsive" style="width:32px; height:32px;" />@Session["nombre"]
+                                            }
+                                        </a>
                                         <ul class="dropdown">
                                             <li>@Html.ActionLink("Mi Cuenta", "Cuenta", "Usuario")</li>
                                             <li>@Html.ActionLink("Ayuda", "Ayuda", "Usuario")</li>

@@ -6,7 +6,7 @@
 }
 
 @Styles.Render("~/Content/Cliente/Step.css")
-<script type="text/javascript" src='https://maps.google.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyAiD6FCgvk_ymjVo2xxrPXEzDuqty27VT0'></script>
+<script type="text/javascript" src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAiD6FCgvk_ymjVo2xxrPXEzDuqty27VT0&callback=initMap'></script>
 @Scripts.Render("~/Scripts/locationpicker.jquery.min.js")
 <style>
     #map {
@@ -190,7 +190,7 @@
                     </div>
                 </div>  
             </div>
-            <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Siguiente</button>
+            <button class="btn btn-primary nextBtn btn-lg pull-right" id="siguiente2" type="button">Siguiente</button>
         </div>
     </div>
     <div class="row setup-content" id="step-3">
@@ -201,48 +201,32 @@
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
                         <!--Mapa para ubicación-->
-                        <div class="row">
-                            
-                            <div class="col-md-4">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-body">
-                                            <div class="form-horizontal">
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label">Ubicacion</label>
-                                                    <div class="col-sm-9">
-                                                        @Html.TextBoxFor(X=>X.direccion,new { @id="modal", @class="col-lg-12"})
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Ubicacion</label>
+                                <div class="col-sm-9">
+                                    @Html.TextBoxFor(X => X.direccion, new { @id = "modal", @class = "col-lg-12" })
 
-                                                    </div>
-                                                </div>
-                                                <div id="ModalMapPreview" style="width:100%; height:400px;"></div>
-                                                <div class="clearfix">&nbsp;</div>
-                                                <div class="m-t-small">
-                                                    <label class="p-r-small col-sm-1" contole-label>lat:</label>
-                                                    <div class="col-sm-3">
-                                                        <input id="ModalMapLat" class="form-control" />
-                                                    </div>
-                                                </div>
-                                                <div class="m-t-small">
-                                                    <label class="p-r-small col-sm-1" contole-label>long:</label>
-                                                    <div class="col-sm-4">
-                                                        <input id="ModalMapLon" class="form-control" />
-                                                    </div>
-                                                </div>
-                                                <div class="clearfix"></div>
-
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
-
-                    </div>
-                </div><!--Aquí termina la ubicacion-->
-                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Siguiente</button>
+                            <div class="form-group">
+                                <div id="ModalMapPreview"  style="width:100%; height:400px;"></div>
+                            </div>
+                                <div class="col-sm-3">
+                                    <label class="control-label">Latitud</label>
+                                    <input id="ModalMapLat" class="form-control" />
+                                </div>
+                                <div class="col-sm-4">
+                                   <label class="control-label">Longitud</label>
+                                    <input id="ModalMapLon" class="form-control" />
+                                </div>
+                            <div class="clearfix">&nbsp;</div><br />
+                            <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Siguiente</button><br /><br />
+                        </div>
+                    </div><!--Aquí termina la ubicacion-->
+                </div>
             </div>
         </div>
-    </div>
     </div>
     <div class="row setup-content" id="step-4">
         <div class="col-xs-6 col-md-offset-3">
@@ -267,19 +251,35 @@
     </div>
 }
 <script>
-    $('#ModalMapPreview').locationpicker({
-        radius: 0,
-        location: {
-            latitude: 20.938297181414647,
-            longitude: -89.61501516379462
-        },
-        enableAutocomplete: true,
-        inputBinding: {
-            latitudeInput: $('#ModalMapLat'),
-            longitudeInput: $('#ModalMapLon'),
-            locationNameInput: $('#modal')
-        }
+    document.getElementById("slider").style.height = "200px"
+    document.getElementById("step-1").style.marginRight = "0px";
+    document.getElementById("step-2").style.marginRight = "0px";
+    document.getElementById("step-3").style.marginRight = "0px";
+    document.getElementById("step-4").style.marginRight = "0px";
+    document.getElementById("body").style.marginTop = "0px";
+    
+    $("#siguiente2").click(function () {
+        setTimeout(function () {
+            $("#ModalMapPreview").load(mapa());
+        }, 500);
     });
+
+    function mapa() {
+        $('#ModalMapPreview').locationpicker({
+            radius: 0,
+            location: {
+                latitude: 20.938297181414647,
+                longitude: -89.61501516379462
+            },
+            enableAutocomplete: true,
+            inputBinding: {
+                latitudeInput: $('#ModalMapLat'),
+                longitudeInput: $('#ModalMapLon'),
+                locationNameInput: $('#modal')
+            }
+        });
+    }
+    
 </script>
 
 

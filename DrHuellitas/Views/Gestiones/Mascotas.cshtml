@@ -1,8 +1,217 @@
-﻿
+﻿@using DrHuellitas.BO;
+@model GestionMascotaBO
 @{
     ViewBag.Title = "Mascotas";
     Layout = "~/Views/Shared/BackEndView.cshtml";
 }
 
-<h2>Mascotas</h2>
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <div class="tbl-cell">
+            <h3>Gestión Mascotas</h3>
+            <ol class="breadcrumb breadcrumb-simple">
+                <li><a href="~/Admin/Index">Inicio</a></li>
+                <li><a href="#">Gestiones</a></li>
+                <li class="active">Mascotas</li>
+            </ol>
+        </div>
+
+        <a href="#" class="btn btn-info" onclick="AgregarNuevaMascota(0)">Añadir nueva Mascota</a> <br /><br />
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Color</th>
+                    <th>Género</th>
+                    <th>Fecha de nacimiento</th>
+                    <th>Especies</th>
+                    <th>Raza</th>
+                    <th>Foto</th>
+                    <th>Propietario</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody id="ListaMascotas">
+                <tr id="CargarTabla" style="color:black"></tr>
+            </tbody>
+        </table>
+
+
+
+
+        <!--Modal Estados-->
+
+        <div class="modal fade" id="MyModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a href="#" class="close" data-dismiss="modal">&times;</a>
+                        <h4 id="ModalTitle"></h4>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form">
+                            <fieldset id="SubmitForm">
+                                @Html.HiddenFor(x=> x.mascotas.id, new { @id = "idMascota" })
+                                @Html.HiddenFor(x => x.usuarios.id, new { @id = "idUsuario" })
+                                <div class="form-group">
+                                    @Html.TextBoxFor(x => x.mascotas.nombremascota, new { @id = "nomMascota", @class = "form-control", @placeholder = "Nombre" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(x => x.mascotas.colorDominate, new { @id = "dominante", @class = "form-control", @placeholder = "Color dominante" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(x => x.mascotas.colorPreDominante, new { @id = "predominante", @class = "form-control", @placeholder = "Color predominante (opcional)" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(x => x.mascotas.colorAlternativo, new { @id = "alternativo", @class = "form-control", @placeholder = "Color alternativo (opccional)" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(x => x.mascotas.sgenero, new { @id = "genero", @class = "form-control", @placeholder = "Género"})
+                                </div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(x => x.mascotas.fnacimiento, new { @id = "fechanacimiento", @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.DropDownListFor(x =>x.especies.id, ViewBag.ListaEspecie as SelectList, "Seleccionar", new { @id = "DropDwnEspecie", @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.DropDownListFor(x => x.razas.id, ViewBag.ListaRaza as SelectList, "Seleccionar", new { @id = "DropDwnRaza", @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.DropDownListFor(x => x.razas.id, ViewBag.ListaUsuario as SelectList, "Seleccionar", new { @id = "DropDwnUsuario", @class = "form-control" })
+                                </div>
+                                <div class="form-group">
+                                    <a href="#" class="btn btn-block btn-danger" id="GuardarCambios">Guardar</a>
+                                </div>
+
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="VentanaEliminado">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a href="#" class="close" data-dismiss="modal">&times;</a>
+                        <h4>Eliminar mascota</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4>¿Esta usted seguro que lo desea eliminar?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-primary" data-dismiss="modal" id="r">Cancelar</a>
+                        <a href="#" class="btn btn-danger" onclick="ConfirmDelete()">Confirmar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!--Scrips-->
+        <script>
+
+            $("#CargarTabla").html("");
+            $.get("/Gestiones/ObtenerListaMascotas", null, DataBind);
+            function DataBind(PackMascotas) {
+                var SetData = $("#ListaMascotas");
+                for (var i = 0; i < PackMascotas.length; i++) {
+                    var Data = "<tr class='row_" + PackMascotas[i].mascotas.id + "'>" +
+                        "<td>" + PackMascotas[i].mascotas.id + "</td>" +
+                        "<td>" + PackMascotas[i].mascotas.nombremascota + "</td>" +
+                        "<td>" + PackMascotas[i].mascotas.colorDominate + "</td>" +
+                        "<td>" + PackMascotas[i].mascotas.sgenero + "</td>" +
+                        "<td>" + PackMascotas[i].mascotas.fnacimiento + "</td>" +
+                        "<td>" + PackMascotas[i].especies.nomCientifico + "</td>" +
+                        "<td>" + PackMascotas[i].razas.nombre + "</td>" +
+                        "<td>" + "<img src='" + PackMascotas[i].mascotas.foto + "' width='64' height='64' class='img-thumbnail img-circle'/> " + "</td>" +
+                        "<td>" + PackMascotas[i].usuarios.nombre + "</td>" +
+                        "<td>" + "<a href='#' class='btn btn-warning' onclick='EditarMascota(" + PackMascotas[i].mascotas.id + ")' ><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
+                        "<td>" + "<a href='#' class='btn btn-danger' onclick='EliminarMascota(" + PackMascotas[i].mascotas.id + "," + PackMascotas[i].usuarios.id + ")'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
+                        "</tr>";
+                    SetData.append(Data);
+                    $("#LoadingStatus").html(" ");
+
+                }
+            }
+
+            function AgregarNuevaMascota(idMascota) {
+                $("#form")[0].reset();
+                $("#idMascota").val(0);
+                $("#DropDwnEspecie option:selected").text("Seleccionar");
+                $("#DropDwnUsuario option:selected").text("Selecccionar");
+                $("#DropDwnRaza option:selected").text("Seleccionar");
+                $("#ModalTitle").html("Añadir nueva mascota");
+                $("#MyModal").modal();
+            }
+
+            function EditarMascota(idMascota) {
+                $.get("/Gestiones/ObtenerMascota?idMascota=" + idMascota, null, llamada);
+                function llamada(PackMascotas) {
+
+                    for (var i = 0; i < PackMascotas.length; i++) {
+
+                        $("#idMascota").val(PackMascotas[i].mascotas.id);
+                        $("#idUsuarios").val(PackMascotas[i].usuarios.id);
+                        $("#nomMascota").val(PackMascotas[i].mascotas.nombremascota);
+                        $("#dominante").val(PackMascotas[i].mascotas.colorDominate);
+                        $("#predominante").val(PackMascotas[i].mascotas.colorPreDominante);
+                        $("#alternativo").val(PackMascotas[i].mascotas.colorAlternativo);
+                        $("#genero").val(PackMascotas[i].mascotas.sgenero);
+                        $("#fechanacimiento").val(PackMascotas[i].mascotas.fnacimiento);
+                        $("#DropDwnEspecie option:selected").val(PackMascotas[i].especies.id);
+                        $("#DropDwnRaza option:selected").val(PackMascotas[i].razas.id);
+                        $("#DropDwnUsuario option:selected").val(PackMascotas[i].usuarios.id);
+                    }
+                }
+                $("#ModalTitle").html("Actualizar datos de mascota");
+                $("#MyModal").modal();
+
+            }
+
+            $("#GuardarCambios").click(function () {
+                var data = $("#SubmitForm").serialize();
+                $.ajax({
+                    type: "Post",
+                    url: "/Gestiones/GuardarEstados",
+                    data: data,
+                    success: function (result) {
+                        alert("¡Operación realizada con éxito!");
+                        window.location.href = "/Gestiones/Estados";
+                        $("#MyModal").modal("hide");
+
+                    }
+                })
+            })
+
+            var EliminarMascota = function (idMascota,idUsuario) {
+                $("#idMascota").val(idMascota);
+                $("#idUsuario").val(idUsuario);
+                $("#VentanaEliminado").modal("show");
+            }
+            var ConfirmDelete = function () {
+                var idMascota = $("#idMascota").val();
+                var idUsuario = $('#idUsuario').val();
+                $.ajax({
+                    type: "POST",
+                    url: "/Gestiones/EliminarMascota?idMascota=" + idMascota + "&idUSuario=" + idUsuario,
+                    success: function (result) {
+                        $("#VentanaEliminado").modal("hide");
+                        $(".row_" + idMascota).remove();
+                    }
+                })
+            }
+        </script>
+
+
+    </div><!--.container-fluid-->
+</div><!--.page-content-->
 

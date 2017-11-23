@@ -10,5 +10,6 @@ namespace DrHuellitas.BO
         public MascotasBO mascotas { get; set; }
         public EspeciesBO especies { get; set; }
         public RazasBO razas { get; set; }
+        public UsuarioBO usuarios { get; set; }
     }
 }

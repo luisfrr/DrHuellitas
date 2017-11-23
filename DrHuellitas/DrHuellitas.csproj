@@ -169,7 +169,6 @@
     <Compile Include="DAO\ComercioDAO.cs" />
     <Compile Include="DAO\ConexionSQL.cs" />
     <Compile Include="DAO\EspeciesDAO.cs" />
-    <Compile Include="DAO\GestionUsuariosDAO.cs" />
     <Compile Include="DAO\MascotasDAO.cs" />
     <Compile Include="DAO\PaquetesDAO.cs" />
     <Compile Include="DAO\RazasDAO.cs" />

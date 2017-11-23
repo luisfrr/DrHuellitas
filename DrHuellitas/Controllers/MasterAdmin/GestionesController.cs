@@ -19,6 +19,7 @@ namespace DrHuellitas.Controllers.MasterAdmin
         RazasDAO objRazasDAO = new RazasDAO();
         VacunasDAO objVacunasDAO = new VacunasDAO();
         RegistrosBO model = new RegistrosBO();
+        MascotasDAO objMascotasDAO = new MascotasDAO();
 
         // GET: Gestiones
 
@@ -42,7 +43,7 @@ namespace DrHuellitas.Controllers.MasterAdmin
             return Json(PackUsuarios, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GuardarUsuario(RegistrosBO model, String img)
+        public JsonResult GuardarUsuario(RegistrosBO model)
         {
             var result = false;
             try
@@ -96,8 +97,68 @@ namespace DrHuellitas.Controllers.MasterAdmin
         //Mascotas
         public ActionResult Mascotas()
         {
+            List<UsuarioBO> Usuario = objMascotasDAO.DropDownUsuario().ToList();
+            ViewBag.ListaUsuario = new SelectList(Usuario, "id", "nombre");
+            List<RazasBO> Raza = objMascotasDAO.DropDownRaza().ToList();
+            ViewBag.ListaRaza = new SelectList(Raza, "id", "nombre");
+            List<EspeciesBO> Especie = objMascotasDAO.DropDownEspecie().ToList();
+            ViewBag.ListaEspecie = new SelectList(Especie, "id", "nomCientifico");
             return View();
         }
+
+        public JsonResult ObtenerListaMascotas()
+        {
+            List<GestionMascotaBO> PackMascotas = objMascotasDAO.ObtenerListaMascotas().ToList();
+            var json = Json(PackMascotas, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
+
+        public JsonResult ObtenerMascota(int idMascota)
+        {
+            List<GestionMascotaBO> PackMascotas = objMascotasDAO.ObtenerMascota(idMascota).ToList();
+            return Json(PackMascotas, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GuardarMascota(GestionMascotaBO model)
+        {
+            var result = false;
+            try
+            {
+                if (model.mascotas.id > 0)
+                {
+                    objMascotasDAO.ActualizarMascotas(model);
+                    result = true;
+                }
+                else
+                {
+                    objMascotasDAO.AgregarMascotas(model);
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult EliminarMascota(int idMascota,int idUsuario)
+        {
+            bool result = false;
+
+            int x = objMascotasDAO.EliminarMascotas(idMascota,idUsuario);
+            if (x != 0)
+            {
+                result = true;
+            }
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
+
 
         //Especies 
         public ActionResult Especies()

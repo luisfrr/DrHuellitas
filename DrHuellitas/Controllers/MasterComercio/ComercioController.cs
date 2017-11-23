@@ -86,5 +86,9 @@ namespace DrHuellitas.Controllers.MasterComercio
             return Redirect("~/Comercio/Index");
 
         }
+        public ActionResult chat()
+        {
+            return View();
+        }
     }
 }

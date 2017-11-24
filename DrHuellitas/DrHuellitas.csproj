@@ -191,6 +191,7 @@
     <Content Include="Content\admin\widgets.min.css" />
     <Content Include="Content\animations.css" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\chat.css" />
     <Content Include="Content\admin\chat.min.css" />
     <Content Include="Content\Cliente\Step.css" />
     <Content Include="Content\color1.css" />
@@ -948,7 +949,6 @@
     <Content Include="Views\Gestiones\Especies.cshtml" />
     <Content Include="Views\Gestiones\Razas.cshtml" />
     <Content Include="Views\Gestiones\Vacunas.cshtml" />
-    <Content Include="Views\Admin\Chat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Encriptacion\MD5.csproj">

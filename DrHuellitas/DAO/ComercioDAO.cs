@@ -103,36 +103,38 @@ namespace DrHuellitas.DAO
             return 1;
         }
 
-        public int ComercioDireccion(RegistrosBO objbo, int id)
+        public int ComercioDatos(RegistrosBO objbo, int id)
         {
-            SqlCommand comando = new SqlCommand("exec comercioDireccion  @nom,@apell,@telefono,@fechanaci,@foto,@id,@comernom,@vete,@estetica,@vender,@nomfis,@rfc,@tele1,@tele2,@email,@idempresa,@calle,@numero,@cruzamineto,@lon,@lati,@colonia,@cp,@idciudad,@idus");
-            comando.Parameters.Add("@nom", SqlDbType.VarChar).Value = objbo.usuario.nombre;
-            comando.Parameters.Add("@apell", SqlDbType.VarChar).Value = objbo.usuario.apellidos;
+            SqlCommand comando = new SqlCommand("EXEC datocomercio @nombre,@apellidos,@telefono,@fechanaci,@status,@foto,@nomco,@veterinaria,@estetica,@vendeproduc,@nomfis,@rfc,@telefono1,@telefono2,@email,@idusuario,@calle,@numero,@cruzamiento,@longitud,@latitud,@colonia,@cp,@idcidad");
+            //aqui empieza datos generales del usuario
+            comando.Parameters.Add("@nombre", SqlDbType.VarChar).Value = objbo.usuario.nombre;
+            comando.Parameters.Add("@apellidos", SqlDbType.VarChar).Value = objbo.usuario.apellidos;
             comando.Parameters.Add("@telefono", SqlDbType.Char).Value = objbo.usuario.telefono;
-            comando.Parameters.Add("@fechanaci", SqlDbType.Date).Value = objbo.usuario.fechanacimiento.ToString("dd-MM-yyyy");
+            comando.Parameters.Add("@fechanaci", SqlDbType.Date).Value = objbo.usuario.fechanacimiento.ToString("yyyy-MM-dd");
+            comando.Parameters.Add("@status", SqlDbType.Int).Value = objbo.usuario.status = 1;
             comando.Parameters.Add("@foto", SqlDbType.Image).Value = Foto.ConvertirAFoto(objbo.usuario.img);
-            comando.Parameters.Add("@id", SqlDbType.Int).Value = id;
-            comando.Parameters.Add("@comernom", SqlDbType.VarChar).Value = objbo.comercio.nombreComercial;
-            comando.Parameters.Add("@vete", SqlDbType.Bit).Value = objbo.comercio.veterinaria;
-            comando.Parameters.Add("@estetica",SqlDbType.Bit).Value=objbo.comercio.estetica;
-            comando.Parameters.Add("@vender",SqlDbType.Bit).Value=objbo.comercio.venderproducto;
-            comando.Parameters.Add("@nomfis",SqlDbType.VarChar).Value=objbo.comercio.nombreFiscal;
-            comando.Parameters.Add("@rfc",SqlDbType.VarChar).Value=objbo.comercio.rfc;
-            comando.Parameters.Add("@tele1",SqlDbType.Char).Value=objbo.comercio.telefono1;
-            comando.Parameters.Add("@tele2",SqlDbType.Char).Value=objbo.comercio.telefono2;
-            comando.Parameters.Add("@email",SqlDbType.VarChar).Value=objbo.comercio.emal;
-            comando.Parameters.Add("@idempresa", SqlDbType.Int).Value = id;
-            comando.Parameters.Add("@calle", SqlDbType.VarChar).Value = objbo.direccion.calle;
+            //comando.Parameters.Add("@idusuario", SqlDbType.Int).Value = id;
+            //aqui empieza comercio
+            comando.Parameters.Add("@nomco", SqlDbType.VarChar).Value = objbo.comercio.nombreComercial;
+            comando.Parameters.Add("@veterinaria", SqlDbType.Bit).Value = objbo.comercio.veterinaria;
+            comando.Parameters.Add("@estetica", SqlDbType.Bit).Value = objbo.comercio.estetica;
+            comando.Parameters.Add("@vendeproduc", SqlDbType.Bit).Value = objbo.comercio.venderproducto;
+            comando.Parameters.Add("@nomfis", SqlDbType.VarChar).Value = objbo.comercio.nombreFiscal;
+            comando.Parameters.Add("@rfc", SqlDbType.VarChar).Value = objbo.comercio.rfc;
+            comando.Parameters.Add("@telefono1", SqlDbType.VarChar).Value = objbo.comercio.telefono1;
+            comando.Parameters.Add("@telefono2", SqlDbType.VarChar).Value = objbo.comercio.telefono2;
+            comando.Parameters.Add("@email", SqlDbType.VarChar).Value = objbo.comercio.emal;
+            //aqui empieza insertar comerciousuario
+            //aqui empieza direccion
+            comando.Parameters.Add("@idusuario", SqlDbType.Int).Value = id;
             comando.Parameters.Add("@numero", SqlDbType.VarChar).Value = objbo.direccion.numero;
+            comando.Parameters.Add("@calle", SqlDbType.VarChar).Value = objbo.direccion.calle;
             comando.Parameters.Add("@cruzamiento", SqlDbType.VarChar).Value = objbo.direccion.cruzamiento;
-            comando.Parameters.Add("@lon", SqlDbType.VarChar).Value = objbo.direccion.longitud;
-            comando.Parameters.Add("@lati", SqlDbType.VarChar).Value = objbo.direccion.latitud;
+            comando.Parameters.Add("@longitud", SqlDbType.VarChar).Value = objbo.direccion.longitud;
+            comando.Parameters.Add("@latitud", SqlDbType.VarChar).Value = objbo.direccion.latitud;
             comando.Parameters.Add("@colonia", SqlDbType.VarChar).Value = objbo.direccion.colonia;
-            comando.Parameters.Add("@cp", SqlDbType.VarChar).Value = objbo.direccion.CP;
-            comando.Parameters.Add("@idciudad", SqlDbType.Int).Value = objbo.direccion.idCiudad = 1;
-            comando.Parameters.Add("@idus", SqlDbType.Int).Value = id;
-
-            comando.CommandType = CommandType.Text;
+            comando.Parameters.Add("@cp", SqlDbType.VarChar).Value = objbo.direccion.CP="55555";
+            comando.Parameters.Add("@idcidad", SqlDbType.Int).Value = objbo.direccion.idCiudad = 1;
             return conex.EjecutarComando(comando);
         }
     }

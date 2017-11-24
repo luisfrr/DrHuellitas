@@ -82,7 +82,7 @@
                                 </div>
                             </fieldset>
                         </form>
-                        @using (Html.BeginForm("SubirImagen", "Gestiones", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                        @using (Html.BeginForm("SubirImagen", "Gestiones", FormMethod.Post, new { @enctype = "multipart/form-data", @id="subirfoto"}))
                         {
                             @Html.HiddenFor(m => m.usuario.id, new { @id = "idImagen" })
                             <div class="form-group">
@@ -94,7 +94,6 @@
                             </div>
                             
                                 <button class=" btn btn-block btn-success" type="submit" id="btnListo">Subir Imagen</button>
-                            
                         }
                         
                     </div>
@@ -128,12 +127,13 @@
 
 
 
-            $("#CargarTabla").html("");
+            
             $.get("/Gestiones/ObtenerListaUsuarios", null, DataBind);
             function DataBind(PackUsuarios) {
                 var SetData = $("#ListaUsuarios");
                 for (var i = 0; i < PackUsuarios.length; i++) {
-                    var Data = "<tr class='row_" + PackUsuarios[i].usuario.id + "'>" +
+                    var Data =
+                        "<tr class='row_" + PackUsuarios[i].usuario.id + "'>" +
                         "<td>" + PackUsuarios[i].usuario.id + "</td>" +
                         "<td>" + PackUsuarios[i].usuario.nombre + "</td>" +
                         "<td>" + PackUsuarios[i].usuario.usuario + "</td>" +
@@ -146,7 +146,7 @@
                         "<td>" + "<a href='#' class='btn btn-danger' onclick='Eliminarusuario(" + PackUsuarios[i].usuario.id + ")'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
                         "</tr>";
                     SetData.append(Data);
-                    $("#LoadingStatus").html(" ");
+                    
 
                 }
             }
@@ -157,11 +157,14 @@
                 $("#DropDwn option:selected").text("Seleccionar");
                 $("#imgSalida").attr("src", "../../img/admin/avatar-1-128.png");
                 $("#ModalTitle").html("Añadir nuevo usuario");
+                $("#subirfoto").hide();
                 $("#MyModal").modal();
+                
             }
 
             function Editarusuario(idUsuario) {
                 $.get("/Gestiones/ObtenerUsuario?idUsuario=" + idUsuario, null, llamada);
+                $("#subirfoto").show();
                 function llamada(PackUsuarios) {
 
                     for (var i = 0; i < PackUsuarios.length; i++) {

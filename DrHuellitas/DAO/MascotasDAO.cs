@@ -28,16 +28,24 @@ namespace DrHuellitas.DAO
             return con.EjecutarComando(cmd);
         }
 
+        public int ActualizarFoto(GestionMascotaBO objBO)
+        {
+            SqlCommand cmd = new SqlCommand("UPDATE Mascotas SET foto=@foto WHERE id=@id");
+            cmd.Parameters.Add("@foto", SqlDbType.Image).Value = Foto.ConvertirAFoto(objBO.mascotas.img);
+            cmd.Parameters.Add("@id", SqlDbType.Int).Value = objBO.mascotas.id;
+
+            return con.EjecutarComando(cmd);
+        }
+
         public int ActualizarMascotas(GestionMascotaBO objBO)
         {
-            SqlCommand cmd = new SqlCommand("EXEC ActualizarGestionMascotas @nombre=@nombre,@CDomitante=@CDominante,@CPDominante=@CPDominante,@CAlternativo=@CAlternativo,@genero=@genero,@fechanacimiento=@fechanacimiento,@foto=@foto,@idRaza=@idRaza,@idUsuario=@idUsuario,@idMascota=@idMascota");
+            SqlCommand cmd = new SqlCommand("EXEC ActualizarGestionMascotas @nombre=@nombre,@CDomitante=@CDominante,@CPDominante=@CPDominante,@CAlternativo=@CAlternativo,@genero=@genero,@fechanacimiento=@fechanacimiento,@idRaza=@idRaza,@idUsuario=@idUsuario,@idMascota=@idMascota");
             cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = objBO.mascotas.nombremascota;
             cmd.Parameters.Add("@CDomitante", SqlDbType.VarChar).Value = objBO.mascotas.colorDominate;
             cmd.Parameters.Add("@CPDominante", SqlDbType.VarChar).Value = objBO.mascotas.colorPreDominante;
             cmd.Parameters.Add("@CAlternativo", SqlDbType.VarChar).Value = objBO.mascotas.colorAlternativo;
             cmd.Parameters.Add("@genero", SqlDbType.VarChar).Value = objBO.mascotas.genero;
             cmd.Parameters.Add("@fechanacimiento", SqlDbType.Date).Value = objBO.mascotas.fechaNaci.ToString("dd/MM/yyyy");
-            cmd.Parameters.Add("@foto", SqlDbType.Image).Value = Foto.ConvertirAFoto(objBO.mascotas.img);
             cmd.Parameters.Add("@idRaza", SqlDbType.Int).Value = objBO.mascotas.idRaza;
             cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = objBO.usuarios.id;
             cmd.Parameters.Add("@idmascota", SqlDbType.Int).Value = objBO.mascotas.id;
@@ -75,7 +83,7 @@ namespace DrHuellitas.DAO
                             nombremascota = dr["nombre"].ToString(),
                             colorDominate = dr["color"].ToString(),
                             sgenero = dr["genero"].ToString(),
-                            fechaNaci = Convert.ToDateTime(dr["fechanacimiento"].ToString()),
+                            fnacimiento = Convert.ToDateTime(dr["fechanacimiento"]).ToString("dd/MM/yyyy"),
                             foto = "data:image/jpeg;base64," + Convert.ToBase64String((byte[])dr["foto"])
                         },
                         especies = new EspeciesBO
@@ -124,7 +132,7 @@ namespace DrHuellitas.DAO
                             colorPreDominante = dr["CPDominante"].ToString(),
                             colorAlternativo = dr["CAlternativo"].ToString(),
                             sgenero = dr["genero"].ToString(),
-                            fnacimiento = Convert.ToDateTime(dr["fechanacimiento"]).ToString("dd/MM/yyyy"),
+                            fnacimiento = Convert.ToDateTime(dr["fechanacimiento"]).ToString("yyyy/MM/dd"),
                             idRaza = Convert.ToInt32(dr["idraza"].ToString()),
                             foto = "data:image/jpeg;base64," + Convert.ToBase64String((byte[])dr["foto"])
                         },

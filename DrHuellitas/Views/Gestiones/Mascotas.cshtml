@@ -3,7 +3,10 @@
 @{
     ViewBag.Title = "Mascotas";
     Layout = "~/Views/Shared/BackEndView.cshtml";
+
 }
+
+
 
 
 <div class="page-content">
@@ -74,7 +77,7 @@
                                     @Html.TextBoxFor(x => x.mascotas.sgenero, new { @id = "genero", @class = "form-control", @placeholder = "Género"})
                                 </div>
                                 <div class="form-group">
-                                    @Html.TextBoxFor(x => x.mascotas.fnacimiento, new { @id = "fechanacimiento", @class = "form-control" })
+                                    @Html.TextBoxFor(x => x.mascotas.fnacimiento, new { @id = "fechanacimiento", @class = "form-control", @type = "date"})
                                 </div>
                                 <div class="form-group">
                                     @Html.DropDownListFor(x =>x.especies.id, ViewBag.ListaEspecie as SelectList, "Seleccionar", new { @id = "DropDwnEspecie", @class = "form-control" })
@@ -91,6 +94,20 @@
 
                             </fieldset>
                         </form>
+
+                        @using (Html.BeginForm("ImagenMascota", "Gestiones", FormMethod.Post, new { @enctype = "multipart/form-data", @id = "subirfoto" }))
+                        {
+                            @Html.HiddenFor(x => x.mascotas.id, new { @id = "idImagen" })
+                            <div class="form-group">
+                                <img id="imgSalida" src="~/img/admin/avatar-1-128.png" width="128" height="128" class="img-circle" />
+                                <br />
+
+                                <label class="control-label" for="file">Seleccionar una foto de perfil:</label>
+                                @Html.TextBoxFor(x => x.mascotas.img, new { @type = "file", @name = "file", @id = "file", @class = "btn btn-file" })
+                            </div>
+
+                            <button class=" btn btn-block btn-success" type="submit" id="btnListo">Subir Imagen</button>
+                        }
                     </div>
                 </div>
             </div>
@@ -150,16 +167,20 @@
                 $("#DropDwnUsuario option:selected").text("Selecccionar");
                 $("#DropDwnRaza option:selected").text("Seleccionar");
                 $("#ModalTitle").html("Añadir nueva mascota");
+                $("#subirfoto").hide();
                 $("#MyModal").modal();
+                
             }
 
             function EditarMascota(idMascota) {
                 $.get("/Gestiones/ObtenerMascota?idMascota=" + idMascota, null, llamada);
+                $("#subirfoto").show();
                 function llamada(PackMascotas) {
 
                     for (var i = 0; i < PackMascotas.length; i++) {
-
+                        
                         $("#idMascota").val(PackMascotas[i].mascotas.id);
+                        $("#idImagen").val(PackMascotas[i].mascotas.id);
                         $("#idUsuarios").val(PackMascotas[i].usuarios.id);
                         $("#nomMascota").val(PackMascotas[i].mascotas.nombremascota);
                         $("#dominante").val(PackMascotas[i].mascotas.colorDominate);
@@ -167,6 +188,7 @@
                         $("#alternativo").val(PackMascotas[i].mascotas.colorAlternativo);
                         $("#genero").val(PackMascotas[i].mascotas.sgenero);
                         $("#fechanacimiento").val(PackMascotas[i].mascotas.fnacimiento);
+                        $("#imgSalida").attr("src", PackMascotas[i].mascotas.foto);
                         $("#DropDwnEspecie option:selected").val(PackMascotas[i].especies.id);
                         $("#DropDwnRaza option:selected").val(PackMascotas[i].razas.id);
                         $("#DropDwnUsuario option:selected").val(PackMascotas[i].usuarios.id);
@@ -209,6 +231,32 @@
                     }
                 })
             }
+
+
+
+            $(document).ready(function () {
+                $(function () {
+                    $('#file').change(function (e) {
+                        addImage(e);
+                    });
+
+                    function addImage(e) {
+                        var file = e.target.files[0], imageType = /image.*/;
+
+                        if (!file.type.match(imageType))
+                            return;
+
+                        var reader = new FileReader();
+                        reader.onload = fileOnload;
+                        reader.readAsDataURL(file);
+                    }
+
+                    function fileOnload(e) {
+                        var result = e.target.result;
+                        $('#imgSalida').attr("src", result);
+                    }
+                });
+            });
         </script>
 
 

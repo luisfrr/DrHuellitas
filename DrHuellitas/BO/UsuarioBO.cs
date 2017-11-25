@@ -19,9 +19,9 @@ namespace DrHuellitas.BO
         public string fnacimiento { get; set; }
         public string fregistro { get; set; }
         public int status { get; set; }
-        public String foto { get; set; }
         public string tipoUs { get; set; }
         public string apellidos { get; set; }
-        public HttpPostedFileBase img { get; set; }
+        public String foto { get; set; } //Para el HTML 
+        public HttpPostedFileBase img { get; set; } //Para la BD
     }
 }

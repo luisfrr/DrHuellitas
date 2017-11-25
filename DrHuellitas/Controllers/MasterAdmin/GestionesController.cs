@@ -19,6 +19,7 @@ namespace DrHuellitas.Controllers.MasterAdmin
         RazasDAO objRazasDAO = new RazasDAO();
         VacunasDAO objVacunasDAO = new VacunasDAO();
         RegistrosBO model = new RegistrosBO();
+        MascotasDAO objMascotasDAO = new MascotasDAO();
 
         // GET: Gestiones
 
@@ -33,16 +34,20 @@ namespace DrHuellitas.Controllers.MasterAdmin
         public JsonResult ObtenerListaUsuarios()
         {
             List<RegistrosBO> PackUsuarios = objUsuariosDAO.ObtenerListaUsuarios().ToList();
-            return Json(PackUsuarios, JsonRequestBehavior.AllowGet);
+            var json = Json(PackUsuarios, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
         public JsonResult ObtenerUsuario(int idUsuario)
         {
             List<RegistrosBO> PackUsuarios = objUsuariosDAO.ObtenerUsuario(idUsuario).ToList();
-            return Json(PackUsuarios, JsonRequestBehavior.AllowGet);
+            var json=  Json(PackUsuarios, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
-        public JsonResult GuardarUsuario(RegistrosBO model, String img)
+        public JsonResult GuardarUsuario(RegistrosBO model)
         {
             var result = false;
             try
@@ -63,7 +68,9 @@ namespace DrHuellitas.Controllers.MasterAdmin
                 throw ex;
             }
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var json = Json(result, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
         string modulo = "";
@@ -89,15 +96,100 @@ namespace DrHuellitas.Controllers.MasterAdmin
                 result = true;
             }
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var json = Json(result, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
 
         //Mascotas
         public ActionResult Mascotas()
         {
+            List<UsuarioBO> Usuario = objMascotasDAO.DropDownUsuario().ToList();
+            ViewBag.ListaUsuario = new SelectList(Usuario, "id", "nombre");
+            List<RazasBO> Raza = objMascotasDAO.DropDownRaza().ToList();
+            ViewBag.ListaRaza = new SelectList(Raza, "id", "nombre");
+            List<EspeciesBO> Especie = objMascotasDAO.DropDownEspecie().ToList();
+            ViewBag.ListaEspecie = new SelectList(Especie, "id", "nomCientifico");
             return View();
         }
+
+        public JsonResult ObtenerListaMascotas()
+        {
+            List<GestionMascotaBO> PackMascotas = objMascotasDAO.ObtenerListaMascotas().ToList();
+            var json = Json(PackMascotas, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
+
+        public JsonResult ObtenerMascota(int idMascota)
+        {
+            List<GestionMascotaBO> PackMascotas = objMascotasDAO.ObtenerMascota(idMascota).ToList();
+            var json = Json(PackMascotas, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
+
+        [HttpPost]
+        public ActionResult ImagenMascota(GestionMascotaBO model)
+        {
+
+            int resultado = objMascotasDAO.ActualizarFoto(model);
+            if (resultado != 0)
+            {
+                modulo = "~/Gestiones/Usuarios";
+                ViewBag.ImagenBien = true;
+            }
+            else
+            {
+                modulo = "~/Gestiones/Usuarios";
+                ViewBag.ImagenMal = true;
+            }
+
+            return Redirect(modulo);
+        }
+
+        public JsonResult GuardarMascota(GestionMascotaBO model)
+        {
+            var result = false;
+            try
+            {
+                if (model.mascotas.id > 0)
+                {
+                    objMascotasDAO.ActualizarMascotas(model);
+                    result = true;
+                }
+                else
+                {
+                    objMascotasDAO.AgregarMascotas(model);
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            var json = Json(result, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
+
+        public JsonResult EliminarMascota(int idMascota,int idUsuario)
+        {
+            bool result = false;
+
+            int x = objMascotasDAO.EliminarMascotas(idMascota,idUsuario);
+            if (x != 0)
+            {
+                result = true;
+            }
+
+            var json = Json(result, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
+
 
         //Especies 
         public ActionResult Especies()
@@ -108,13 +200,17 @@ namespace DrHuellitas.Controllers.MasterAdmin
         public JsonResult ObtenerListaEspecies()
         {
             List<EspeciesBO> PackEspecies = objEspeciesDAO.ObteterListaEspecies().ToList();
-            return Json(PackEspecies, JsonRequestBehavior.AllowGet);
+            var json = Json(PackEspecies, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
         public JsonResult ObtenerEspecie(int idEspecie)
         {
             List<EspeciesBO> PackEspecies = objEspeciesDAO.ObtenerEspecie(idEspecie).ToList();
-            return Json(PackEspecies, JsonRequestBehavior.AllowGet);
+            var json = Json(PackEspecies, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
         public JsonResult GuardarEspecie(EspeciesBO model)
@@ -138,7 +234,9 @@ namespace DrHuellitas.Controllers.MasterAdmin
                 throw ex;
             }
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var json = Json(result, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
         public JsonResult EliminarEspecie(int idEspecie)
@@ -151,7 +249,9 @@ namespace DrHuellitas.Controllers.MasterAdmin
                 result = true;
             }
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var json = Json(result, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
         //Razas
@@ -165,13 +265,17 @@ namespace DrHuellitas.Controllers.MasterAdmin
         public JsonResult ObtenerListaRazas()
         {
             List<RazasBO> PackRazas = objRazasDAO.ObtenerListaRazas().ToList();
-            return Json(PackRazas, JsonRequestBehavior.AllowGet);
+            var json = Json(PackRazas, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
         public JsonResult ObtenerRaza(int idRaza)
         {
             List<RazasBO> PackRazas = objRazasDAO.ObtenerRaza(idRaza).ToList();
-            return Json(PackRazas, JsonRequestBehavior.AllowGet);
+            var json = Json(PackRazas, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
         public JsonResult GuardarRaza(RazasBO model)
@@ -195,7 +299,9 @@ namespace DrHuellitas.Controllers.MasterAdmin
                 throw ex;
             }
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var json = Json(result, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
         public JsonResult EliminarRaza(int idRaza)
@@ -208,14 +314,9 @@ namespace DrHuellitas.Controllers.MasterAdmin
                 result = true;
             }
 
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
-
-        //Comercios
-        public ActionResult Comercios()
-        {
-            return View();
+            var json= Json(result, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
 
@@ -228,13 +329,17 @@ namespace DrHuellitas.Controllers.MasterAdmin
         public JsonResult ObtenerListasVacunas()
         {
             List<VacunasBO> PackVacunas = objVacunasDAO.ObtenerListaVacunas().ToList();
-            return Json(PackVacunas, JsonRequestBehavior.AllowGet);
+            var json = Json(PackVacunas, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
         public JsonResult ObtenerVacuna(int idVacuna)
         {
             List<VacunasBO> PackVacunas = objVacunasDAO.ObtenerVacuna(idVacuna).ToList();
-            return Json(PackVacunas, JsonRequestBehavior.AllowGet);
+            var json = Json(PackVacunas, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
         public JsonResult GuardarVacuna(VacunasBO model)
@@ -258,7 +363,9 @@ namespace DrHuellitas.Controllers.MasterAdmin
                 throw ex;
             }
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var json = Json(result, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
         public JsonResult EliminarVacuna(int idVacuna)
@@ -271,7 +378,9 @@ namespace DrHuellitas.Controllers.MasterAdmin
                 result = true;
             }
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var json = Json(result, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
         //Ciudades
@@ -285,13 +394,17 @@ namespace DrHuellitas.Controllers.MasterAdmin
         public JsonResult ObtenerListaCiudades()
         {
             List<RegionesBO> PackCiudades = objRegionesDAO.ListaCiudades().ToList();
-            return Json(PackCiudades, JsonRequestBehavior.AllowGet);
+            var json = Json(PackCiudades, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
         public JsonResult ObtenerCiudad(int idCiudad)
         {
             List<RegionesBO> PackCiudades = objRegionesDAO.ObtenerCiudad(idCiudad).ToList();
-            return Json(PackCiudades, JsonRequestBehavior.AllowGet);
+            var json = Json(PackCiudades, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
         public JsonResult GuardarCiudades(RegionesBO model)
@@ -315,7 +428,9 @@ namespace DrHuellitas.Controllers.MasterAdmin
                 throw ex;
             }
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var json = Json(result, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
         public JsonResult EliminarCiudad(int idCiudad)
@@ -328,7 +443,9 @@ namespace DrHuellitas.Controllers.MasterAdmin
                 result = true;
             }
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var json = Json(result, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
 
@@ -343,13 +460,17 @@ namespace DrHuellitas.Controllers.MasterAdmin
         public JsonResult ObtenerListaEstados()
         {
             List<RegionesBO> PackEstados = objRegionesDAO.ListaEstados().ToList();
-            return Json(PackEstados, JsonRequestBehavior.AllowGet);
+            var json = Json(PackEstados, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
         public JsonResult ObtenerEstado(int idEstado)
         {
             List<RegionesBO> PackEstados = objRegionesDAO.ObtenertEstado(idEstado).ToList();
-            return Json(PackEstados, JsonRequestBehavior.AllowGet);
+            var json = Json(PackEstados, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
         public JsonResult GuardarEstados(RegionesBO model)
@@ -373,7 +494,9 @@ namespace DrHuellitas.Controllers.MasterAdmin
                 throw ex;
             }
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var json = Json(result, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
         public JsonResult EliminarEstado(int idEstado)
@@ -386,7 +509,9 @@ namespace DrHuellitas.Controllers.MasterAdmin
                 result = true;
             }
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var json = Json(result, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
 
@@ -399,13 +524,17 @@ namespace DrHuellitas.Controllers.MasterAdmin
         public JsonResult ObtenerListaPaises()
         {
             List<RegionesBO> PackPaises = objRegionesDAO.ListaPaises().ToList();
-            return Json(PackPaises, JsonRequestBehavior.AllowGet);
+            var json = Json(PackPaises, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
         public JsonResult ObtenerPais(int idPais)
         {
             List<RegionesBO> PackPaises = objRegionesDAO.ObtenerPais(idPais).ToList();
-            return Json(PackPaises, JsonRequestBehavior.AllowGet);
+            var json = Json(PackPaises, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
         public JsonResult GuardarPaises(RegionesBO model)
@@ -429,7 +558,9 @@ namespace DrHuellitas.Controllers.MasterAdmin
                 throw ex;
             }
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var json = Json(result, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
         public JsonResult EliminarPais(int idPais)
@@ -442,13 +573,9 @@ namespace DrHuellitas.Controllers.MasterAdmin
                 result = true;
             }
 
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-
-        //Propaganda
-        public ActionResult Propaganda()
-        {
-            return View();
+            var json = Json(result, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
 
@@ -461,13 +588,17 @@ namespace DrHuellitas.Controllers.MasterAdmin
         public JsonResult ObtenerListaPaquetes()
         {
             List<PaquetesBO> PackList = objPaqueteDAO.ListPaquetes().ToList();
-            return Json(PackList, JsonRequestBehavior.AllowGet);
+            var json = Json(PackList, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
         public JsonResult ObtenerPaquete(int idPaquete)
         {
             List<PaquetesBO> PackList = objPaqueteDAO.ObtenerPaquete(idPaquete).ToList();
-            return Json(PackList, JsonRequestBehavior.AllowGet);
+            var json = Json(PackList, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
         public JsonResult GuardarPaquetes(PaquetesBO model)
@@ -491,7 +622,9 @@ namespace DrHuellitas.Controllers.MasterAdmin
                 throw ex;
             }
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var json = Json(result, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
         public JsonResult EliminarPaquete(int idPaquete)
@@ -504,12 +637,20 @@ namespace DrHuellitas.Controllers.MasterAdmin
                 result = true;
             }
 
-            return Json(result, JsonRequestBehavior.AllowGet);
+            var json = Json(result, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
 
 
         //Comentarios
         public ActionResult Comentarios()
+        {
+            return View();
+        }
+
+        //Propaganda
+        public ActionResult Propaganda()
         {
             return View();
         }

@@ -39,6 +39,11 @@ namespace DrHuellitas.Controllers.MasterAdmin
             return Redirect(modulo);
         }
 
+
+        public ActionResult Chat()
+        {
+            return View();
+        }
         
     }
 }

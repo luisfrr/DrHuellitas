@@ -170,7 +170,6 @@
     <Compile Include="DAO\ComercioDAO.cs" />
     <Compile Include="DAO\ConexionSQL.cs" />
     <Compile Include="DAO\EspeciesDAO.cs" />
-    <Compile Include="DAO\GestionUsuariosDAO.cs" />
     <Compile Include="DAO\MascotasDAO.cs" />
     <Compile Include="DAO\PaquetesDAO.cs" />
     <Compile Include="DAO\RazasDAO.cs" />
@@ -194,6 +193,7 @@
     <Content Include="Content\animations.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\chat.css" />
+    <Content Include="Content\admin\chat.min.css" />
     <Content Include="Content\Cliente\Step.css" />
     <Content Include="Content\color1.css" />
     <Content Include="Content\font-awesome.css" />
@@ -952,7 +952,6 @@
     <Content Include="Views\Gestiones\Razas.cshtml" />
     <Content Include="Views\Gestiones\Vacunas.cshtml" />
     <Content Include="Views\Comercio\Chat.cshtml" />
-    <Content Include="Views\Comercio\Propaganda.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Encriptacion\MD5.csproj">

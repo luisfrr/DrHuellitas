@@ -232,7 +232,7 @@ namespace DrHuellitas.DAO
                                 idtipo = Convert.ToInt32(dr["idTipo"].ToString()),
                                 tipoUs = dr["tipo"].ToString(),
                                 email = dr["email"].ToString(),
-                                fnacimiento = Convert.ToDateTime(dr["fechanacimiento"]).ToString("dd/MM/yyyy"),
+                                fnacimiento = Convert.ToDateTime(dr["fechanacimiento"]).ToString("yyyy/MM/dd"),
                                 foto = " "
                             }
                         };

@@ -224,6 +224,7 @@
     </Content>
     <Content Include="img\1.jpg" />
     <Content Include="favicon.ico" />
+    <Content Include="img\pic1.jpg" />
     <Content Include="img\admin\100x100.jpg" />
     <Content Include="img\admin\avatar-1-128.png" />
     <Content Include="img\admin\avatar-1-256.png" />
@@ -813,6 +814,7 @@
     <Content Include="img\Login.jpg" />
     <Content Include="img\login2.jpeg" />
     <Content Include="img\Logo.png" />
+    <Content Include="img\pic2.PNG" />
     <Content Include="img\Resgistro.jpg" />
     <Content Include="img\slide1.jpg" />
     <Content Include="img\slide2.jpg" />

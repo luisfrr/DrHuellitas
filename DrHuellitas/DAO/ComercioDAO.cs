@@ -137,5 +137,49 @@ namespace DrHuellitas.DAO
             comando.Parameters.Add("@idcidad", SqlDbType.Int).Value = objbo.direccion.idCiudad = 1;
             return conex.EjecutarComando(comando);
         }
+
+        public List<PropagandaBO> obtenerpropaganda()
+        {
+            var propaganda = new List<PropagandaBO>();
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Propaganda");
+
+            cmd.Connection = conex.establecerConexion();
+            conex.AbrirConexion();
+            var query = cmd;
+            using (var dr = query.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    String fotos = Convert.ToBase64String((byte[])dr["foto"]);
+                    if (fotos == "0")
+                    {
+                        var p = new BO.PropagandaBO
+                        {
+                                id = Convert.ToInt32(dr["id"].ToString()),
+                                idusuario =Convert.ToInt32( dr["iduUsuario"].ToString()),
+                                descripcion = dr["descripcion"].ToString(),
+                                foto = " "
+                            
+                        };
+                        propaganda.Add(p);
+                    }
+                    else
+                    {
+                        var p = new BO.PropagandaBO
+                        {
+
+                          
+                                id = Convert.ToInt32(dr["id"].ToString()),
+                                idusuario =Convert.ToInt32( dr["idUsuario"].ToString()),
+                                descripcion = dr["usuario"].ToString(),
+                                foto = "data:image/jpeg;base64," + Convert.ToBase64String((byte[])dr["foto"])
+                        };
+                        propaganda.Add(p);
+                    }
+
+                }
+            }
+            return propaganda;
+        }
     }
 }

@@ -154,6 +154,7 @@
     <Compile Include="BO\MascotasBO.cs" />
     <Compile Include="BO\PaisesBO.cs" />
     <Compile Include="BO\PaquetesBO.cs" />
+    <Compile Include="BO\PropagandaBO.cs" />
     <Compile Include="BO\RazasBO.cs" />
     <Compile Include="BO\RegionesBO.cs" />
     <Compile Include="BO\RegistrosBO.cs" />
@@ -199,6 +200,7 @@
     <Content Include="Content\login\style.css" />
     <Content Include="Content\mediaelementplayer.css" />
     <Content Include="Content\prettyPhoto.css" />
+    <Content Include="Content\Propaganda.css" />
     <Content Include="Content\Scroll.css" />
     <Content Include="Content\style-switcher.css" />
     <Content Include="Content\style.css" />
@@ -950,6 +952,7 @@
     <Content Include="Views\Gestiones\Razas.cshtml" />
     <Content Include="Views\Gestiones\Vacunas.cshtml" />
     <Content Include="Views\Comercio\Chat.cshtml" />
+    <Content Include="Views\Comercio\Propaganda.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Encriptacion\MD5.csproj">

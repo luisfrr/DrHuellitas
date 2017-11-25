@@ -118,5 +118,19 @@ namespace DrHuellitas.Controllers.MasterComercio
 
             return Redirect(modulo);
         }
+
+        public ActionResult Propaganda()
+        {
+            return View();
+        }
+
+
+        public JsonResult Obtenerpropaganda()
+        {
+            List<PropagandaBO> Packpropaganda = objDAO.obtenerpropaganda().ToList();
+            var json= Json(Packpropaganda, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
     }
 }

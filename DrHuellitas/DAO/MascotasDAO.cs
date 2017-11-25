@@ -132,7 +132,7 @@ namespace DrHuellitas.DAO
                             colorPreDominante = dr["CPDominante"].ToString(),
                             colorAlternativo = dr["CAlternativo"].ToString(),
                             sgenero = dr["genero"].ToString(),
-                            fnacimiento = Convert.ToDateTime(dr["fechanacimiento"]).ToString("yyyy/MM/dd"),
+                            fnacimiento = Convert.ToDateTime(dr["fechanacimiento"]).ToString("yyyy-MM-dd"),
                             idRaza = Convert.ToInt32(dr["idraza"].ToString()),
                             foto = "data:image/jpeg;base64," + Convert.ToBase64String((byte[])dr["foto"])
                         },
@@ -189,6 +189,32 @@ namespace DrHuellitas.DAO
         {
             var razas = new List<RazasBO>();
             SqlCommand cmd = new SqlCommand("SELECT id, nombre FROM Raza");
+
+            cmd.Connection = con.establecerConexion();
+            con.AbrirConexion();
+            var query = cmd;
+            using (var dr = query.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    var p = new BO.RazasBO
+                    {
+                        id = Convert.ToInt32(dr["id"].ToString()),
+                        nombre = dr["nombre"].ToString()
+                    };
+                    razas.Add(p);
+                }
+
+            }
+            con.CerrarConexion();
+            return razas;
+        }
+
+        public List<RazasBO> DropDownRaza(int id)
+        {
+            var razas = new List<RazasBO>();
+            SqlCommand cmd = new SqlCommand("SELECT id, nombre FROM Raza WHERE id=@id");
+            cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
 
             cmd.Connection = con.establecerConexion();
             con.AbrirConexion();

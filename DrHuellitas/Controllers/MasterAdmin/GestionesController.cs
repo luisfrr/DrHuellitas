@@ -114,6 +114,15 @@ namespace DrHuellitas.Controllers.MasterAdmin
             return View();
         }
 
+        public JsonResult ObtenerDropDownRaza(int id)
+        {
+            List<RazasBO> Dropdown = objMascotasDAO.DropDownRaza(id).ToList();
+            var listaraza = new SelectList(Dropdown, "id", "nombre");
+            var json = Json(listaraza, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
+
         public JsonResult ObtenerListaMascotas()
         {
             List<GestionMascotaBO> PackMascotas = objMascotasDAO.ObtenerListaMascotas().ToList();

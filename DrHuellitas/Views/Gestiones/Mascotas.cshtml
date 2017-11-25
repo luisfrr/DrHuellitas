@@ -59,33 +59,43 @@
                     <div class="modal-body">
                         <form id="form">
                             <fieldset id="SubmitForm">
+                                
                                 @Html.HiddenFor(x=> x.mascotas.id, new { @id = "idMascota" })
                                 @Html.HiddenFor(x => x.usuarios.id, new { @id = "idUsuario" })
                                 <div class="form-group">
+                                    @Html.Label("Nombre:" , new { @class= "form-label" })
                                     @Html.TextBoxFor(x => x.mascotas.nombremascota, new { @id = "nomMascota", @class = "form-control", @placeholder = "Nombre" })
                                 </div>
                                 <div class="form-group">
+                                    @Html.Label("Color de piel dominante:", new { @class = "form-label" })
                                     @Html.TextBoxFor(x => x.mascotas.colorDominate, new { @id = "dominante", @class = "form-control", @placeholder = "Color dominante" })
                                 </div>
                                 <div class="form-group">
+                                    @Html.Label("Color de piel predominante:", new { @class = "form-label" })
                                     @Html.TextBoxFor(x => x.mascotas.colorPreDominante, new { @id = "predominante", @class = "form-control", @placeholder = "Color predominante (opcional)" })
                                 </div>
                                 <div class="form-group">
+                                    @Html.Label("Color de piel alternativo:", new { @class = "form-label" })
                                     @Html.TextBoxFor(x => x.mascotas.colorAlternativo, new { @id = "alternativo", @class = "form-control", @placeholder = "Color alternativo (opccional)" })
                                 </div>
                                 <div class="form-group">
+                                    @Html.Label("Género:", new { @class = "form-label" })
                                     @Html.TextBoxFor(x => x.mascotas.sgenero, new { @id = "genero", @class = "form-control", @placeholder = "Género"})
                                 </div>
                                 <div class="form-group">
+                                    @Html.Label("Fecha de nacimiento:", new { @class = "form-label" })
                                     @Html.TextBoxFor(x => x.mascotas.fnacimiento, new { @id = "fechanacimiento", @class = "form-control", @type = "date"})
                                 </div>
                                 <div class="form-group">
+                                    @Html.Label("Seleccionar especie:", new { @class = "form-label" })
                                     @Html.DropDownListFor(x =>x.especies.id, ViewBag.ListaEspecie as SelectList, "Seleccionar", new { @id = "DropDwnEspecie", @class = "form-control" })
                                 </div>
                                 <div class="form-group">
+                                    @Html.Label("Seleccionar raza:", new { @class = "form-label" })
                                     @Html.DropDownListFor(x => x.razas.id, ViewBag.ListaRaza as SelectList, "Seleccionar", new { @id = "DropDwnRaza", @class = "form-control" })
                                 </div>
                                 <div class="form-group">
+                                    @Html.Label("Seleccionar :", new { @class = "form-label" })
                                     @Html.DropDownListFor(x => x.razas.id, ViewBag.ListaUsuario as SelectList, "Seleccionar", new { @id = "DropDwnUsuario", @class = "form-control" })
                                 </div>
                                 <div class="form-group">
@@ -155,7 +165,7 @@
                         "<td>" + "<a href='#' class='btn btn-danger' onclick='EliminarMascota(" + PackMascotas[i].mascotas.id + "," + PackMascotas[i].usuarios.id + ")'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
                         "</tr>";
                     SetData.append(Data);
-                    $("#LoadingStatus").html(" ");
+                    $("#LoadingStatus").html("");
 
                 }
             }
@@ -169,16 +179,28 @@
                 $("#ModalTitle").html("Añadir nueva mascota");
                 $("#subirfoto").hide();
                 $("#MyModal").modal();
-                
+
             }
 
+
+
+            function DropDownRazas(idEspecie) {
+                $.get("/Gestiones/ObtenerMascota?id=" + idEspecie, null)
+                function DataBind(listaraza) {
+                    for (var i = 0; i < PackMascotas.length; i++) {
+                        $("#DropDwnRaza").listaraza();
+                    }
+                }
+            }
+
+
             function EditarMascota(idMascota) {
-                $.get("/Gestiones/ObtenerMascota?idMascota=" + idMascota, null, llamada);
+                $.get("/Gestiones/ObtenerDropDownRaza?id=" + idMascota, null, llamada);
                 $("#subirfoto").show();
                 function llamada(PackMascotas) {
 
                     for (var i = 0; i < PackMascotas.length; i++) {
-                        
+
                         $("#idMascota").val(PackMascotas[i].mascotas.id);
                         $("#idImagen").val(PackMascotas[i].mascotas.id);
                         $("#idUsuarios").val(PackMascotas[i].usuarios.id);
@@ -187,6 +209,8 @@
                         $("#predominante").val(PackMascotas[i].mascotas.colorPreDominante);
                         $("#alternativo").val(PackMascotas[i].mascotas.colorAlternativo);
                         $("#genero").val(PackMascotas[i].mascotas.sgenero);
+                        alert(PackMascotas[i].mascotas.fnacimiento);
+                        var fecha = new Date(PackMascotas[i].mascotas.fnacimiento);
                         $("#fechanacimiento").val(PackMascotas[i].mascotas.fnacimiento);
                         $("#imgSalida").attr("src", PackMascotas[i].mascotas.foto);
                         $("#DropDwnEspecie option:selected").val(PackMascotas[i].especies.id);

@@ -142,6 +142,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BO\ChatBO.cs" />
     <Compile Include="BO\CiudadesBO.cs" />
     <Compile Include="BO\ComercioBO.cs" />
     <Compile Include="BO\DireccionBO.cs" />
@@ -166,6 +167,7 @@
     <Compile Include="Controllers\MasterLogin\InicioController.cs" />
     <Compile Include="Controllers\MasterUsuario\UsuarioController.cs" />
     <Compile Include="Controllers\MasterVeterinario\VetController.cs" />
+    <Compile Include="DAO\ChatDAO.cs" />
     <Compile Include="DAO\ComercioDAO.cs" />
     <Compile Include="DAO\ConexionSQL.cs" />
     <Compile Include="DAO\EspeciesDAO.cs" />
@@ -949,6 +951,7 @@
     <Content Include="Views\Gestiones\Especies.cshtml" />
     <Content Include="Views\Gestiones\Razas.cshtml" />
     <Content Include="Views\Gestiones\Vacunas.cshtml" />
+    <Content Include="Views\Admin\Chat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Encriptacion\MD5.csproj">

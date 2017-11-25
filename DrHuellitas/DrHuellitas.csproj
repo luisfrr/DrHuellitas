@@ -155,6 +155,7 @@
     <Compile Include="BO\MascotasBO.cs" />
     <Compile Include="BO\PaisesBO.cs" />
     <Compile Include="BO\PaquetesBO.cs" />
+    <Compile Include="BO\PropagandaBO.cs" />
     <Compile Include="BO\RazasBO.cs" />
     <Compile Include="BO\RegionesBO.cs" />
     <Compile Include="BO\RegistrosBO.cs" />
@@ -808,6 +809,7 @@
     <Content Include="img\img4.jpg" />
     <Content Include="img\img5.jpg" />
     <Content Include="img\img6.jpg" />
+    <Content Include="img\loader.gif" />
     <Content Include="img\Login.jpg" />
     <Content Include="img\login2.jpeg" />
     <Content Include="img\Logo.png" />

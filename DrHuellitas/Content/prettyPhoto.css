@@ -27,7 +27,7 @@ div.pp_default .pp_description{font-size:11px;font-weight:700;line-height:14px;m
 div.pp_default .pp_bottom .pp_left{background:url(../images/default/sprite.png) -78px -127px no-repeat}
 div.pp_default .pp_bottom .pp_middle{background:url(../images/default/sprite_x.png) bottom left repeat-x}
 div.pp_default .pp_bottom .pp_right{background:url(../images/default/sprite.png) -112px -127px no-repeat}
-div.pp_default .pp_loaderIcon{background:url(../images/default/loader.gif) center center no-repeat}
+div.pp_default .pp_loaderIcon{background:url(../img/loader.gif) center center no-repeat}
 div.light_rounded .pp_top .pp_left{background:url(../images/light_rounded/sprite.png) -88px -53px no-repeat}
 div.light_rounded .pp_top .pp_right{background:url(../images/light_rounded/sprite.png) -110px -53px no-repeat}
 div.light_rounded .pp_next:hover{background:url(../images/light_rounded/btnNext.png) center right no-repeat;cursor:pointer}
@@ -61,10 +61,12 @@ div.dark_rounded .pp_arrow_previous{background:url(../images/dark_rounded/sprite
 div.dark_rounded .pp_arrow_next{background:url(../images/dark_rounded/sprite.png) -22px -71px no-repeat}
 div.dark_rounded .pp_bottom .pp_left{background:url(../images/dark_rounded/sprite.png) -88px -80px no-repeat}
 div.dark_rounded .pp_bottom .pp_right{background:url(../images/dark_rounded/sprite.png) -110px -80px no-repeat}
-div.dark_rounded .pp_loaderIcon{background:url(../images/dark_rounded/loader.gif) center center no-repeat}
+div.dark_rounded .pp_loaderIcon {
+    background: url(../img/loader.gif) center center no-repeat
+}
 div.dark_square .pp_left,div.dark_square .pp_middle,div.dark_square .pp_right,div.dark_square .pp_content{background:#000}
 div.dark_square .pp_description{color:#fff;margin:0 85px 0 0}
-div.dark_square .pp_loaderIcon{background:url(../images/dark_square/loader.gif) center center no-repeat}
+div.dark_square .pp_loaderIcon{background:url(../img/loader.gif) center center no-repeat}
 div.dark_square .pp_expand{background:url(../images/dark_square/sprite.png) -31px -26px no-repeat;cursor:pointer}
 div.dark_square .pp_expand:hover{background:url(../images/dark_square/sprite.png) -31px -47px no-repeat;cursor:pointer}
 div.dark_square .pp_contract{background:url(../images/dark_square/sprite.png) 0 -26px no-repeat;cursor:pointer}
@@ -99,7 +101,9 @@ div.facebook .pp_contract{background:url(../images/facebook/sprite.png) 0 -26px 
 div.facebook .pp_contract:hover{background:url(../images/facebook/sprite.png) 0 -47px no-repeat;cursor:pointer}
 div.facebook .pp_close{width:22px;height:22px;background:url(../images/facebook/sprite.png) -1px -1px no-repeat;cursor:pointer}
 div.facebook .pp_description{margin:0 37px 0 0}
-div.facebook .pp_loaderIcon{background:url(../images/facebook/loader.gif) center center no-repeat}
+div.facebook .pp_loaderIcon {
+    background: url(../img/loader.gif) center center no-repeat
+}
 div.facebook .pp_arrow_previous{background:url(../images/facebook/sprite.png) 0 -71px no-repeat;height:22px;margin-top:0;width:22px}
 div.facebook .pp_arrow_previous.disabled{background-position:0 -96px;cursor:default}
 div.facebook .pp_arrow_next{background:url(../images/facebook/sprite.png) -32px -71px no-repeat;height:22px;margin-top:0;width:22px}
@@ -157,7 +161,9 @@ div.light_rounded .pp_description,div.light_square .pp_description{margin-right:
 div.light_rounded .pp_gallery a.pp_arrow_previous,div.light_rounded .pp_gallery a.pp_arrow_next,div.dark_rounded .pp_gallery a.pp_arrow_previous,div.dark_rounded .pp_gallery a.pp_arrow_next,div.dark_square .pp_gallery a.pp_arrow_previous,div.dark_square .pp_gallery a.pp_arrow_next,div.light_square .pp_gallery a.pp_arrow_previous,div.light_square .pp_gallery a.pp_arrow_next{margin-top:12px!important}
 div.light_rounded .pp_arrow_previous.disabled,div.dark_rounded .pp_arrow_previous.disabled,div.dark_square .pp_arrow_previous.disabled,div.light_square .pp_arrow_previous.disabled{background-position:0 -87px;cursor:default}
 div.light_rounded .pp_arrow_next.disabled,div.dark_rounded .pp_arrow_next.disabled,div.dark_square .pp_arrow_next.disabled,div.light_square .pp_arrow_next.disabled{background-position:-22px -87px;cursor:default}
-div.light_rounded .pp_loaderIcon,div.light_square .pp_loaderIcon{background:url(../images/light_rounded/loader.gif) center center no-repeat}
+div.light_rounded .pp_loaderIcon, div.light_square .pp_loaderIcon {
+    background: url(../img/loader.gif) center center no-repeat
+}
 div.dark_rounded .pp_top .pp_middle,div.dark_rounded .pp_content,div.dark_rounded .pp_bottom .pp_middle{background:url(../images/dark_rounded/contentPattern.png) top left repeat}
 div.dark_rounded .currentTextHolder,div.dark_square .currentTextHolder{color:#c4c4c4}
 div.dark_rounded #pp_full_res .pp_inline,div.dark_square #pp_full_res .pp_inline{color:#fff}

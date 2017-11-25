@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/MasterFrontEndVet.cshtml";
 }
 
-
 <div class="page-header">
     <div class="container">
         <div class="row">
@@ -53,16 +52,23 @@
             <div class="modal-body">
                 @using (Html.BeginForm("SubirImagen", "Gestiones", FormMethod.Post, new { @enctype = "multipart/form-data" }))
                 {
-                    @Html.HiddenFor(m => m.id, new { @id = "idpropaganda" })
+                    <div class="col-md-12">
+                      
                     <div class="form-group">
-                        <img id="imgSalida" src="~/img/admin/avatar-1-128.png" width="128" height="128" class="img-circle" />
+                        @Html.HiddenFor(m => m.id, new { @id = "idpropaganda" })
+                        @Html.HiddenFor(m => m.idusuario, new { @idusuario="idusuario"})
+                        <img id="imgSalida" src="~/img/admin/avatar-1-128.png" width="128" height="128" class="img-circle center-block" />
                         <br />
 
-                        <label class="control-label" for="file">Seleccionar una foto de perfil:</label>
-                        @Html.TextBoxFor(m => m.imagen, new { @type = "file", @name = "file", @id = "file", @class = "btn btn-file" })
-                    </div>
+                        @Html.TextBoxFor(m => m.imagen, new {@type = "file", @name = "file", @id = "file", @class = "btn btn-file center-block form-control" })
+                        <br />
+                        <label class="text-align-center">Descripción:</label><br />
+                        @Html.TextAreaFor(m => m.descripcion, new { @id="idarea", @class= "form-control", @style= "resize: none;", @rows = "6", @cols = "80" })
 
-                            <button class=" btn btn-block btn-success" type="submit" id="btnListo">Subir Imagen</button>
+                    </div>
+                        </div>
+
+                            <button class=" btn btn-block btn-success" type="submit" id="btnListo">Agregar</button>
 
                 }
             </div>
@@ -80,7 +86,7 @@
     function AgregarPropaganda(idpropaganda) {
         $("#idUsuario").val(0);
         $("#imgSalida").attr("src", "../../img/admin/avatar-1-128.png");
-        $("#ModalTitle").html("Añadir nueva propaganda");
+        $("#ModalTitle1").html("Añadir nueva propaganda");
         $("#propaganda").modal();
     }
 

@@ -952,6 +952,7 @@
     <Content Include="Views\Gestiones\Razas.cshtml" />
     <Content Include="Views\Gestiones\Vacunas.cshtml" />
     <Content Include="Views\Comercio\Chat.cshtml" />
+    <Content Include="Views\Comercio\Propaganda.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Encriptacion\MD5.csproj">

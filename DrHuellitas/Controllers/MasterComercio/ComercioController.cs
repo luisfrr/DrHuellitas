@@ -140,5 +140,12 @@ namespace DrHuellitas.Controllers.MasterComercio
             json.MaxJsonLength = Int32.MaxValue;
             return json;
         }
+        public JsonResult mostrar(int id)
+        {
+            List<PropagandaBO> obtenerlista = objDAO.unapropaganda(id).ToList();
+            var json = Json(obtenerlista, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
     }
 }

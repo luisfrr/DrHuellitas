@@ -496,7 +496,7 @@
                                             </div>
                                         </div>
 
-                                        <button class=" btn btn-block btn-success" type="submit" id="btnListo">Agregar</button>
+                                        <button class=" btn btn-block btn-success" type="submit" id="btnListo">Guardar</button>
 
                                     }
                                 </div>
@@ -602,7 +602,7 @@
                 "<p style='text-align:center;'><img src=" + Packpropaganda[i].foto + " style='width:auto; height:500px'/></p>" +
                 "</div>" +
                 "<div class='panel-footer'>"+
-                    "<button type='button' class='[ btn btn-default ]' onclick='EditarPropaganda("+Packpropaganda[i].id+")'>Editar</button>"+
+                    "<button type='button'  href='#' class='[ btn btn-default ]' onclick='EditarPropaganda("+Packpropaganda[i].id+")'>Editar</button>"+
                     "<button type='button' class='[ btn btn-default ]'>"+
                      "<span class=[ glyphicon glyphicon-share-alt ]> Eliminar</span>"+
                     "</button>"+
@@ -613,20 +613,21 @@
         };
 
     }
-    function EditarPropaganda(idCiudad) {
-        $.get("/Comercio/ObtenerCiudad?idCiudad=" + idCiudad, null, llamada);
-        function llamada(PackCiudades) {
+    function EditarPropaganda(idpropaganda) {
+        $.get("/Comercio/mostrar?id="+idpropaganda, null, llamada);
+        function llamada(obtenerlista)
+        {
 
-            for (var i = 0; i < PackCiudades.length; i++) {
+            for (var i = 0; i < obtenerlista.length; i++)
+            {
 
-                $("#idCiudad").val(PackCiudades[i].ciudad.id);
-                $("#nomCiudad").val(PackCiudades[i].ciudad.nombre);
-                $("#DropDwn option:selected").text(PackCiudades[i].ciudad.nomEstado);
-                $("#DropDwn option:selected").val(PackCiudades[i].ciudad.idEstado);
+                $("#idpropaganda").val(obtenerlista[i].id);
+                $("#idarea").val(obtenerlista[i].descripcion);
+                $("#img").attr("src", obtenerlista[i].foto);
             }
         }
         $("#ModalTitle1").html("Actualizar datos de la ciudad");
-        $("#MyModal1").modal();
+        $("#propaganda").modal();
 
     }
 </script>

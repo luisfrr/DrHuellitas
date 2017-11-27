@@ -141,7 +141,7 @@ namespace DrHuellitas.DAO
         public List<PropagandaBO> obtenerpropaganda(int idusuario)
         {
             var propaganda = new List<PropagandaBO>();
-            SqlCommand cmd = new SqlCommand("SELECT id,idUsuario,foto,descripcion, fecha FROM Propaganda where status=1 and idUsuario='"+idusuario+"'");
+            SqlCommand cmd = new SqlCommand("SELECT id,idUsuario,foto,descripcion, fecha FROM Propaganda where status=1 and idUsuario='"+idusuario+"' order by id desc");
 
             cmd.Connection = conex.establecerConexion();
             conex.AbrirConexion();
@@ -153,6 +153,7 @@ namespace DrHuellitas.DAO
                     String fotos = Convert.ToBase64String((byte[])dr["foto"]);
                     if (fotos == "0")
                     {
+
                         var p = new BO.PropagandaBO
                         {
                                 id = Convert.ToInt32(dr["id"].ToString()),
@@ -198,12 +199,27 @@ namespace DrHuellitas.DAO
 
         public int actualizar(PropagandaBO objbo)
         {
-            SqlCommand cmd = new SqlCommand("update Propaganda set foto=@foto,descripcion=@descrip where id=@id");
-            cmd.Parameters.Add("@foto", SqlDbType.Image).Value = Foto.ConvertirAFoto(objbo.imagen);
-            cmd.Parameters.Add("@descrip", SqlDbType.VarChar).Value = objbo.descripcion;
-            cmd.Parameters.Add("@id", SqlDbType.Int).Value = objbo.id;
+            if (objbo.imagen == null)
+            {
+                SqlCommand cmd = new SqlCommand("update Propaganda set descripcion=@descrip where id=@id");
+                cmd.Parameters.Add("@descrip", SqlDbType.VarChar).Value = objbo.descripcion;
+                cmd.Parameters.Add("@id", SqlDbType.Int).Value = objbo.id;
 
-            return conex.EjecutarComando(cmd);
+                return conex.EjecutarComando(cmd);
+            }
+            else
+            {
+
+
+                SqlCommand cmd = new SqlCommand("update Propaganda set foto=@foto,descripcion=@descrip where id=@id");
+                cmd.Parameters.Add("@foto", SqlDbType.Image).Value = Foto.ConvertirAFoto(objbo.imagen);
+                cmd.Parameters.Add("@descrip", SqlDbType.VarChar).Value = objbo.descripcion;
+                cmd.Parameters.Add("@id", SqlDbType.Int).Value = objbo.id;
+
+                return conex.EjecutarComando(cmd);
+            }
+
+            return 1;
         }
 
         public int eliminarPropaganda(PropagandaBO objbo)
@@ -211,6 +227,49 @@ namespace DrHuellitas.DAO
             SqlCommand cmd = new SqlCommand("delete from Propaganda where id=@id");
             cmd.Parameters.Add("@id", SqlDbType.Int).Value = objbo.id;
             return conex.EjecutarComando(cmd);
+        }
+        public List<PropagandaBO> unapropaganda(int idpropaganda)
+        {
+            var propaganda = new List<PropagandaBO>();
+            SqlCommand cmd = new SqlCommand("SELECT id,foto,descripcion FROM Propaganda where status=1 id='"+idpropaganda+"' order by id desc");
+
+            cmd.Connection = conex.establecerConexion();
+            conex.AbrirConexion();
+            var query = cmd;
+            using (var dr = query.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    String fotos = Convert.ToBase64String((byte[])dr["foto"]);
+                    if (fotos == "0")
+                    {
+
+                        var p = new BO.PropagandaBO
+                        {
+                            id = Convert.ToInt32(dr["id"].ToString()),
+                            foto = " ",
+                            descripcion = dr["descripcion"].ToString()
+
+
+                        };
+                        propaganda.Add(p);
+                    }
+                    else
+                    {
+                        var p = new BO.PropagandaBO
+                        {
+
+
+                            id = Convert.ToInt32(dr["id"].ToString()),
+                            foto = "data:image/jpeg;base64," + Convert.ToBase64String((byte[])dr["foto"]),
+                            descripcion = dr["descripcion"].ToString()
+                        };
+                        propaganda.Add(p);
+                    }
+
+                }
+            }
+            return propaganda;
         }
     }
 }

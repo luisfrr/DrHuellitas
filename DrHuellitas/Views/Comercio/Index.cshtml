@@ -509,6 +509,23 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="VentanaEliminado1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h4>Eliminar propaganda</h4>
+            </div>
+            <div class="modal-body">
+                <h4>¿Esta usted seguro que lo desea eliminar?</h4>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-primary" data-dismiss="modal" id="r">Cancelar</a>
+                <a href="#" class="btn btn-danger" onclick="ConfirmDelete()">Confirmar</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     document.getElementById("slider").style.height = "200px"
@@ -604,7 +621,7 @@
                 "<div class='panel-footer'>"+
                     "<button type='button'  href='#' class='[ btn btn-default ]' onclick='EditarPropaganda("+Packpropaganda[i].id+")'>Editar</button>"+
                     "<button type='button' class='[ btn btn-default ]'>"+
-                     "<span class=[ glyphicon glyphicon-share-alt ]> Eliminar</span>"+
+                     "<span class=[ glyphicon glyphicon-share-alt ] href='#' onclick='Eliminnarpropaganda("+Packpropaganda[i].id+")'> Eliminar</span>"+
                     "</button>"+
 
                 "</div>"+
@@ -629,5 +646,21 @@
         $("#ModalTitle1").html("Actualizar datos de la ciudad");
         $("#propaganda").modal();
 
+    }
+
+    var Eliminnarpropaganda = function (idpropaganda) {
+        $("#idpropaganda").val(idpropaganda);
+        $("#VentanaEliminado1").modal("show");
+    }
+    var ConfirmDelete = function () {
+        var idpropaganda = $("#idpropaganda").val();
+        $.ajax({
+            type: "POST",
+            url: "/Comercio/eliminar?id=" + idpropaganda,
+            success: function (result) {
+                $("#VentanaEliminado1").modal("hide");
+                $(".row_" + idpropaganda).remove();
+            }
+        })
     }
 </script>

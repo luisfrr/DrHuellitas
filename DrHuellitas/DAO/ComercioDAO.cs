@@ -222,16 +222,15 @@ namespace DrHuellitas.DAO
             return 1;
         }
 
-        public int eliminarPropaganda(PropagandaBO objbo)
+        public int eliminarPropaganda(int id)
         {
-            SqlCommand cmd = new SqlCommand("delete from Propaganda where id=@id");
-            cmd.Parameters.Add("@id", SqlDbType.Int).Value = objbo.id;
+            SqlCommand cmd = new SqlCommand("delete from Propaganda where id='"+id+"'");
             return conex.EjecutarComando(cmd);
         }
         public List<PropagandaBO> unapropaganda(int idpropaganda)
         {
             var propaganda = new List<PropagandaBO>();
-            SqlCommand cmd = new SqlCommand("SELECT id,foto,descripcion FROM Propaganda where status=1 id='"+idpropaganda+"' order by id desc");
+            SqlCommand cmd = new SqlCommand("SELECT id,foto,descripcion FROM Propaganda where id='"+idpropaganda+"' order by id desc");
 
             cmd.Connection = conex.establecerConexion();
             conex.AbrirConexion();

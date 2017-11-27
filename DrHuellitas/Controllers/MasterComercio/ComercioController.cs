@@ -127,7 +127,12 @@ namespace DrHuellitas.Controllers.MasterComercio
         public ActionResult AgregarPropaganda(PropagandaBO obj)
         {
             int id = (int)Session["id"];
-            var agregar = objDAO.agregarpropaganda(obj,id);
+            var agregar = (obj.id > 0) ? objDAO.actualizar(obj) : objDAO.agregarpropaganda(obj, id);
+            return Redirect("~/Comercio/Index");
+        }
+        public ActionResult eliminar(int id)
+        {
+            var agregar = objDAO.eliminarPropaganda(id);
             return Redirect("~/Comercio/Index");
         }
 

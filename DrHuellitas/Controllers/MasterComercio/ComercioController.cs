@@ -124,10 +124,18 @@ namespace DrHuellitas.Controllers.MasterComercio
             return View();
         }
 
+        public ActionResult AgregarPropaganda(PropagandaBO obj)
+        {
+            int id = (int)Session["id"];
+            var agregar = objDAO.agregarpropaganda(obj,id);
+            return Redirect("~/Comercio/Index");
+        }
+
 
         public JsonResult Obtenerpropaganda()
         {
-            List<PropagandaBO> Packpropaganda = objDAO.obtenerpropaganda().ToList();
+            int id = (int)Session["id"];
+            List<PropagandaBO> Packpropaganda = objDAO.obtenerpropaganda(id).ToList();
             var json= Json(Packpropaganda, JsonRequestBehavior.AllowGet);
             json.MaxJsonLength = Int32.MaxValue;
             return json;

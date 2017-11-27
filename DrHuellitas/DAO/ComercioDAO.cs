@@ -138,10 +138,10 @@ namespace DrHuellitas.DAO
             return conex.EjecutarComando(comando);
         }
 
-        public List<PropagandaBO> obtenerpropaganda()
+        public List<PropagandaBO> obtenerpropaganda(int idusuario)
         {
             var propaganda = new List<PropagandaBO>();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Propaganda");
+            SqlCommand cmd = new SqlCommand("SELECT id,idUsuario,foto,descripcion, fecha FROM Propaganda where status=1 and idUsuario='"+idusuario+"'");
 
             cmd.Connection = conex.establecerConexion();
             conex.AbrirConexion();
@@ -157,9 +157,11 @@ namespace DrHuellitas.DAO
                         {
                                 id = Convert.ToInt32(dr["id"].ToString()),
                                 idusuario =Convert.ToInt32( dr["iduUsuario"].ToString()),
+                                foto = " ",
                                 descripcion = dr["descripcion"].ToString(),
-                                foto = " "
-                            
+                                fecha=Convert.ToDateTime(dr["fecha"]).ToString("dd-MM-yyyy")
+
+
                         };
                         propaganda.Add(p);
                     }
@@ -171,8 +173,9 @@ namespace DrHuellitas.DAO
                           
                                 id = Convert.ToInt32(dr["id"].ToString()),
                                 idusuario =Convert.ToInt32( dr["idUsuario"].ToString()),
-                                descripcion = dr["usuario"].ToString(),
-                                foto = "data:image/jpeg;base64," + Convert.ToBase64String((byte[])dr["foto"])
+                                foto = "data:image/jpeg;base64," + Convert.ToBase64String((byte[])dr["foto"]),
+                                descripcion = dr["descripcion"].ToString(),
+                                fecha=Convert.ToDateTime(dr["fecha"]).ToString("dd-MM-yyyy")
                         };
                         propaganda.Add(p);
                     }
@@ -180,6 +183,34 @@ namespace DrHuellitas.DAO
                 }
             }
             return propaganda;
+        }
+
+        public int agregarpropaganda(PropagandaBO objbo, int usuario)
+        {
+            SqlCommand cmd = new SqlCommand("insert into Propaganda(idUsuario,foto,descripcion,status,fecha)values(@idusu,@foto,@des,@sta,@fecha)");
+            cmd.Parameters.Add("@idusu", SqlDbType.Int).Value = usuario;
+            cmd.Parameters.Add("@foto", SqlDbType.Image).Value = Foto.ConvertirAFoto(objbo.imagen);
+            cmd.Parameters.Add("@des", SqlDbType.VarChar).Value = objbo.descripcion;
+            cmd.Parameters.Add("@sta", SqlDbType.Bit).Value = false;
+            cmd.Parameters.Add("@fecha", SqlDbType.Date).Value =DateTime.Now.ToShortDateString();
+            return conex.EjecutarComando(cmd);
+        }
+
+        public int actualizar(PropagandaBO objbo)
+        {
+            SqlCommand cmd = new SqlCommand("update Propaganda set foto=@foto,descripcion=@descrip where id=@id");
+            cmd.Parameters.Add("@foto", SqlDbType.Image).Value = Foto.ConvertirAFoto(objbo.imagen);
+            cmd.Parameters.Add("@descrip", SqlDbType.VarChar).Value = objbo.descripcion;
+            cmd.Parameters.Add("@id", SqlDbType.Int).Value = objbo.id;
+
+            return conex.EjecutarComando(cmd);
+        }
+
+        public int eliminarPropaganda(PropagandaBO objbo)
+        {
+            SqlCommand cmd = new SqlCommand("delete from Propaganda where id=@id");
+            cmd.Parameters.Add("@id", SqlDbType.Int).Value = objbo.id;
+            return conex.EjecutarComando(cmd);
         }
     }
 }

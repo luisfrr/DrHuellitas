@@ -153,6 +153,7 @@
     <Compile Include="BO\GmailBO.cs" />
     <Compile Include="BO\HorarioBO.cs" />
     <Compile Include="BO\MascotasBO.cs" />
+    <Compile Include="BO\MensajesBO.cs" />
     <Compile Include="BO\PaisesBO.cs" />
     <Compile Include="BO\PaquetesBO.cs" />
     <Compile Include="BO\PropagandaBO.cs" />
@@ -162,6 +163,7 @@
     <Compile Include="BO\TipoUsuarioBO.cs" />
     <Compile Include="BO\UsuarioBO.cs" />
     <Compile Include="BO\VacunasBO.cs" />
+    <Compile Include="Controllers\ChatController.cs" />
     <Compile Include="Controllers\MasterAdmin\AdminController.cs" />
     <Compile Include="Controllers\MasterAdmin\GestionesController.cs" />
     <Compile Include="Controllers\MasterComercio\ComercioController.cs" />
@@ -867,6 +869,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Chat\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -955,7 +958,7 @@
     <Content Include="Views\Gestiones\Especies.cshtml" />
     <Content Include="Views\Gestiones\Razas.cshtml" />
     <Content Include="Views\Gestiones\Vacunas.cshtml" />
-    <Content Include="Views\Admin\Chat.cshtml" />
+    <Content Include="Views\Admin\ChatA.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Encriptacion\MD5.csproj">

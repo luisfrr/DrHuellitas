@@ -33,7 +33,7 @@
                 </tr>
             </thead>
             <tbody id="SetStudentList">
-                <tr id="CargarTabla" style="color:black"></tr>
+                <tr id="CargarTabla" style="color:black"><td id="LoadingStatus"></td></tr>
             </tbody>
         </table>
 
@@ -91,7 +91,7 @@
 
         
         <script>
-            $("#CargarTabla").html("");
+            $("#LoadingStatus").html("Cargando...");
             $.get("/Gestiones/ObtenerListaPaquetes", null, DataBind);
             function DataBind(PackList) {
                 var SetData = $("#SetStudentList");
@@ -105,7 +105,7 @@
                         "<td>" + "<a href='#' class='btn btn-danger' onclick='EliminarPaquete(" + PackList[i].id + ")'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
                         "</tr>";
                     SetData.append(Data);
-                    $("#LoadingStatus").html(" ");
+                    $("#LoadingStatus").remove();
 
                 }
             }

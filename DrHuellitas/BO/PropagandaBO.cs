@@ -12,6 +12,8 @@ namespace DrHuellitas.BO
         public HttpPostedFileBase imagen { get; set; }
         public string descripcion { get; set; }
         public string foto { get; set; }
+        public string fecha { get; set; }
+        public byte status { get; set; }
 
     }
 }

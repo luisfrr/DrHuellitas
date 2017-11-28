@@ -1,4 +1,5 @@
-﻿
+﻿@using DrHuellitas.BO;
+@model PropagandaBO
 @{
     ViewBag.Title = "Bienvenido a Dr. Huellitas";
     Layout = "~/Views/Shared/MasterFrontEndVet.cshtml";
@@ -443,148 +444,84 @@
                 <!-- Start Sidebar -->
                 <div class="col-xm-10 col-md-4 sidebar">
                     <div class="card hovercard">
-                        <div class="cardheader">
+                        <div class="cardheader" >
                         </div>
                         <div class="avatar">
                             <img alt="" src="@Session["foto"]">
                         </div>
                         <div class="info">
                             <div class="title">
-                                <a>Gerardo Uicab</a>
+                                <a>@Session["nombre"]</a>
                             </div>
-                            <div class="desc">Estudiante TIC-SI</div>
-                            <div class="desc">2017</div>
-                            <div class="desc">Hey Papu</div>
                         </div>
                         <div class="bottom">
-                            <a class="btn btn-primary btn-twitter btn-sm" href="https://twitter.com/webmaniac">
-                                <i class="fa fa-twitter"></i>
-                            </a>
-                            <a class="btn btn-danger btn-sm" rel="publisher"
-                               href="https://plus.google.com/+ahmshahnuralam">
-                                <i class="fa fa-google-plus"></i>
-                            </a>
-                            <a class="btn btn-primary btn-sm" rel="publisher"
-                               href="https://plus.google.com/shahnuralam">
-                                <i class="fa fa-facebook"></i>
-                            </a>
-                            <a class="btn btn-warning btn-sm" rel="publisher" href="https://plus.google.com/shahnuralam">
-                                <i class="fa fa-behance"></i>
+                            <a class="btn btn-warning btn-circle" href="#" onclick="AgregarPropaganda(0)" style="width:250px;">Agregar propaganda
+                                <i class="fa fa-plus"></i>
                             </a>
                         </div>
 
                         <br />
-                        <br />
-                        <br />
-                        <br />
-                        <br />
+                      
                     </div>
                 </div>
                 <div class="col-md-1">
 
                 </div>
-                <div class="col-md-7">
-                    <div class="[ panel panel-default ] panel-google-plus">
-                        <div class="dropdown">
-                            <span class="dropdown-toggle" type="button" data-toggle="dropdown">
-                                <span class="[ glyphicon glyphicon-chevron-down ]"></span>
-                            </span>
-                            <ul class="dropdown-menu" role="menu">
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-                                <li role="presentation" class="divider"></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-                            </ul>
-                        </div>
-                        <div class="panel-google-plus-tags">
-
-                        </div>
-                        <div class="panel-heading">
-                            <img class="[ img-circle pull-left ]" src="@Session["foto"]" height="32" width="32" alt="Mouse0270" />
-                            <h3>Gerardo Uicab</h3>
-                            <h5><span>Shared publicly</span> - <span>Nov 25, 2017</span> </h5>
-                        </div>
-                        <div class="panel-body">
-                            <p>¡Atención! Durante en los próximos días estaremos lanzando promociones, no se las pierdan.</p>
-                            <p style="text-align:center;"><img src="~/img/pic1.jpg" style="width:auto; height:500px"/></p>
-                        </div>
-                        <div class="panel-footer">
-                            <button type="button" class="[ btn btn-default ]">+1</button>
-                            <button type="button" class="[ btn btn-default ]">
-                                <span class="[ glyphicon glyphicon-share-alt ]"> Editar</span>
-                            </button>
-
-                        </div>
-
-                    </div>
+                <div class="col-md-7" id="listaPropaganda">
                    
                     <!-- Payment Modal Window -->
-                    <div class="modal fade" id="PaymentModal" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="PaymentModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="propaganda">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title" id="myModalLabel">Donate to: <span class="accent-color payment-to-cause"></span></h4>
+                                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                                    <h4 id="ModalTitle1"></h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>How much would you like to donate?</label>
-                                                <div class="input-group margin-20">
-                                                    <span class="input-group-addon">$</span>
-                                                    <select name="donation amount" class="form-control">
-                                                        <option value="20">20</option>
-                                                        <option value="50">50</option>
-                                                        <option value="100">100</option>
-                                                        <option value="Custom">100+</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6 custom-donate-amount">
-                                                <label>Enter custom donation amount</label>
-                                                <div class="input-group margin-20">
-                                                    <span class="input-group-addon">$</span>
-                                                    <input type="text" name="Custom Donation Amount" class="form-control">
-                                                </div>
+                                    @using (Html.BeginForm("AgregarPropaganda", "Comercio", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                                    {
+                                        <div class="col-md-12">
+
+                                            <div class="form-group">
+                                                @Html.HiddenFor(m => m.id, new { @id = "idpropaganda" })
+                                                @Html.HiddenFor(m => m.idusuario, new { @idusuario = "idusuario" })
+                                                <img id="img" src="~/img/admin/avatar-1-128.png" width="100" height="100" class="img-circle center-block" />
+                                                <br />
+
+                                                @Html.TextBoxFor(m => m.imagen, new { @type = "file", @name = "file", @id = "carga", @class = "btn btn-file center-block form-control" })
+                                                <br />
+                                                <label class="text-align-center">Descripción:</label><br />
+                                                @Html.TextAreaFor(m => m.descripcion, new { @id = "idarea", @class = "form-control", @style = "resize: none;", @rows = "6", @cols = "80" })
+
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <input type="text" name="fname" class="form-control" placeholder="First name (Required)">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input type="text" name="lname" class="form-control" placeholder="Last name">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <input type="email" name="email" class="form-control" placeholder="Your email (Required)">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <input type="phone" name="phone" class="form-control" placeholder="Your phone">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <textarea rows="3" cols="5" class="form-control" placeholder="Your Address"></textarea>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <textarea rows="3" cols="5" class="form-control" placeholder="Additional Notes"></textarea>
-                                            </div>
-                                        </div>
-                                        <input type="submit" name="donate" class="btn btn-primary btn-lg btn-block" value="Donate Now">
-                                    </form>
-                                </div>
-                                <div class="modal-footer">
-                                    <p class="small short">If you would prefer to call in your donation, please call 1800.785.876</p>
+
+                                        <button class=" btn btn-block btn-success" type="submit" id="btnListo">Guardar</button>
+
+                                    }
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div><!--Aquí termina el modal-->
                 </div>
                 
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="VentanaEliminado1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h4>Eliminar propaganda</h4>
+            </div>
+            <div class="modal-body">
+                <h4>¿Esta usted seguro que lo desea eliminar?</h4>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-primary" data-dismiss="modal" id="r">Cancelar</a>
+                <a href="#" class="btn btn-danger" onclick="ConfirmDelete()">Confirmar</a>
             </div>
         </div>
     </div>
@@ -595,9 +532,33 @@
     $("#slider").attr("data-pagination", "");
     $("#slider").attr("data-arrows", "");
     $("#slider").attr("data-style", "");
-    $("#slider").css("position", "relative");
-    $("#slider").css("z - index", "0");
-    
+
+
+
+    $(document).ready(function () {
+        $(function () {
+            $('#carga').change(function (e) {
+                addImage(e);
+            });
+
+            function addImage(e) {
+                var file = e.target.files[0], imageType = /image.*/;
+
+                if (!file.type.match(imageType))
+                    return;
+
+                var reader = new FileReader();
+                reader.onload = fileOnload;
+                reader.readAsDataURL(file);
+            }
+
+            function fileOnload(e) {
+                var result = e.target.result;
+                $('#img').attr("src", result);
+            }
+        });
+    });
+
     $(function () {
         $('.panel-google-plus > .panel-footer > .input-placeholder, .panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > button[type="reset"]').on('click', function (event) {
             var $panel = $(this).closest('.panel-google-plus');
@@ -621,4 +582,83 @@
             }
         });
     });
+
+    document.getElementById("slider").style.height = "200px"
+
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+    function AgregarPropaganda(idpropaganda) {
+        $("#idUsuario").val(0);
+        $("#imgSalida").attr("src", "../../img/admin/avatar-1-128.png");
+        $("#ModalTitle1").html("Añadir nueva propaganda");
+        $("#propaganda").modal();
+    }
+
+    $.get("/Comercio/Obtenerpropaganda", null, DataBind);
+    function DataBind(Packpropaganda)
+    {
+        var SetData = $("#listaPropaganda");
+        for (var i = 0; i < Packpropaganda.length; i++)
+        {
+            var data = "<div class='[ panel panel-default ] panel-google-plus'  row_" + Packpropaganda[i].id + ">" +
+
+                "<div class='panel-google-plus-tags'>" +
+
+                "</div>" +
+                "<div class='panel-heading'>" +
+                " <img class='[ img-circle pull-left ]' src=@Session["foto"] height='30' width='40' alt='Mouse0270' />" +
+                "<h3>@Session["nombre"]</h3>" +
+                "<h5><span>Propaganda</span> - <span>" + Packpropaganda[i].fecha + "</span> </h5>" +
+                "</div>" +
+                "<div class='panel-body'>" +
+                "<p>" + Packpropaganda[i].descripcion + "</p>" +
+                "<p style='text-align:center;'><img src=" + Packpropaganda[i].foto + " style='width:auto; height:500px'/></p>" +
+                "</div>" +
+                "<div class='panel-footer'>"+
+                    "<button type='button'  href='#' class='[ btn btn-default ]' onclick='EditarPropaganda("+Packpropaganda[i].id+")'>Editar</button>"+
+                    "<button type='button' class='[ btn btn-default ]'>"+
+                     "<span class=[ glyphicon glyphicon-share-alt ] href='#' onclick='Eliminnarpropaganda("+Packpropaganda[i].id+")'> Eliminar</span>"+
+                    "</button>"+
+
+                "</div>"+
+                "</div>";
+            SetData.append(data);
+        };
+
+    }
+    function EditarPropaganda(idpropaganda) {
+        $.get("/Comercio/mostrar?id="+idpropaganda, null, llamada);
+        function llamada(obtenerlista)
+        {
+
+            for (var i = 0; i < obtenerlista.length; i++)
+            {
+
+                $("#idpropaganda").val(obtenerlista[i].id);
+                $("#idarea").val(obtenerlista[i].descripcion);
+                $("#img").attr("src", obtenerlista[i].foto);
+            }
+        }
+        $("#ModalTitle1").html("Actualizar datos de la ciudad");
+        $("#propaganda").modal();
+
+    }
+
+    var Eliminnarpropaganda = function (idpropaganda) {
+        $("#idpropaganda").val(idpropaganda);
+        $("#VentanaEliminado1").modal("show");
+    }
+    var ConfirmDelete = function () {
+        var idpropaganda = $("#idpropaganda").val();
+        $.ajax({
+            type: "POST",
+            url: "/Comercio/eliminar?id=" + idpropaganda,
+            success: function (result) {
+                $("#VentanaEliminado1").modal("hide");
+                location.reload(true);
+            }
+        })
+    }
 </script>

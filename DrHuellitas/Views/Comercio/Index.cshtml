@@ -532,8 +532,6 @@
     $("#slider").attr("data-pagination", "");
     $("#slider").attr("data-arrows", "");
     $("#slider").attr("data-style", "");
-    $("#slider").css("position", "relative");
-    $("#slider").css("z - index", "0");
 
 
 
@@ -659,7 +657,7 @@
             url: "/Comercio/eliminar?id=" + idpropaganda,
             success: function (result) {
                 $("#VentanaEliminado1").modal("hide");
-                $(".row_" + idpropaganda).remove();
+                location.reload(true);
             }
         })
     }

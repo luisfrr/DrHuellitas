@@ -8,13 +8,10 @@ namespace DrHuellitas.BO
     public class ChatBO
     {
         public int id { get; set; }
-        public string mensaje { get; set; }
-        public int idremitente { get; set; }
-        public int idemisor { get; set; }
-        public int status { get; set; }
-        public DateTime fecha { get; set; }
-        public TimeSpan hora { get; set; }
-        public string sfecha { get; set; }
-        public string shora { get; set; }
+        public int idenvia { get; set; }
+        public int idrecibe { get; set; }
+        
+        public MensajesBO mensajes { get; set; }
+        public UsuarioBO usuarios { get; set; }
     }
 }

@@ -455,9 +455,27 @@
                             </div>
                         </div>
                         <div class="bottom">
-                            <a class="btn btn-warning btn-circle" href="#" onclick="AgregarPropaganda(0)" style="width:250px;">Agregar propaganda
-                                <i class="fa fa-plus"></i>
+                            <div class="panel-footer">
+                            <a class="btn btn-success btn-circle" id="btnver"  onclick="craerpropaganda()" style="width:250px;">ver propaganda
+                                <i class="fa fa-plus"></i><br />
                             </a>
+                              <a class="btn btn-danger btn-circle"  id="btncomentarios" onclick="" style="width:250px;">
+                                    Ver comentarios
+                                    <i class="fa fa-plus"></i><br />
+                                </a>
+                                <a class="btn btn-primary btn-circle" id="btnperfil"  onclick="" style="width:250px;">
+                                   Ver mi perfil
+                                    <i class="fa fa-plus"></i><br />
+                                </a>
+                                <a class="btn btn-primary btn-circle" id="btnagregar" onclick="AgregarPropaganda(0)" style="width:250px;"><i class="fa fa-plus"></i>
+                                    Agregar Propaganda
+                                   
+                                </a>
+                                <a class="btn btn-danger btn-circle" id="btnregresar" onclick="regresar()" style="width:250px;">
+                                    Regresar atras
+                                    <i class="fa fa-plus"></i><br />
+                                </a>
+                            </div>
                         </div>
 
                         <br />
@@ -660,5 +678,27 @@
                 location.reload(true);
             }
         })
+    }
+    function craerpropaganda() {
+        $("#btnagregar").show();
+        $("#btnregresar").show();
+        $("#btnver").hide();
+        $("#btnperfil").hide();
+        $("#btncomentarios").hide();
+
+    };
+    $(document).ready(function () {
+        $("#btnagregar").hide();
+        $("#btnregresar").hide();
+    }
+    );
+    function regresar() {
+        $("#btnver").show();
+        $("#btnperfil").show();
+        $("#btncomentarios").show();
+        $("#btnagregar").hide();
+        $("#btnregresar").hide();
+
+
     }
 </script>

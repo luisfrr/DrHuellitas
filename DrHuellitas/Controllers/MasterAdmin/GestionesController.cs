@@ -15,11 +15,13 @@ namespace DrHuellitas.Controllers.MasterAdmin
         PaquetesDAO objPaqueteDAO = new PaquetesDAO();
         RegionesDAO objRegionesDAO = new RegionesDAO();
         UsuarioDAO objUsuariosDAO = new UsuarioDAO();
+        PropagandaDAO obpropagandadao = new PropagandaDAO();
         EspeciesDAO objEspeciesDAO = new EspeciesDAO();
         RazasDAO objRazasDAO = new RazasDAO();
         VacunasDAO objVacunasDAO = new VacunasDAO();
         RegistrosBO model = new RegistrosBO();
         MascotasDAO objMascotasDAO = new MascotasDAO();
+        ComercioDAO objcomercio = new ComercioDAO();
 
         // GET: Gestiones
 
@@ -662,6 +664,52 @@ namespace DrHuellitas.Controllers.MasterAdmin
         public ActionResult Propaganda()
         {
             return View();
+        }
+
+        public JsonResult propagandaadmin()
+        {
+            List<PropagandaBO> packlista = obpropagandadao.adminpropaganda().ToList();
+            var json = Json(packlista, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
+        public ActionResult propagandaactualizar(int id)
+        {
+            var actualizar = obpropagandadao.actualizarpropaganda(id);
+            return Redirect("~/Gestiones/Propaganda");
+        }
+        public JsonResult mostarrr(int id)
+        {
+            List<PropagandaBO> packlista = objcomercio.unapropaganda(id).ToList();
+            var json = Json(packlista, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
+
+        //propagandas propagandas
+        public ActionResult propagandades()
+        {
+            return View();
+        }
+
+        public JsonResult propagandasaprovadas()
+        {
+            List<PropagandaBO> packlista = obpropagandadao.admin().ToList();
+            var json = Json(packlista, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
+        public JsonResult mostra(int id)
+        {
+            List<PropagandaBO> packlista = objcomercio.unapropaganda(id).ToList();
+            var json = Json(packlista, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
+        public ActionResult desprovar(int id)
+        {
+            var desaprovar = obpropagandadao.adminActualizar(id);
+            return Redirect("~/Gestiones/propagandades");
         }
     }
 }

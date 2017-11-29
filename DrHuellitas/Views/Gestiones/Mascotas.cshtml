@@ -92,7 +92,7 @@
                                 </div>
                                 <div class="form-group">
                                     @Html.Label("Seleccionar raza:", new { @class = "form-label" })
-                                    @Html.DropDownListFor(x => x.razas.id, ViewBag.ListaRaza as SelectList, "Seleccionar", new { @id = "DropDwnRaza", @class = "form-control" })
+                                    @Html.DropDownListFor(x => x.razas.id, ViewBag.ListaRaza as SelectList, "Seleccionar", new { @id = "DropDwnRaza", @class = "form-control", @onchange="Dropdown(this)" })
                                 </div>
                                 <div class="form-group">
                                     @Html.Label("Seleccionar :", new { @class = "form-label" })

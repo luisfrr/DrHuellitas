@@ -176,6 +176,7 @@
     <Compile Include="DAO\EspeciesDAO.cs" />
     <Compile Include="DAO\MascotasDAO.cs" />
     <Compile Include="DAO\PaquetesDAO.cs" />
+    <Compile Include="DAO\PropagandaDAO.cs" />
     <Compile Include="DAO\RazasDAO.cs" />
     <Compile Include="DAO\RegionesDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
@@ -959,6 +960,7 @@
     <Content Include="Views\Gestiones\Razas.cshtml" />
     <Content Include="Views\Gestiones\Vacunas.cshtml" />
     <Content Include="Views\Admin\ChatA.cshtml" />
+    <Content Include="Views\Gestiones\propagandades.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Encriptacion\MD5.csproj">

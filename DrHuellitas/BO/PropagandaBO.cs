@@ -14,6 +14,7 @@ namespace DrHuellitas.BO
         public string foto { get; set; }
         public string fecha { get; set; }
         public byte status { get; set; }
+        public string nombrecomercio { get; set; }
 
     }
 }

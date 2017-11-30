@@ -474,13 +474,23 @@
         cursor: pointer;
     }
 </style>
-
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Inicio</h1>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="main" role="main">
     <div id="content" class="content full">
         <div class="container">
-            <div class="row">
-                <div class="col-md-12" id="listapropagandas">
+            <div class="row" >
+                <div class="col-md-6" id="listapropagandas">
+
                 </div>
+                <div class="col-md-6"></div>
             </div>
         </div>
     </div>
@@ -504,10 +514,8 @@
 </div>
 
 <script>
-    document.getElementById("slider").style.height = "200px"
-    $("#slider").attr("data-pagination", "");
-    $("#slider").attr("data-arrows", "");
-    $("#slider").attr("data-style", "");
+    document.getElementById("slider").style.height = "400px"
+    
 
 
     $.get("/Usuario/jsonpropaganda", null, DataBind);
@@ -516,7 +524,7 @@
         var SetData = $("#listapropagandas");
         for (var i = 0; i < lista.length; i++)
         {
-            var data ="<div class='col-md-6 form-group'>"+
+            var data ="<div class='form-group'>"+
                 "<div class='[ panel panel-default ] panel-google-plus'   row_" + lista[i].id + ">" +
 
                 "<div class='panel-google-plus-tags'>" +
@@ -528,7 +536,7 @@
                 "<h5><span>Propaganda</span> - <span>" + lista[i].fecha + "</span> </h5>" +
                 "</div>" +
                 "<div class='panel-body'>" +
-                "<p  class='cortar'>" + lista[i].descripcion + "</p>" +
+                "<p>" + lista[i].descripcion + "</p>" +
                 "<p style='text-align:center;'><img src=" + lista[i].foto + "  style='width:auto; height:500px'/></p>" +
                 "</div>" +
                 "<div class='panel-footer'>"+

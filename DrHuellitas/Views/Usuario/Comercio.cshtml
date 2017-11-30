@@ -4,15 +4,14 @@
     ViewBag.Title = "Comercio";
     Layout = "~/Views/Shared/MasterFrontEnd.cshtml";
 }
-@Styles.Render("~/Content/Cliente/Step.css")
-<script type="text/javascript" src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAiD6FCgvk_ymjVo2xxrPXEzDuqty27VT0&callback=initMap'></script>
-@Scripts.Render("~/Scripts/locationpicker.jquery.min.js")
 <div class="main" role="main">
     <div id="content" class="content full">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 img-thumbnail" id="repetir">
-                            
+                            <div class="col-md-4" id="Modal">
+
+                            </div>
             </div>
         </div>
     </div>
@@ -24,22 +23,6 @@
     $("#slider").attr("data-pagination", "");
     $("#slider").attr("data-arrows", "");
     $("#slider").attr("data-style", "");
-    //escrip del mapa para ubicaciones
-    function mapa() {
-        $('#ModalMapa').locationpicker({
-            radius: 0,
-            location: {
-                latitude: 20.938297181414647,
-                longitude: -89.61501516379462
-            },
-            enableAutocomplete: true,
-            inputBinding: {
-                latitudeInput: $('#Mlatitud'),
-                longitudeInput: $('#longitud'),
-                locationNameInput: $('#nombre')
-            }
-        });
-    }
 
     //escrip para cargar un buen de cosas
     $.get("/Usuario/jsonpropaganda", null, DataBind);
@@ -49,9 +32,8 @@
             var data ="</br>"+ "<div class='card' row_" + lista[i].id + ">" +
                 "<div class='container-fliud'>" +
                 "<div class='wrapper row'>" +
-                "<div class='preview col-md-6' id='ModalMapa'>" +
-                " <input type='hidden' id='latitud' />" +
-                "<input type='hidden' id='longitud' />" +
+                "<div class='preview col-md-6'>" +
+                "<img src=" + lista[i].foto + "  style='width:200px; height:150px;' class='center-block'/>" +
                 " </div>" +
 
                 "<div class='details col-md-6'>" +

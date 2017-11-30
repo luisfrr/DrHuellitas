@@ -11,10 +11,10 @@
         <div class="tbl-cell">
             <h3>Gestión de propagandas</h3>
             <ol class="breadcrumb breadcrumb-simple">
-                <li><a href="~/Gestiones/Propaganda">Propagandas Por Aprovar</a></li>
+                <li><a href="~/Gestiones/Propaganda">Propagandas Por Aprobar</a></li>
             </ol>
         </div>
-        <h2>Propagandas Aprovadas</h2>
+        <h2>Propagandas Aprobadas</h2>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -22,7 +22,7 @@
                     <th>Descripcion</th>
                     <th>Foto</th>
                     <th>Comercio</th>
-                    <th>Desaprovar</th>
+                    <th>Desaprobar</th>
                 </tr>
             </thead>
             <tbody id="ListaPropaganda">
@@ -36,10 +36,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <a href="#" class="close" data-dismiss="modal">&times;</a>
-                <h4>Aprovar Propaganda</h4>
+                <h4>Aprobar Propaganda</h4>
             </div>
             <div class="modal-body">
-                <h4>¿Esta usted seguro que desea desaprovar la propaganda?</h4>
+                <h4>¿Esta usted seguro que desea desaprobar la propaganda?</h4>
             </div>
             @using (Html.BeginForm("desprovar", "Gestiones"))
             {

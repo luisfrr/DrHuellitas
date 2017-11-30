@@ -102,6 +102,13 @@ namespace DrHuellitas.Controllers
         {
             return View();
         }
+        public JsonResult mostrardescripcion(int id)
+        {
+            List<PropagandaBO> lista = obtnerpropaganda.listarconid(id).ToList();
+            var json = Json(lista, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
 
     }
 }

@@ -1,33 +1,82 @@
-﻿
+﻿@using DrHuellitas.BO;
+@model RegistrosBO
 @{
     ViewBag.Title = "Comercio";
     Layout = "~/Views/Shared/MasterFrontEnd.cshtml";
 }
+@Styles.Render("~/Content/Cliente/Step.css")
+<script type="text/javascript" src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAiD6FCgvk_ymjVo2xxrPXEzDuqty27VT0&callback=initMap'></script>
+@Scripts.Render("~/Scripts/locationpicker.jquery.min.js")
 <div class="main" role="main">
     <div id="content" class="content full">
         <div class="container">
             <div class="row">
-                <div class="col-md-12" id="lsitacomercios">
-                    <div class="col-md-4 col-sm-4 img-thumbnail">
-                        <div class="grid-item staff-item">
-                            <div class="grid-item-inner">
-                                <div class="grid-content">
-                                    <div class="media-box"> <img src="@Session["foto"]" style="width:30px; height:30px;" class="img-circle" alt=""> </div> <h3>@Session["nombre"]</h3>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus. Donec facilisis fermentum sem, ac viverra ante luctus vel. Donec vel mauris quam.</p>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div class="col-md-12 img-thumbnail" id="repetir">
+                            
             </div>
         </div>
     </div>
 </div>
+ </div>
 <script>
+    //escrip para las imagenes
      document.getElementById("slider").style.height = "200px"
     $("#slider").attr("data-pagination", "");
     $("#slider").attr("data-arrows", "");
     $("#slider").attr("data-style", "");
+    //escrip del mapa para ubicaciones
+    function mapa() {
+        $('#ModalMapa').locationpicker({
+            radius: 0,
+            location: {
+                latitude: 20.938297181414647,
+                longitude: -89.61501516379462
+            },
+            enableAutocomplete: true,
+            inputBinding: {
+                latitudeInput: $('#Mlatitud'),
+                longitudeInput: $('#longitud'),
+                locationNameInput: $('#nombre')
+            }
+        });
+    }
+
+    //escrip para cargar un buen de cosas
+    $.get("/Usuario/jsonpropaganda", null, DataBind);
+    function DataBind(lista) {
+        var SetData = $("#repetir");
+        for (var i = 0; i < lista.length; i++) {
+            var data ="</br>"+ "<div class='card' row_" + lista[i].id + ">" +
+                "<div class='container-fliud'>" +
+                "<div class='wrapper row'>" +
+                "<div class='preview col-md-6' id='ModalMapa'>" +
+                " <input type='hidden' id='latitud' />" +
+                "<input type='hidden' id='longitud' />" +
+                " </div>" +
+
+                "<div class='details col-md-6'>" +
+                "<h3 class='product-title'>Datos de la veterinaria" + lista[i].id + "</h3>" +
+                " <div class='rating'>" +
+                "<p class='product-description'>Nombre de la veteria:" + lista[i].descripcion + "</p>" +
+                "<p class='product-description'>Nombre del gerente:</p>" +
+                "<p class='product-description'>Email de la veterinari:</p>" +
+                "<p class='product-description'>Telefono de la veterinari:</p>" +
+                "<h3 class='product-title'>Servicios que ofrecen:</h3>" + "<br />" + "<br />" +
+                "<h3>Imagen de la empresa</h3>" +
+                "<img src="+lista[i].foto+"  style='width:200px; height:150px;' class='center-block'/>" +
+                "</div>" + "<br />" +
+                "<div class='action'>" +
+                "<button class='add-to-cart btn btn-default center-block' type='button'>Ver comentarios</button>" +
+                "</div>" +"</br>"+
+
+                "</div>" + "</br>" +
+                "</div>" + "</br>" +
+                "</div>" + "</br>" + 
+
+                "</div>"+"</br>";
+            SetData.append(data);
+        }
+
+    }
 </script>
 

@@ -202,7 +202,9 @@
     <Content Include="Content\admin\chat.min.css" />
     <Content Include="Content\Cliente\Step.css" />
     <Content Include="Content\color1.css" />
+    <Content Include="Content\css.css" />
     <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\login\style.css" />
     <Content Include="Content\mediaelementplayer.css" />
     <Content Include="Content\prettyPhoto.css" />

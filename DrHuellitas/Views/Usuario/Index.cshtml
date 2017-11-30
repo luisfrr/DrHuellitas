@@ -449,6 +449,32 @@
                 }
 </style>
 
+<style>
+    .cortar {
+        width: 300px;
+        height: 20px;
+        padding: 20px;
+        border: 1px solid double;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        -webkit-transition: all 1s;
+        -moz-transition: all 1s;
+        transition: all 1s;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+</style>
+<style>
+    .cambio:hover {
+        width: 100%;
+        white-space: initial;
+        overflow: visible;
+        cursor: pointer;
+    }
+</style>
+
 <div class="main" role="main">
     <div id="content" class="content full">
         <div class="container">
@@ -458,11 +484,30 @@
             </div>
         </div>
     </div>
-
+</div>
+<div class="modal fade" id="descripcion">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a  class="close" data-dismiss="modal">&times;</a>
+                <h4>Descripción</h4>
+            </div>
+            <div class="modal-body">
+                @Html.HiddenFor(x=>x.id, new { @id="id"})
+                <textarea id="des" rows="4" cols="100" disabled="disabled" class="form-control text-block-typical"></textarea>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-primary" data-dismiss="modal" id="r">Cerrar</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
     document.getElementById("slider").style.height = "200px"
+    $("#slider").attr("data-pagination", "");
+    $("#slider").attr("data-arrows", "");
+    $("#slider").attr("data-style", "");
 
 
     $.get("/Usuario/jsonpropaganda", null, DataBind);
@@ -471,7 +516,7 @@
         var SetData = $("#listapropagandas");
         for (var i = 0; i < lista.length; i++)
         {
-            var data ="<div class='col-md-6'>"+
+            var data ="<div class='col-md-6 form-group'>"+
                 "<div class='[ panel panel-default ] panel-google-plus'   row_" + lista[i].id + ">" +
 
                 "<div class='panel-google-plus-tags'>" +
@@ -483,11 +528,11 @@
                 "<h5><span>Propaganda</span> - <span>" + lista[i].fecha + "</span> </h5>" +
                 "</div>" +
                 "<div class='panel-body'>" +
-                "<p>" + lista[i].descripcion + "</p>" +
-                "<p style='text-align:center;'><img src=" + lista[i].foto + " style='width:auto; height:500px'/></p>" +
+                "<p  class='cortar'>" + lista[i].descripcion + "</p>" +
+                "<p style='text-align:center;'><img src=" + lista[i].foto + "  style='width:auto; height:500px'/></p>" +
                 "</div>" +
                 "<div class='panel-footer'>"+
-                "<button type='button'  href='#' class='[ btn btn-default ]' onclick='EditarPropaganda(" + lista[i].id+")'>Editar</button>"+
+                "<button type='button'   class='[ btn btn-default ] cambio center-block' onclick='mostrardescripcion(" + lista[i].id+")'>Ver Descripción</button>"+
 
                 "</div>"+
                 "</div>" +
@@ -495,6 +540,19 @@
             SetData.append(data);
         }
 
+    }
+
+    function mostrardescripcion(id) {
+        $.get("/Usuario/mostrardescripcion?id=" + id, null, llamada);
+        function llamada(lista) {
+
+            for (var i = 0; i < lista.length; i++) {
+                $("#id").val(lista[i].id);
+                $("#des").val(lista[i].descripcion);
+            }
         }
+        $("#descripcion").modal();
+
+    }
 
 </script>

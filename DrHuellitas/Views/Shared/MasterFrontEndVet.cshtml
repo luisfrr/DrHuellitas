@@ -80,7 +80,7 @@
                                             </li>
                                             <li>
                                                 <a>
-                                                    @if ((String)Session["foto"] == "0" || Session["foto"] == null)
+                                                    @if ((String)Session["foto"] == "data:image/jpeg;base64,0x30" || Session["foto"] == null)
                                                     {
                                                         <img src="~/img/admin/avatar-1-32.png" class="img-thumbnail img-circle img-responsive" style="width:32px; height:32px;" />@Session["nombre"]
                                                     }
@@ -120,7 +120,7 @@
                                             </li>
                                             <li>
                                                 <a>
-                                                    @if ((String)Session["foto"] == "0" || Session["foto"] == null)
+                                                    @if ((String)Session["foto"] == "data:image/jpeg;base64,0x30" || Session["foto"] == null)
                                                     {
                                                         <img src="~/img/admin/avatar-1-32.png" class="img-thumbnail img-circle img-responsive" style="width:32px; height:32px;" />@Session["nombre"]
                                                     }
@@ -159,7 +159,7 @@
                                             </li>
                                             <li>
                                                 <a>
-                                                    @if ((String)Session["foto"] == "0" || Session["foto"] == null)
+                                                    @if ((String)Session["foto"] == "data:image/jpeg;base64,0x30" || Session["foto"] == null)
                                                     {
                                                         <img src="~/img/admin/avatar-1-32.png" class="img-thumbnail img-circle img-responsive" style="width:32px; height:32px;" />@Session["nombre"]
                                                     }
@@ -195,7 +195,7 @@
                                             </li>
                                             <li>
                                                 <a>
-                                                    @if ((String)Session["foto"] == "0" || Session["foto"] == null)
+                                                    @if ((String)Session["foto"] == "data:image/jpeg;base64,0x30" || Session["foto"] == null)
                                                     {
                                                         <img src="~/img/admin/avatar-1-32.png" class="img-thumbnail img-circle img-responsive" style="width:32px; height:32px;" />@Session["nombre"]
                                                     }
@@ -228,7 +228,7 @@
                                             </li>
                                             <li>
                                                 <a>
-                                                    @if ((String)Session["foto"] == "0" || Session["foto"] == null)
+                                                    @if ((String)Session["foto"] == "data:image/jpeg;base64,0x30" || Session["foto"] == null)
                                                     {
                                                         <img src="~/img/admin/avatar-1-32.png" class="img-thumbnail img-circle img-responsive" style="width:32px; height:32px;" />@Session["nombre"]
                                                     }
@@ -264,7 +264,7 @@
                                             </li>
                                             <li>
                                                 <a>
-                                                    @if ((String)Session["foto"] == "0" || Session["foto"] == null)
+                                                    @if ((String)Session["foto"] == "data:image/jpeg;base64,0x30" || Session["foto"] == null)
                                                     {
                                                         <img src="~/img/admin/avatar-1-32.png" class="img-thumbnail img-circle img-responsive" style="width:32px; height:32px;" />@Session["nombre"]
                                                     }
@@ -303,7 +303,7 @@
                                             </li>
                                             <li>
                                                 <a>
-                                                    @if ((String)Session["foto"] == "0" || Session["foto"] == null)
+                                                    @if ((String)Session["foto"] == "data:image/jpeg;base64,0x30" || Session["foto"] == null)
                                                     {
                                                         <img src="~/img/admin/avatar-1-32.png" class="img-thumbnail img-circle img-responsive" style="width:32px; height:32px;" />@Session["nombre"]
                                                     }
@@ -336,19 +336,15 @@
                                             @Html.ActionLink("Mi Propaganda", "Propaganda", "Comercio")
                                         </li>
                                         <li>
-                                            @Html.ActionLink("Resportes", "Reportes", "Comercio")
+                                            @Html.ActionLink("Reportes", "Reportes", "Comercio")
                                         </li>
                                         <li>
                                             <a>
-                                                @if ((String)Session["foto"] == "0" || Session["foto"] == null)
-                                                {
+                                                
                                                     <img src="~/img/admin/avatar-1-32.png" class="img-thumbnail img-circle img-responsive" style="width:32px; height:32px;" />@Session["nombre"]
-                                                }
-                                                else
-                                                {
-                                                    <img src="@Session["foto"]" class="img-thumbnail img-circle img-responsive" style="width:32px; height:32px;" />@Session["nombre"]
-                                                }
-                                            </a>                                            <ul class="dropdown">
+                                                
+                                            </a>                                            
+                                            <ul class="dropdown">
                                                 <li>@Html.ActionLink("Mis comentarios", "Comentarios", "Comercio")</li>
                                                 <li>@Html.ActionLink("Ayuda", "Ayuda", "Comercio")</li>
                                                 <li>@Html.ActionLink("Salir", "CerrarSesion", "Inicio")</li>

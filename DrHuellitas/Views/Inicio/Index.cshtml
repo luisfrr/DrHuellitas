@@ -22,9 +22,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.7);
         }
     #login {
+        position: relative;
+        z-index: 1;
+    }
+
+    #mensaje {
         position: relative;
         z-index: 1;
     }
@@ -39,8 +44,20 @@
 <div class="nav-backed-header parallax" id="imgInicio">
     <div class="container">
         <div class="row" style="padding-top:100px;">
-            <div class="col-md-6">
-                
+            <div class="col-md-6" id="mensaje">
+
+                <h1 style="font:bold 48px Roboto, sans-serif; text-align:center; color:#fff; text-transform:uppercase; text-shadow: 0 1px 1px rgba(0,0,0,0.5);">
+                    Servicios para el cuidado de las mascotas
+                </h1>
+
+                <p  style="font:24px Roboto, sans-serif; text-align:center; color:#fff; text-transform:uppercase; text-shadow: 0 1px 1px rgba(0,0,0,0.5);">
+                    Elige un establecimiento, consulta sus servicios y reserva una cita
+                </p>
+
+                <p style="font:24px Roboto, sans-serif; text-align:center; color:#fff; text-transform:uppercase; text-shadow: 0 1px 1px rgba(0,0,0,0.5);">
+                    ¡Regístrate es gratis!
+                </p>
+
 
             </div>
             <div class="col-md-6">
@@ -55,9 +72,9 @@
                         {
                             @Html.HiddenFor(m => m.usuario.id)
 
-                            @Html.TextBoxFor(m => m.usuario.usuario, new {  @placeholder = "Usuario..." })
+                            @Html.TextBoxFor(m => m.usuario.usuario, new {  @placeholder = "Usuario...", @required = "required" })
 
-                            @Html.TextBoxFor(m => m.usuario.contraseña, new { @placeholder = "Contraseña...", @type = "password" })
+                            @Html.TextBoxFor(m => m.usuario.contraseña, new { @placeholder = "Contraseña...", @type = "password", @required = "required" })
 
 
                             <button type="submit" >Aceptar</button>
@@ -105,6 +122,22 @@
         </div>
     </div>
 </div>
+
+
+<div class="featured-gallery">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-3">
+                <h4>Updates from our gallery</h4>
+                <a href="#" class="btn btn-default btn-lg">More Galleries</a>
+            </div>
+            <div class="col-md-3 col-sm-3 post format-image"> <a href="~/img/img5.jpg" class="media-box" data-rel="prettyPhoto[Gallery]"> <img src="~/img/img5.jpg" alt="" style="width: auto; height: 258px;"> <span class="zoom" style="width: auto; height: 258px; line-height: 105px;"><i class="fa fa-search"></i></span></a> </div>
+            <div class="col-md-3 col-sm-3 post format-image"> <a href="~/img/img6.jpg" class="media-box" data-rel="prettyPhoto[Gallery]"> <img src="~/img/img6.jpg" alt="" style="width: auto; height: 258px;"> <span class="zoom" style="width: auto; height: 258px; line-height: 105px;"><i class="fa fa-play"></i></span></a> </div>
+            <div class="col-md-3 col-sm-3 post format-image"> <a href="~/img/img4.jpg" class="media-box" data-rel="prettyPhoto[Gallery]"> <img src="~/img/img4.jpg" alt="" style="width: auto; height: 258px;"> <span class="zoom" style="width: auto; height: 258px; line-height: 105px;"><i class="fa fa-search"></i></span></a> </div>
+        </div>
+    </div>
+</div>
+
 
 
 

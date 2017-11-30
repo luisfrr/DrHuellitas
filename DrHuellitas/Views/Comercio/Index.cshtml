@@ -256,7 +256,7 @@
     position: relative;
     border-radius: 0px;
     border: 1px solid rgb(216, 216, 216);
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', serif;
 }
 .panel-google-plus > .dropdown {
     position: absolute;
@@ -353,7 +353,7 @@
 }
 
 .panel-google-plus > .panel-footer {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
     min-height: 54px;
 }
@@ -422,6 +422,32 @@
     background-color: rgb(255, 255, 255);
     border-color: rgb(0, 0, 0);
 }
+
+    .bottom .panel-footer button {
+        font: 400 13.3333px Arial;
+        text-rendering: auto;
+        outline: none;
+        text-transform:none;
+        width: 100%;
+        border: 1px solid #d9d9d9;
+        margin: 0 0 20px;
+        padding: 10px 15px;
+        box-sizing: border-box;
+        font-wieght: 400;
+        -webkit-transition: 0.3s ease;
+        transition: 0.3s ease;
+        color: initial;
+        letter-spacing: normal;
+        word-spacing: normal;
+        text-indent: 0px;
+        text-shadow: none;
+        display: inline-block;
+        text-align: center;
+        margin: 0em;
+        color:#fff;
+    }
+
+
 </style>
 
 <div class="page-header">
@@ -456,25 +482,57 @@
                         </div>
                         <div class="bottom">
                             <div class="panel-footer">
-                            <a class="btn btn-success btn-circle" id="btnver"  onclick="craerpropaganda()" style="width:250px;">ver propaganda
-                                <i class="fa fa-plus"></i><br />
-                            </a>
-                              <a class="btn btn-danger btn-circle"  id="btncomentarios" onclick="" style="width:250px;">
-                                    Ver comentarios
-                                    <i class="fa fa-plus"></i><br />
-                                </a>
-                                <a class="btn btn-primary btn-circle" id="btnperfil"  onclick="" style="width:250px;">
-                                   Ver mi perfil
-                                    <i class="fa fa-plus"></i><br />
-                                </a>
-                                <a class="btn btn-primary btn-circle" id="btnagregar" onclick="AgregarPropaganda(0)" style="width:250px;"><i class="fa fa-plus"></i>
-                                    Agregar Propaganda
-                                   
-                                </a>
-                                <a class="btn btn-danger btn-circle" id="btnregresar" onclick="regresar()" style="width:250px;">
-                                    Regresar atras
-                                    <i class="fa fa-plus"></i><br />
-                                </a>
+                                
+                                <button class="btn btn-primary" id="btnMisPropagandas" onclick="propaganda()" style="width:150px;">
+                                    <i class="fa fa-image"></i>&nbsp;Mis propagandas
+                                </button>
+
+                                <div class="spacer-20" id="spacer1"></div>
+
+                                <button class='btn btn-primary' id="btnAgregarPropaganda" onclick="AgregarPropaganda(0)" style="width:150px;">
+                                    <i class="fa fa-image"></i>&nbsp;Nueva propaganda
+                                </button>
+
+                                <div class="spacer-20" id="spacer2"></div>
+
+                                <button class="btn btn-primary" id="btnVerPropagandas" onclick="VerPropagandas(0)" style="width:150px;">
+                                    <i class="fa fa-image"></i>&nbsp;Ver propagandas
+                                </button>
+                                <!--Aquí terminan los correspondientes a propagandas-->
+                                <div class="spacer-20" id="spacer3"></div>
+
+                                <button class="btn btn-primary" id="btnMisComentarios" onclick="comentarios()" style="width:150px;">
+                                    <i class="fa fa-comment"></i>&nbsp;Mis comentarios
+                                </button>
+
+                                <div class="spacer-20" id="spacer4"></div>
+
+                                <button class="btn btn-primary" id="btnVerComentarios" onclick="" style="width:150px;">
+                                    <i class="fa fa-comment-o"></i>&nbsp;Ver comentarios
+                                </button>
+
+                                <div class="spacer-20" id="spacer5"></div>
+                                <!--Aquí terminan los correspondientes a comentarios-->
+                                <button class="btn btn-primary" id="btnMiPerfil" onclick="miperfil()" style="width:150px;">
+                                    <i class="fa fa-user"></i>&nbsp;Mi perfil
+                                </button>
+
+                                <div class="spacer-20" id="spacer6"></div>
+                                <button class="btn btn-primary" id="btnFotoPerfil" onclick="" style="width:150px;">
+                                    <i class="fa fa-user"></i>&nbsp;Foto de Perfil
+                                </button>
+
+                                <div class="spacer-20" id="spacer7"></div>
+                                <button class="btn btn-primary" id="btnFotoPortada" onclick="" style="width:150px;">
+                                    <i class="fa fa-user"></i>&nbsp;Foto de Portada
+                                </button>
+
+                                <div class="spacer-20" id="spacer8"></div>
+                                <button class="btn btn-primary" id="btnEditarPerfil" onclick="" style="width:150px;">
+                                    <i class="fa fa-user"></i>&nbsp;Editar
+                                </button>
+
+                                
                             </div>
                         </div>
 
@@ -679,26 +737,96 @@
             }
         })
     }
-    function craerpropaganda() {
-        $("#btnagregar").show();
-        $("#btnregresar").show();
-        $("#btnver").hide();
-        $("#btnperfil").hide();
-        $("#btncomentarios").hide();
 
-    };
     $(document).ready(function () {
-        $("#btnagregar").hide();
-        $("#btnregresar").hide();
+        $("#btnAgregarPropaganda").hide();
+        $("#btnVerPropagandas").hide();
+        $("#spacer2").hide();
+        $("#spacer3").hide();
+        $("#spacer4").hide();
+        $("#btnVerComentarios").hide();
+        $("#btnFotoPerfil").hide();
+        $("#btnFotoPortada").hide();
+        $("#btnEditarPerfil").hide();
     }
     );
-    function regresar() {
-        $("#btnver").show();
-        $("#btnperfil").show();
-        $("#btncomentarios").show();
-        $("#btnagregar").hide();
-        $("#btnregresar").hide();
 
+    function propaganda() {
 
+        $("#btnMisPropagandas").html("<i class='fa fa-arrow-circle-left'></i>&nbsp;Regresar");
+        $("#btnMisPropagandas").attr("onclick", "RegregarPropaganda()");
+        $("#spacer2").show();
+        $("#btnAgregarPropaganda").show();
+        $("#btnVerPropagandas").show();
+        $("#btnMiPerfil").hide();
+        $("#btnMisComentarios").hide();
     }
+
+    function RegregarPropaganda() {
+        $("#btnAgregarPropaganda").hide();
+        $("#btnVerPropagandas").hide();
+        $("#btnMiPerfil").show();
+        $("#spacer2").hide();
+        $("#btnMisComentarios").show();
+        $("#btnMisPropagandas").html("<i class='fa fa-image'></i>&nbsp;Mis propagandas");
+        $("#btnMisPropagandas").attr("onclick", "propaganda()");
+    }
+    function comentarios() {
+        $("#btnMisComentarios").html("<i class='fa fa-arrow-circle-left'></i>&nbsp;Regresar");
+        $("#btnMisComentarios").attr("onclick", "RegregarComentario()");
+        $("#spacer2").hide();
+        $("#spacer1").hide();
+        $("#spacer4").show();
+        $("#btnVerComentarios").show();
+        $("#btnMisPropagandas").hide();
+        $("#btnMiPerfil").hide();
+    }
+
+    function RegregarComentario() {
+        $("#btnMisComentarios").html("<i class='fa fa-comment'></i>&nbsp;Mis comentarios");
+        $("#btnMisComentarios").attr("onclick", "comentarios()");
+        $("#spacer2").hide();
+        $("#spacer1").show();
+        $("#spacer4").hide();
+        $("#btnVerComentarios").hide();
+        $("#btnMisPropagandas").show();
+        $("#btnMiPerfil").show();
+    }
+
+    function miperfil() {
+        $("#btnMiPerfil").html("<i class='fa fa-arrow-circle-left'></i>&nbsp;Regresar");
+        $("#btnMiPerfil").attr("onclick", "RegregarMiPerfil()");
+        $("#spacer2").hide();
+        $("#spacer3").hide();
+        $("#spacer1").hide();
+        $("#spacer4").hide();
+        $("#spacer5").hide();
+        $("#btnMisPropagandas").hide();
+        $("#btnMisComentarios").hide();
+        $("#btnFotoPerfil").show();
+        $("#btnFotoPortada").show();
+        $("#btnEditarPerfil").show();
+        $("#btnMiPerfil").show();
+    }
+
+    function RegregarMiPerfil() {
+        $("#btnMiPerfil").html("<i class='fa fa- user'></i>&nbsp;Mi perfil");
+        $("#btnMiPerfil").attr("onclick", "miperfil()");
+        $("#spacer2").show();
+        $("#spacer1").hide();
+        $("#spacer3").hide();
+        $("#spacer4").hide();
+        $("#spacer5").show();
+        $("#btnFotoPerfil").hide();
+        $("#btnFotoPortada").hide();
+        $("#btnEditarPerfil").hide();
+        $("#btnMiPerfil").show();
+        $("#btnMisPropagandas").show();
+        $("#btnMisComentarios").show();
+    }
+
+
+
+
+    
 </script>

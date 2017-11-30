@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "Comercio";
+    Layout = "~/Views/Shared/MasterFrontEnd.cshtml";
+}
+<div class="main" role="main">
+    <div id="content" class="content full">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12" id="lsitacomercios">
+                    <div class="col-md-4 col-sm-4 img-thumbnail">
+                        <div class="grid-item staff-item">
+                            <div class="grid-item-inner">
+                                <div class="grid-content">
+                                    <div class="media-box"> <img src="@Session["foto"]" style="width:30px; height:30px;" class="img-circle" alt=""> </div> <h3>@Session["nombre"]</h3>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla convallis egestas rhoncus. Donec facilisis fermentum sem, ac viverra ante luctus vel. Donec vel mauris quam.</p>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+     document.getElementById("slider").style.height = "200px"
+    $("#slider").attr("data-pagination", "");
+    $("#slider").attr("data-arrows", "");
+    $("#slider").attr("data-style", "");
+</script>
+

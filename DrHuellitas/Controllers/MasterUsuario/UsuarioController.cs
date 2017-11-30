@@ -6,12 +6,14 @@ using System.Web.Mvc;
 using System.IO;
 using DrHuellitas.BO;
 using DrHuellitas.DAO;
+using Newtonsoft.Json;
 
 namespace DrHuellitas.Controllers
 {
     public class UsuarioController : Controller
     {
         UsuarioDAO objDAO = new UsuarioDAO();
+        PropagandaUsuarioDAO obtnerpropaganda = new PropagandaUsuarioDAO();
         FotoBO objFoto = new FotoBO();
         // GET: Usuario
         public ActionResult Index()
@@ -88,6 +90,17 @@ namespace DrHuellitas.Controllers
             Session["nombre"] = objBO.usuario.nombre;
             Session["status"] = 1;
             return Redirect("~/Usuario/Index");
+        }
+        public JsonResult jsonpropaganda()
+        {
+            List<PropagandaBO> lista = obtnerpropaganda.listar().ToList();
+            var json = Json(lista, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
+        public ActionResult Comercio()
+        {
+            return View();
         }
 
     }

@@ -41,7 +41,7 @@
             <div class="modal-body">
                 <h4>¿Esta usted seguro que desea desaprovar la propaganda?</h4>
             </div>
-            @using (Html.BeginForm("propagandaactualizar", "Gestiones"))
+            @using (Html.BeginForm("desprovar", "Gestiones"))
             {
                 <div class="modal-footer">
                     @Html.HiddenFor(x => x.id, new { @id = "id" })

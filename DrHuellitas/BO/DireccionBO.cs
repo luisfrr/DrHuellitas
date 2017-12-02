@@ -10,6 +10,7 @@ namespace DrHuellitas.BO
         public int id { get; set; }
         public int idUsuario { get; set; }
         public string calle { get; set; }
+        public string ubicacion { get; set; }
         public string numero { get; set; }
         public string cruzamiento { get; set; }
         public string longitud { get; set; }

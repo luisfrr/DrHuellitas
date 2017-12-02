@@ -152,6 +152,7 @@
                             <label class="control-label">Estado</label>
                             <label class="control-label">Ciudad</label>
                             <label class="control-label">CP</label>
+                            @Html.TextBoxFor(x=>x.direccion.CP,new { @placeholder="CP",@maxlength="5",@required="require",@type="text",@class="form-control"})
                         </div>
                     </div>
                     <div class="col-md-6">

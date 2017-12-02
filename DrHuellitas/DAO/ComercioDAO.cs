@@ -105,7 +105,7 @@ namespace DrHuellitas.DAO
 
         public int ComercioDatos(RegistrosBO objbo, int id)
         {
-            SqlCommand comando = new SqlCommand("EXEC datocomercio @nombre,@apellidos,@telefono,@fechanaci,@status,@foto,@nomco,@veterinaria,@estetica,@vendeproduc,@nomfis,@rfc,@telefono1,@telefono2,@email,@idusuario,@calle,@numero,@cruzamiento,@longitud,@latitud,@colonia,@cp,@idcidad");
+            SqlCommand comando = new SqlCommand("EXEC datocomercio @nombre,@apellidos,@telefono,@fechanaci,@status,@foto,@nomco,@veterinaria,@estetica,@vendeproduc,@nomfis,@rfc,@telefono1,@telefono2,@email,@idusuario,@calle,@numero,@cruzamiento,@longitud,@latitud,@colonia,@cp,@ubicacion,@idcidad");
             //aqui empieza datos generales del usuario
             comando.Parameters.Add("@nombre", SqlDbType.VarChar).Value = objbo.usuario.nombre;
             comando.Parameters.Add("@apellidos", SqlDbType.VarChar).Value = objbo.usuario.apellidos;
@@ -133,7 +133,8 @@ namespace DrHuellitas.DAO
             comando.Parameters.Add("@longitud", SqlDbType.VarChar).Value = objbo.direccion.longitud;
             comando.Parameters.Add("@latitud", SqlDbType.VarChar).Value = objbo.direccion.latitud;
             comando.Parameters.Add("@colonia", SqlDbType.VarChar).Value = objbo.direccion.colonia;
-            comando.Parameters.Add("@cp", SqlDbType.VarChar).Value = objbo.direccion.CP="55555";
+            comando.Parameters.Add("@cp", SqlDbType.VarChar).Value = objbo.direccion.CP;
+            comando.Parameters.Add("@ubicacion", SqlDbType.VarChar).Value = objbo.direccion.ubicacion;
             comando.Parameters.Add("@idcidad", SqlDbType.Int).Value = objbo.direccion.idCiudad = 1;
             return conex.EjecutarComando(comando);
         }

@@ -157,6 +157,7 @@
     <Compile Include="BO\PaisesBO.cs" />
     <Compile Include="BO\PaquetesBO.cs" />
     <Compile Include="BO\PropagandaBO.cs" />
+    <Compile Include="BO\PuntosdeUbicacionBO.cs" />
     <Compile Include="BO\RazasBO.cs" />
     <Compile Include="BO\RegionesBO.cs" />
     <Compile Include="BO\RegistrosBO.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="DAO\PaquetesDAO.cs" />
     <Compile Include="DAO\PropagandaDAO.cs" />
     <Compile Include="DAO\PropagandaUsuarioDAO.cs" />
+    <Compile Include="DAO\PuntosVeterinariaDAO.cs" />
     <Compile Include="DAO\RazasDAO.cs" />
     <Compile Include="DAO\RegionesDAO.cs" />
     <Compile Include="DAO\UsuarioDAO.cs" />
@@ -205,6 +207,7 @@
     <Content Include="Content\css.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\jquery.gmaps.css" />
     <Content Include="Content\login\carrousel.css" />
     <Content Include="Content\login\style.css" />
     <Content Include="Content\mediaelementplayer.css" />
@@ -848,6 +851,7 @@
     <Content Include="Scripts\jquery-2.0.0.min.js" />
     <Content Include="Scripts\jquery.countdown.min.js" />
     <Content Include="Scripts\jquery.flexslider.js" />
+    <Content Include="Scripts\jquery.gmaps.js" />
     <Content Include="Scripts\jquery_cookie.js" />
     <Content Include="Scripts\locationpicker.jquery.js" />
     <Content Include="Scripts\locationpicker.jquery.min.js" />

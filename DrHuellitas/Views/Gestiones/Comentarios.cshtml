@@ -4,5 +4,93 @@
     Layout = "~/Views/Shared/BackEndView.cshtml";
 }
 
-<h2>Comentarios</h2>
+<style>
+    .box-typical-body.panel-body{
+        height:460px !important;
+        
+    }
+    
+</style>
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <div class="tbl-cell">
+            <h3>Gestión Comentarios</h3>
+            <ol class="breadcrumb breadcrumb-simple">
+                <li><a href="~/Admin/Index">Inicio</a></li>
+                <li><a>Gestiones</a></li>
+                <li class="active">Comentarios</li>
+            </ol>
+        </div>
+
+        
+
+
+
+        <section class="box-typical box-typical-dashboard panel panel-default scrollable">
+            <header class="box-typical-header panel-heading">
+                <h3 class="panel-title">Comentarios</h3>
+            </header>
+            <div class="box-typical-body panel-body">
+                <ul class="list-group" id="ListaComentarios">
+                    <li id="LoadingStatus"></li>
+                </ul>
+            </div><!--.box-typical-body-->
+        </section><!--.box-typical-dashboard-->
+
+
+        <script>
+            $("#LoadingStatus").html("Cargando...");
+            $.get("/Gestiones/ObtenerListaComentaraios", null, DataBind);
+            function DataBind(PackEspecies) {
+                var SetData = $("#ListaComentarios");
+                for (var i = 0; i < PackEspecies.length; i++) {
+                    var Data =
+
+                        "<li class='list-group-item'>" +
+                        "<div class='row'>" +
+                        "<div class='col-xs-2 col-md-1'>" +
+                        "<img src='~/img/admin/avatar-1-128.png' class='img-circle img-responsive' alt='' height='80' width='80' />" +
+                        "</div>" +
+                        "<div class='col-xs-10 col-md-11'>" +
+                        "<div>" +
+                        "<a>" +
+                        "Nombre del comercio" +
+                        "</a>" +
+                        "<div class='mic-info'>" +
+                        "By: Nombre del usuario el 02-12-2017" +
+                        "</div>" +
+                        "</div>" +
+                        "<div class='comment-text'>" +
+                        "comentario super chingon por que para mi es algo muy genial y me agrada xd" +
+                        "</div>" +
+                        "<div class='action'>" +
+                        "<button type='button' class='btn btn-primary btn-xs' title='Edit'>" +
+                        "<span class='glyphicon glyphicon-pencil'></span>" +
+                        "</button>" +
+                        "<button type='button' class='btn btn-success btn-xs' title='Approved'>" +
+                        "<span class='glyphicon glyphicon-ok'></span>" +
+                        "</button>" +
+                        "<button type='button' class='btn btn-danger btn-xs' title='Delete'>" +
+                        "<span class='glyphicon glyphicon-trash'></span>" +
+                        "</button>" +
+                        "</div>" +
+                        "</div>" +
+                        "</div>" +
+                        "</li>";
+
+
+                    SetData.append(Data);
+                    $("#LoadingStatus").remove();
+
+                }
+            }
+
+        </script>
+
+
+    </div><!--.container-fluid-->
+</div><!--.page-content-->
+
 

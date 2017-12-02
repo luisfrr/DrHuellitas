@@ -13,6 +13,7 @@ namespace DrHuellitas.Controllers
     public class UsuarioController : Controller
     {
         UsuarioDAO objDAO = new UsuarioDAO();
+        PuntosVeterinariaDAO obtener = new PuntosVeterinariaDAO();
         PropagandaUsuarioDAO obtnerpropaganda = new PropagandaUsuarioDAO();
         FotoBO objFoto = new FotoBO();
         // GET: Usuario
@@ -106,6 +107,13 @@ namespace DrHuellitas.Controllers
         {
             List<PropagandaBO> lista = obtnerpropaganda.listarconid(id).ToList();
             var json = Json(lista, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
+        public JsonResult obtenerpuntos()
+        {
+            List<PuntosdeUbicacionBO> puntos = obtener.mostarpuntos().ToList();
+            var json = Json(puntos, JsonRequestBehavior.AllowGet);
             json.MaxJsonLength = Int32.MaxValue;
             return json;
         }

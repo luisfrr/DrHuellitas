@@ -12,10 +12,10 @@ namespace DrHuellitas.DAO
     {
         ConexionSQL conex = new ConexionSQL();
 
-        public List<PropagandaBO> obtenerpropaganda(int idusuario)
+        public List<PuntosdeUbicacionBO> mostarpuntos()
         {
-            var propaganda = new List<PropagandaBO>();
-            SqlCommand cmd = new SqlCommand("SELECT id,idUsuario,foto,descripcion, fecha FROM Propaganda where status=1 and idUsuario='" + idusuario + "' order by id desc");
+            var puntos = new List<PuntosdeUbicacionBO>();
+            SqlCommand cmd = new SqlCommand("select d.longitud,d.latitud,d.ubicacion,d.id,u.nombre + '' + u.apellidos as datos, u.foto, c.nombreComercial, c.nombreFiscal, c.email, c.telefono1 from Usuario u join UsuarioComercio uc on uc.idempresa = u.id join Comercio c on c.id = uc.idsucursal join Direccion d on u.id = d.idUsuario");
 
             cmd.Connection = conex.establecerConexion();
             conex.AbrirConexion();
@@ -24,40 +24,38 @@ namespace DrHuellitas.DAO
             {
                 while (dr.Read())
                 {
-                    String fotos = Convert.ToBase64String((byte[])dr["foto"]);
-                    if (fotos == "0")
+                    var p = new BO.PuntosdeUbicacionBO
                     {
-
-                        var p = new BO.PropagandaBO
+                        direccion = new BO.DireccionBO
                         {
                             id = Convert.ToInt32(dr["id"].ToString()),
-                            idusuario = Convert.ToInt32(dr["iduUsuario"].ToString()),
-                            foto = " ",
-                            descripcion = dr["descripcion"].ToString(),
-                            fecha = Convert.ToDateTime(dr["fecha"]).ToString("dd-MM-yyyy")
+                            longitud = dr["longitud"].ToString(),
+                            latitud = dr["latitud"].ToString(),
+                            ubicacion = dr["ubicacion"].ToString(),
+                        },
 
-
-                        };
-                        propaganda.Add(p);
-                    }
-                    else
-                    {
-                        var p = new BO.PropagandaBO
+                        usuarios = new UsuarioBO
                         {
-
-
-                            id = Convert.ToInt32(dr["id"].ToString()),
-                            idusuario = Convert.ToInt32(dr["idUsuario"].ToString()),
+                            nombre = dr["datos"].ToString(),
                             foto = "data:image/jpeg;base64," + Convert.ToBase64String((byte[])dr["foto"]),
-                            descripcion = dr["descripcion"].ToString(),
-                            fecha = Convert.ToDateTime(dr["fecha"]).ToString("dd-MM-yyyy")
-                        };
-                        propaganda.Add(p);
-                    }
+
+                        },
+                        comercio = new ComercioBO
+                        {
+                            nombreComercial = dr["nombreComercial"].ToString(),
+                            nombreFiscal = dr["nombreFiscal"].ToString(),
+                            emal = dr["email"].ToString(),
+                            telefono1 = dr["telefono1"].ToString()
+                        }
+
+                    };
+
+
+                    puntos.Add(p);
 
                 }
             }
-            return propaganda;
+            return puntos;
         }
     }
 }

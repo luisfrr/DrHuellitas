@@ -208,6 +208,7 @@
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\jquery.gmaps.css" />
+    <Content Include="Content\login\carrousel.css" />
     <Content Include="Content\login\style.css" />
     <Content Include="Content\mediaelementplayer.css" />
     <Content Include="Content\prettyPhoto.css" />

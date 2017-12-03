@@ -111,13 +111,6 @@ namespace DrHuellitas.Controllers
             json.MaxJsonLength = Int32.MaxValue;
             return json;
         }
-        public JsonResult obtenerpuntos()
-        {
-            List<PuntosdeUbicacionBO> puntos = obtener.mostarpuntos().ToList();
-            var json = Json(puntos, JsonRequestBehavior.AllowGet);
-            json.MaxJsonLength = Int32.MaxValue;
-            return json;
-        }
 
     }
 }

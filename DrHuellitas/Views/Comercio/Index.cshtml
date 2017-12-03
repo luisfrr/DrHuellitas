@@ -621,10 +621,10 @@
 
                         <div class="form-group">
                             @Html.HiddenFor(x=>x.usuario.id, new { @idusuario = "id" })
-                            <img id="imagen" src="~/img/admin/avatar-1-128.png" width="200" height="200" class="img-circle center-block" />
+                            <img id="img" src="~/img/admin/avatar-1-128.png" width="200" height="200" class="img-circle center-block" />
                             <br />
 
-                            @Html.TextBoxFor(x=>x.usuario.img, new { @type = "file", @name = "file", @id = "formato", @class = "btn btn-file center-block form-control" })
+                            @Html.TextBoxFor(x=>x.usuario.img, new { @type = "file", @name = "file", @id = "carga", @class = "btn btn-file center-block form-control" })
                             <br />
 
                         </div>
@@ -645,29 +645,6 @@
     $("#slider").attr("data-arrows", "");
     $("#slider").attr("data-style", "");
 
-    $(document).ready(function () {
-        $(function () {
-            $('#fomato').change(function (a) {
-                addImage(a);
-            });
-
-            function addImage(a) {
-                var file = e.target.files[0], imageType = /image.*/;
-
-                if (!file.type.match(imageType))
-                    return;
-
-                var reader = new FileReader();
-                reader.onload = fileOnload;
-                reader.readAsDataURL(file);
-            }
-
-            function fileOnload(a) {
-                var result = a.target.result;
-                $('#imagen').attr("src", result);
-            }
-        });
-    });
 
     $(document).ready(function () {
         $(function () {

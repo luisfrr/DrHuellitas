@@ -14,7 +14,6 @@ namespace DrHuellitas.DAO
         ConexionSQL conex;
         EncriptarMD5 MD5 = new EncriptarMD5();
         FotoBO Foto = new FotoBO();
-        
 
         public ComercioDAO()
         {
@@ -270,6 +269,39 @@ namespace DrHuellitas.DAO
                 }
             }
             return propaganda;
+        }
+
+        public List<PropagandaBO> fotoperfil(int id)
+        {
+            var foto = new List<PropagandaBO>();
+            SqlCommand cmd = new SqlCommand("select id,foto from Usuario where id='" + id + "'");
+            cmd.Connection = conex.establecerConexion();
+            conex.AbrirConexion();
+            var query = cmd;
+            
+            using(var dr = query.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+
+                    var pack = new BO.PropagandaBO
+                    {
+                        usuario = new BO.UsuarioBO
+                        {
+                            id = Convert.ToInt32(dr["id"].ToString()),
+                            foto = "data:image/jpeg;base64," + Convert.ToBase64String((byte[])dr["foto"])
+                        }
+                    };
+                    foto.Add(pack);
+                }
+            }
+            return foto;
+        }
+        public int modificarfoto(PropagandaBO bO,int id)
+        {
+            SqlCommand cmd = new SqlCommand("update Usuario set foto=@foto where id='" + id + "'");
+            cmd.Parameters.Add("@foto", SqlDbType.Image).Value = Foto.ConvertirAFoto(bO.usuario.img);
+            return conex.EjecutarComando(cmd);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿@using DrHuellitas.BO;
-@model PuntosdeUbicacionBO
+﻿@model List<DrHuellitas.BO.PuntosdeUbicacionBO>
 @{
     ViewBag.Title = "Comercio";
     Layout = "~/Views/Shared/MasterFrontEnd.cshtml";
@@ -28,18 +27,37 @@
                          data-control-streetview="true"
                          data-control-rotate="true"
                          data-event-mousewheel="true"
-                         data-zoom="100" role="map" class="gmaps" style="width:100%;" id="repetir">
+                         data-zoom="14" role="map" class="gmaps" style="width:100%;" id="repetir">
 
                         
                         <!-- items de ubicaciones -->
+                       @foreach (var u in Model)
+                       {
 
-                    </div>
+
+                        <div data-id="@u.direccion.id" data-lat="@u.direccion.latitud" data-lng="@u.direccion.longitud" class="marker">
+                            <div class="map-card">
+                                <h1>@u.direccion.ubicacion</h1>
+                                <img src="@u.usuarios.foto" style="width:52px; height:52px;" class="img-circle" alt="Mouse0270" />
+                                <p></p>
+                                <p>@u.usuarios.nombre</p>
+                                <p>@u.comercio.nombreComercial</p>
+                                <p>@u.comercio.nombreFiscal</p>
+                                <p>@u.comercio.emal</p>
+                                <p>@u.comercio.telefono1</p>
+
+                            </div>
+                        </div>
+
+                       }
+
             </div>
                
         </div>
     </div>
 </div>
  </div>
+    </div>
 
 <script>
     //escrip para las imagenes
@@ -47,30 +65,6 @@
     $("#slider").attr("data-pagination", "");
     $("#slider").attr("data-arrows", "");
     $("#slider").attr("data-style", "");
-
-
-    $.get("/Usuario/obtenerpuntos", null, DataBind);
-    function DataBind(puntos) {
-        var cargar= $("#repetir");
-        for (var i = 0; i < puntos.length; i++) {
-            var p = "<div data-id=" + puntos[i].direccion.id + "" +
-                "data-lat='" + puntos[i].direccion.latitud + "'" +
-                "data-lng='" + puntos[i].direccion.longitud + "'" +
-                "class='marker'>" +
-                "<div class='map-card'>" +
-                "<h1>" + puntos[i].direccion.ubicacion + "</h1>" +
-                "<img src=" + puntos[i].usuarios.foto + " style='width:52px; height:52px;' class='img-circle' />" +
-                "<p>Veterinaria:" + puntos[i].comercio.nombreComercial + "</p>" +
-                "<p>Nombre fiscal: " + puntos[i].comercio.nombreFiscal + "</p>" +
-                "<p>Representante:" + puntos[i].usuarios.nombre + "</p>" +
-                "<p>E-mail:" + puntos[i].comercio.email + "</p>" +
-                "<p>Telefono:" + puntos[i].comercio.telefono1 + "</p>" +
-                "</div>" +
-                "</div";
-            cargar.append(p);
-        };
-
-    }
 
     $(document).ready(function () {
         $('.gmaps').gmaps();

@@ -15,7 +15,7 @@ namespace DrHuellitas.DAO
         public List<PuntosdeUbicacionBO> mostarpuntos()
         {
             var puntos = new List<PuntosdeUbicacionBO>();
-            SqlCommand cmd = new SqlCommand("select d.longitud,d.latitud,d.ubicacion,d.id,u.nombre + '' + u.apellidos as datos, u.foto, c.nombreComercial, c.nombreFiscal, c.email, c.telefono1 from Usuario u join UsuarioComercio uc on uc.idempresa = u.id join Comercio c on c.id = uc.idsucursal join Direccion d on u.id = d.idUsuario");
+            SqlCommand cmd = new SqlCommand("select d.longitud,d.latitud,d.ubicacion,d.id,u.nombre + ' ' + u.apellidos as datos, u.foto, c.nombreComercial, c.nombreFiscal, c.email, c.telefono1 from Usuario u join UsuarioComercio uc on uc.idempresa = u.id join Comercio c on c.id = uc.idsucursal join Direccion d on u.id = d.idUsuario");
 
             cmd.Connection = conex.establecerConexion();
             conex.AbrirConexion();
@@ -44,7 +44,7 @@ namespace DrHuellitas.DAO
                         {
                             nombreComercial = dr["nombreComercial"].ToString(),
                             nombreFiscal = dr["nombreFiscal"].ToString(),
-                            emal = dr["email"].ToString(),
+                            emal =dr["email"].ToString(),
                             telefono1 = dr["telefono1"].ToString()
                         }
 

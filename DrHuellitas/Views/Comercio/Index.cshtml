@@ -518,7 +518,7 @@
                                 </button>
 
                                 <div class="spacer-20" id="spacer6"></div>
-                                <button class="btn btn-primary" id="btnFotoPerfil" onclick="" style="width:150px;">
+                                <button class="btn btn-primary" id="btnFotoPerfil" onclick="foto(@Session["id"])" style="width:150px;">
                                     <i class="fa fa-user"></i>&nbsp;Foto de Perfil
                                 </button>
 
@@ -605,13 +605,69 @@
     </div>
 </div>
 
+<!--Aquí empieza el modal para editar foto-->
+
+<div class="modal fade" id="foto">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h4 id="ModalTitle1"></h4>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("modifcarfotoperfil", "Comercio", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                {
+                    <div class="col-md-12">
+
+                        <div class="form-group">
+                            @Html.HiddenFor(x=>x.usuario.id, new { @idusuario = "id" })
+                            <img id="imagen" src="~/img/admin/avatar-1-128.png" width="200" height="200" class="img-circle center-block" />
+                            <br />
+
+                            @Html.TextBoxFor(x=>x.usuario.img, new { @type = "file", @name = "file", @id = "formato", @class = "btn btn-file center-block form-control" })
+                            <br />
+
+                        </div>
+                    </div>
+
+                                        <button class=" btn btn-block btn-success" type="submit" id="btnListo">Guardar</button>
+
+                }
+            </div>
+        </div>
+    </div>
+</div><!--aqui termina el modal de editar foto-->
+
+
 <script>
     document.getElementById("slider").style.height = "200px"
     $("#slider").attr("data-pagination", "");
     $("#slider").attr("data-arrows", "");
     $("#slider").attr("data-style", "");
 
+    $(document).ready(function () {
+        $(function () {
+            $('#fomato').change(function (a) {
+                addImage(a);
+            });
 
+            function addImage(a) {
+                var file = e.target.files[0], imageType = /image.*/;
+
+                if (!file.type.match(imageType))
+                    return;
+
+                var reader = new FileReader();
+                reader.onload = fileOnload;
+                reader.readAsDataURL(file);
+            }
+
+            function fileOnload(a) {
+                var result = a.target.result;
+                $('#imagen').attr("src", result);
+            }
+        });
+    });
 
     $(document).ready(function () {
         $(function () {
@@ -723,10 +779,24 @@
         $("#propaganda").modal();
 
     }
+    function foto(id)
+    {
+        $.get("/Comercio/fotolista?id=" + id ,null,llamada);
+        function llamada(obtenerfoto)
+        {
+            for (var i = 0; i < obtenerfoto.length; i++)
+            {
+                $("#id").val(obtenerfoto[i].id);
+                $("#imagen").attr("src", obtenerfoto[i].foto)
+            }
+            $("#foto").modal();
+        }
+
+    }
 
     var Eliminnarpropaganda = function (idpropaganda) {
         $("#idpropaganda").val(idpropaganda);
-        $("#VentanaEliminado1").modal("show");
+        $("#VentanaEliminado1").modal();
     }
     var ConfirmDelete = function () {
         var idpropaganda = $("#idpropaganda").val();

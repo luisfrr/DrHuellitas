@@ -101,7 +101,8 @@ namespace DrHuellitas.Controllers
         }
         public ActionResult Comercio()
         {
-            return View();
+            
+            return View(obtener.mostarpuntos());
         }
         public JsonResult mostrardescripcion(int id)
         {

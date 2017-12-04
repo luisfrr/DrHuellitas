@@ -150,6 +150,7 @@ namespace DrHuellitas.Controllers
             else
             {
                 objAgenda.AgregarCita(e, (int)Session["id"]);
+                status = true;
             }
 
             return new JsonResult { Data = new { status = status } };

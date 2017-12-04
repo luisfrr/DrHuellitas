@@ -90,9 +90,6 @@
         <!--Scrips-->
         <script>
            //Estados
-
-
-
             $("#CargarTabla").html("");
             $.get("/Gestiones/ObtenerListaEstados", null, DataBind);
             function DataBind(PackEstados) {

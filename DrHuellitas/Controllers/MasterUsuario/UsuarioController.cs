@@ -15,6 +15,9 @@ namespace DrHuellitas.Controllers
         UsuarioDAO objDAO = new UsuarioDAO();
         PropagandaUsuarioDAO obtnerpropaganda = new PropagandaUsuarioDAO();
         FotoBO objFoto = new FotoBO();
+        AgendaDAO objAgenda = new AgendaDAO();
+
+
         // GET: Usuario
         public ActionResult Index()
         {
@@ -91,6 +94,7 @@ namespace DrHuellitas.Controllers
             Session["status"] = 1;
             return Redirect("~/Usuario/Index");
         }
+
         public JsonResult jsonpropaganda()
         {
             List<PropagandaBO> lista = obtnerpropaganda.listar().ToList();
@@ -98,10 +102,12 @@ namespace DrHuellitas.Controllers
             json.MaxJsonLength = Int32.MaxValue;
             return json;
         }
+
         public ActionResult Comercio()
         {
             return View();
         }
+
         public JsonResult mostrardescripcion(int id)
         {
             List<PropagandaBO> lista = obtnerpropaganda.listarconid(id).ToList();
@@ -110,5 +116,54 @@ namespace DrHuellitas.Controllers
             return json;
         }
 
+
+        public ActionResult Agenda()
+        {
+            List<ComercioBO> Comercios = objAgenda.ObtenerComercios().ToList();
+            ViewBag.ListaComercio = new SelectList(Comercios, "id", "nombreComercial");
+            List<MascotasBO> Mascotas = objAgenda.ObtenerMisMascotas((int)Session["id"]).ToList();
+            ViewBag.ListaMascotas = new SelectList(Mascotas, "id", "nombremascota");
+            return View();
+        }
+
+        public JsonResult GetEvents()
+        {
+            var events = objAgenda.GetEventsUser((int)Session["id"]).ToList();
+            var json = new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
+
+        [HttpPost]
+        public JsonResult SaveEvent(CitasBO e)
+        {
+            var status = false;
+
+            if (e.id > 0)
+            {
+                //Update the event
+                objAgenda.ActualizarCita(e, (int)Session["id"]);
+                status = true;
+            }
+            else
+            {
+                objAgenda.AgregarCita(e, (int)Session["id"]);
+            }
+
+            return new JsonResult { Data = new { status = status } };
+        }
+
+
+        [HttpPost]
+        public JsonResult DeleteEvent(int eventID)
+        {
+            var status = false;
+
+            var c = objAgenda.EliminarCita(eventID);
+            status = true;
+                
+
+            return new JsonResult { Data = new { status = status } };
+        }
     }
 }

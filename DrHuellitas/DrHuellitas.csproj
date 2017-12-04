@@ -143,6 +143,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="BO\ChatBO.cs" />
+    <Compile Include="BO\CitasBO.cs" />
     <Compile Include="BO\CiudadesBO.cs" />
     <Compile Include="BO\ComercioBO.cs" />
     <Compile Include="BO\DireccionBO.cs" />
@@ -171,6 +172,7 @@
     <Compile Include="Controllers\MasterLogin\InicioController.cs" />
     <Compile Include="Controllers\MasterUsuario\UsuarioController.cs" />
     <Compile Include="Controllers\MasterVeterinario\VetController.cs" />
+    <Compile Include="DAO\AgendaDAO.cs" />
     <Compile Include="DAO\ChatDAO.cs" />
     <Compile Include="DAO\ComercioDAO.cs" />
     <Compile Include="DAO\ConexionSQL.cs" />
@@ -199,6 +201,7 @@
     <Content Include="Content\admin\vendor\lobipanel.min.css" />
     <Content Include="Content\admin\widgets.min.css" />
     <Content Include="Content\animations.css" />
+    <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\chat.css" />
     <Content Include="Content\admin\chat.min.css" />
@@ -207,6 +210,9 @@
     <Content Include="Content\css.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\fullcalendar.css" />
+    <Content Include="Content\fullcalendar.min.css" />
+    <Content Include="Content\fullcalendar.print.css" />
     <Content Include="Content\jquery.gmaps.css" />
     <Content Include="Content\login\carrousel.css" />
     <Content Include="Content\login\style.css" />
@@ -844,8 +850,10 @@
     <Content Include="Scripts\admin\plugins.js" />
     <Content Include="Scripts\admin\popper.min.js" />
     <Content Include="Scripts\admin\tether.min.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\Cliente\Step.js" />
+    <Content Include="Scripts\fullcalendar.min.js" />
     <Content Include="Scripts\helper-plugins.js" />
     <Content Include="Scripts\init.js" />
     <Content Include="Scripts\jquery-2.0.0.min.js" />
@@ -860,6 +868,7 @@
     <Content Include="Scripts\login\vLmRVp.js" />
     <Content Include="Scripts\mediaelement-and-player.min.js" />
     <Content Include="Scripts\modernizr.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\prettyphoto.js" />
     <Content Include="Scripts\script.js" />
     <Content Include="Scripts\waypoints.js" />
@@ -970,6 +979,7 @@
     <Content Include="Views\Admin\ChatA.cshtml" />
     <Content Include="Views\Gestiones\propagandades.cshtml" />
     <Content Include="Views\Usuario\Comercio.cshtml" />
+    <Content Include="Views\Usuario\Agenda.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Encriptacion\MD5.csproj">

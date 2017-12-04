@@ -13,6 +13,7 @@ namespace DrHuellitas.Controllers
     public class UsuarioController : Controller
     {
         UsuarioDAO objDAO = new UsuarioDAO();
+        PuntosVeterinariaDAO obtener = new PuntosVeterinariaDAO();
         PropagandaUsuarioDAO obtnerpropaganda = new PropagandaUsuarioDAO();
         FotoBO objFoto = new FotoBO();
         AgendaDAO objAgenda = new AgendaDAO();
@@ -105,7 +106,8 @@ namespace DrHuellitas.Controllers
 
         public ActionResult Comercio()
         {
-            return View();
+            
+            return View(obtener.mostarpuntos());
         }
 
         public JsonResult mostrardescripcion(int id)

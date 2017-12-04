@@ -152,5 +152,18 @@ namespace DrHuellitas.Controllers.MasterComercio
             json.MaxJsonLength = Int32.MaxValue;
             return json;
         }
+        public JsonResult fotolista(int id)
+        {
+            List<PropagandaBO> obtenerfoto = objDAO.fotoperfil(id).ToList();
+            var json = Json(obtenerfoto, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
+        public ActionResult modifcarfotoperfil (PropagandaBO obj)
+        {
+            int id = (int)Session["id"];
+            var fotos = objDAO.modificarfoto(obj, id);
+            return Redirect("~/Comercio/Index");
+        }
     }
 }

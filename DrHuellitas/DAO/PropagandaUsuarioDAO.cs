@@ -55,7 +55,7 @@ namespace DrHuellitas.DAO
                             foto = "data:image/jpeg;base64," + Convert.ToBase64String((byte[])dr["foto"]),
                             descripcion = dr["descripcion"].ToString(),
                             fecha = Convert.ToDateTime(dr["fecha"]).ToString("dd-MM-yyyy"),
-                            fotousuario ="data:image/jpeg;base64,"+Convert.ToBase64String((byte[])dr["fotousuario"]),
+                            fotousuario ="data:image/jpeg;base64,"+Convert.ToBase64String((byte[])dr["foto"]),
                             nombrecomercio = dr["comercio"].ToString()
                         };
                         propaganda.Add(p);

@@ -1,5 +1,4 @@
-﻿@using DrHuellitas.BO;
-@model RegistrosBO
+﻿@model List<DrHuellitas.BO.PuntosdeUbicacionBO>
 @{
     ViewBag.Title = "Comercio";
     Layout = "~/Views/Shared/MasterFrontEnd.cshtml";
@@ -20,7 +19,7 @@
     <div id="content" class="content full">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 img-thumbnail" id="repetir">
+                <div class="col-md-12 img-thumbnail">
                     <div data-key="AIzaSyAV5-gt021-D6FvPpRaFo_o-01qgBoSQtU"
                          data-control-zoom="true"
                          data-control-type="true"
@@ -28,28 +27,37 @@
                          data-control-streetview="true"
                          data-control-rotate="true"
                          data-event-mousewheel="true"
-                         data-zoom="14" role="map" class="gmaps" style="width:100%;">
+                         data-zoom="14" role="map" class="gmaps" style="width:100%;" id="repetir">
 
+                        
                         <!-- items de ubicaciones -->
+                       @foreach (var u in Model)
+                       {
 
-                        <div data-id="1"
-                             data-lat="-20.363"
-                             data-lng="111.044"
-                             class="marker">
+
+                        <div data-id="@u.direccion.id" data-lat="@u.direccion.latitud" data-lng="@u.direccion.longitud" class="marker">
                             <div class="map-card">
-                                <h1>This is my title 1</h1>
-                                <img src="https://gamingcentral.in/wp-content/uploads/2017/07/mia-khalifa-wnba.jpg" style="width:52px; height:52px;" class="img-circle" />
-                                <p>Address: Fake street, #445, Stgo.</p>
-                                <p>Phone: +56753223344</p>
-                                <p>e-Mail: fake1@email.com</p>
+                                <h1>@u.direccion.ubicacion</h1>
+                                <img src="@u.usuarios.foto" style="width:52px; height:52px;" class="img-circle" alt="Mouse0270" />
+                                <p></p>
+                                <p>@u.usuarios.nombre</p>
+                                <p>@u.comercio.nombreComercial</p>
+                                <p>@u.comercio.nombreFiscal</p>
+                                <p>@u.comercio.emal</p>
+                                <p>@u.comercio.telefono1</p>
+
                             </div>
                         </div>
-                    </div>
+
+                       }
+
             </div>
+               
         </div>
     </div>
 </div>
  </div>
+    </div>
 
 <script>
     //escrip para las imagenes
@@ -61,6 +69,10 @@
     $(document).ready(function () {
         $('.gmaps').gmaps();
     });
+
+
+
+    
 
 </script>
 

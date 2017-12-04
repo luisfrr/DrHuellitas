@@ -486,11 +486,8 @@
 <div class="main" role="main">
     <div id="content" class="content full">
         <div class="container">
-            <div class="row" >
-                <div class="col-md-6" id="listapropagandas">
+            <div class="row" id="listapropagandas" >
 
-                </div>
-                <div class="col-md-6"></div>
             </div>
         </div>
     </div>
@@ -524,7 +521,8 @@
         var SetData = $("#listapropagandas");
         for (var i = 0; i < lista.length; i++)
         {
-            var data ="<div class='form-group'>"+
+            var data ="<div class='col-md-6'>"+
+                "<div class='form-group'>" +
                 "<div class='[ panel panel-default ] panel-google-plus'   row_" + lista[i].id + ">" +
 
                 "<div class='panel-google-plus-tags'>" +
@@ -536,13 +534,14 @@
                 "<h5><span>Propaganda</span> - <span>" + lista[i].fecha + "</span> </h5>" +
                 "</div>" +
                 "<div class='panel-body'>" +
-                "<p>" + lista[i].descripcion + "</p>" +
+                "<p class='cortar'>" + lista[i].descripcion + "</p>" +
                 "<p style='text-align:center;'><img src=" + lista[i].foto + "  style='width:auto; height:500px'/></p>" +
                 "</div>" +
                 "<div class='panel-footer'>"+
                 "<button type='button'   class='[ btn btn-default ] cambio center-block' onclick='mostrardescripcion(" + lista[i].id+")'>Ver Descripción</button>"+
 
                 "</div>"+
+                "</div>" +
                 "</div>" +
                 "</div>";
             SetData.append(data);

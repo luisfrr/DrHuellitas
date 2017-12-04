@@ -4,7 +4,6 @@
     ViewBag.Title = "Continuar Registro";
     Layout = "~/Views/Shared/MasterFrontEndVet.cshtml";
 }
-
 @Styles.Render("~/Content/Cliente/Step.css")
 <script type="text/javascript" src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAiD6FCgvk_ymjVo2xxrPXEzDuqty27VT0&callback=initMap'></script>
 @Scripts.Render("~/Scripts/locationpicker.jquery.min.js")
@@ -89,20 +88,20 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                           @Html.TextBoxFor(x => x.comercio.nombreComercial, new { @placeholder = "Nombre comercial", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
+                           @Html.TextBoxFor(x => x.comercio.nombreComercial, new { @placeholder = "Nombre comercial", @maxlength = "100", @type = "text", @class = "form-control" })
 
-                            @Html.TextBoxFor(x => x.comercio.nombreFiscal, new { @placeholder = "Nombre fiscal", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
+                            @Html.TextBoxFor(x => x.comercio.nombreFiscal, new { @placeholder = "Nombre fiscal", @maxlength = "100", @type = "text", @class = "form-control" })
 
-                            @Html.TextBoxFor(x => x.comercio.rfc, new { @placeholder = "RFC", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
+                            @Html.TextBoxFor(x => x.comercio.rfc, new { @placeholder = "RFC", @maxlength = "100", @type = "text", @class = "form-control" })
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            @Html.TextBoxFor(x => x.comercio.telefono1, new { @placeholder = "Teléfono 1", @maxlength = "10", @required = "required", @type = "text", @class = "form-control" })
+                            @Html.TextBoxFor(x => x.comercio.telefono1, new { @placeholder = "Teléfono 1", @maxlength = "10", @type = "text", @class = "form-control" })
 
                             @Html.TextBoxFor(x => x.comercio.telefono2, new { @placeholder = "Teléfono 2 (opcional)", @maxlength = "10", @type = "text", @class = "form-control" })
 
-                            @Html.TextBoxFor(x => x.comercio.emal, new { @placeholder = "Correo electrónico", @maxlength = "100", @required = "required", @type = "text", @class = "form-control" })
+                            @Html.TextBoxFor(x => x.comercio.emal, new { @placeholder = "Correo electrónico", @maxlength = "100",  @type = "text", @class = "form-control" })
                         </div>
                     </div>
                 </div> 
@@ -111,37 +110,37 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Lunes</label>
-                            @Html.TextBoxFor(x => x.horario.inicioLunes, new { @placeholder = "Hora inicio", @maxlength = "100", @required = "required", @type = "time", @class = "form-control" })
+                            @Html.TextBoxFor(x => x.horario.inicioLunes, new { @placeholder = "Hora inicio", @maxlength = "100", @type = "time", @class = "form-control" })
                             <label class="control-label">Martes</label>
-                            @Html.TextBoxFor(x => x.horario.inicioMarte, new { @placeholder = "Hora inicio", @maxlength = "100", @required = "required", @type = "time", @class = "form-control" })
+                            @Html.TextBoxFor(x => x.horario.inicioMarte, new { @placeholder = "Hora inicio", @maxlength = "100", @type = "time", @class = "form-control" })
                             <label class="control-label">Miercoles</label>
-                            @Html.TextBoxFor(x => x.horario.inicioMiercoles, new { @placeholder = "Hora inicio", @maxlength = "100", @required = "required", @type = "time", @class = "form-control" })
+                            @Html.TextBoxFor(x => x.horario.inicioMiercoles, new { @placeholder = "Hora inicio", @maxlength = "100", @type = "time", @class = "form-control" })
                             <label class="control-label">Jueves</label>
-                            @Html.TextBoxFor(x => x.horario.inicioJueves, new { @placeholder = "Hora inicio", @maxlength = "100", @required = "required", @type = "time", @class = "form-control" })
+                            @Html.TextBoxFor(x => x.horario.inicioJueves, new { @placeholder = "Hora inicio", @maxlength = "100",  @type = "time", @class = "form-control" })
                             <label class="control-label">Viernes</label>
-                            @Html.TextBoxFor(x => x.horario.inicioViernes, new { @placeholder = "Hora inicio", @maxlength = "100", @required = "required", @type = "time", @class = "form-control" })
+                            @Html.TextBoxFor(x => x.horario.inicioViernes, new { @placeholder = "Hora inicio", @maxlength = "100",  @type = "time", @class = "form-control" })
                             <label class="control-label">Sabado</label>
-                            @Html.TextBoxFor(x => x.horario.inicioSabado, new { @placeholder = "Hora inicio", @maxlength = "100", @required = "required", @type = "time", @class = "form-control" })
+                            @Html.TextBoxFor(x => x.horario.inicioSabado, new { @placeholder = "Hora inicio", @maxlength = "100",  @type = "time", @class = "form-control" })
                             <label class="control-label">Domingo</label>
-                            @Html.TextBoxFor(x => x.horario.inicioDomingo, new { @placeholder = "Hora inicio", @maxlength = "100", @required = "required", @type = "time", @class = "form-control" })
+                            @Html.TextBoxFor(x => x.horario.inicioDomingo, new { @placeholder = "Hora inicio", @maxlength = "100", @type = "time", @class = "form-control" })
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label">Lunes</label>
-                            @Html.TextBoxFor(x => x.horario.finalLunes, new { @placeholder = "Hora fin", @maxlength = "10", @required = "required", @type = "time", @class = "form-control" })
+                            @Html.TextBoxFor(x => x.horario.finalLunes, new { @placeholder = "Hora fin", @maxlength = "10", @type = "time", @class = "form-control" })
                             <label class="control-label">Martes</label>
                             @Html.TextBoxFor(x => x.horario.finalMartes, new { @placeholder = "Hora fin", @maxlength = "10", @type = "time", @class = "form-control" })
                             <label class="control-label">Miercoles</label>
-                            @Html.TextBoxFor(x => x.horario.finalMiercoles, new { @placeholder = "Hora fin", @maxlength = "100", @required = "required", @type = "time", @class = "form-control" })
+                            @Html.TextBoxFor(x => x.horario.finalMiercoles, new { @placeholder = "Hora fin", @maxlength = "100", @type = "time", @class = "form-control" })
                             <label class="control-label">Jueves</label>
-                            @Html.TextBoxFor(x => x.horario.finalJueves, new { @placeholder = "Hora fin", @maxlength = "100", @required = "required", @type = "time", @class = "form-control" })
+                            @Html.TextBoxFor(x => x.horario.finalJueves, new { @placeholder = "Hora fin", @maxlength = "100",  @type = "time", @class = "form-control" })
                             <label class="control-label">Viernes</label>
-                            @Html.TextBoxFor(x => x.horario.finalViernes, new { @placeholder = "Hora fin", @maxlength = "100", @required = "required", @type = "time", @class = "form-control" })
+                            @Html.TextBoxFor(x => x.horario.finalViernes, new { @placeholder = "Hora fin", @maxlength = "100", @type = "time", @class = "form-control" })
                             <label class="control-label">Sabado</label>
-                            @Html.TextBoxFor(x => x.horario.finalSabado, new { @placeholder = "Hora fin", @maxlength = "100", @required = "required", @type = "time", @class = "form-control" })
+                            @Html.TextBoxFor(x => x.horario.finalSabado, new { @placeholder = "Hora fin", @maxlength = "100", @type = "time", @class = "form-control" })
                             <label class="control-label">Domingo</label>
-                            @Html.TextBoxFor(x => x.horario.finalDomingo, new { @placeholder = "Hora fin", @maxlength = "100", @required = "required", @type = "time", @class = "form-control" })
+                            @Html.TextBoxFor(x => x.horario.finalDomingo, new { @placeholder = "Hora fin", @maxlength = "100", @type = "time", @class = "form-control" })
                         </div>
                     </div>
                 </div>  
@@ -152,7 +151,7 @@
                             <label class="control-label">Estado</label>
                             <label class="control-label">Ciudad</label>
                             <label class="control-label">CP</label>
-                            @Html.TextBoxFor(x=>x.direccion.CP,new { @placeholder="CP",@maxlength="5",@required="require",@type="text",@class="form-control"})
+                            @Html.TextBoxFor(x=>x.direccion.CP,new { @placeholder="CP",@maxlength="5",@required="required",@type="text",@class="form-control"})
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -250,6 +249,7 @@
         </div>
     </div>
 }
+
 <script>
     document.getElementById("slider").style.height = "200px"
     document.getElementById("step-1").style.marginRight = "0px";

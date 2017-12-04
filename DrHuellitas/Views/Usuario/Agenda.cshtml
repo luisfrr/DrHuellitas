@@ -238,7 +238,8 @@
                     success: function (data) {
                         if (data.status) {
                             //Refresh the calender
-                            FetchEventAndRenderCalendar();
+                            location.reload();
+                            
                             $('#myModal').modal('hide');
                         }
                     },
@@ -289,7 +290,7 @@
                     if (data.status) {
                         //Refresh the calender
                         location.reload();
-                        FetchEventAndRenderCalendar();
+                        
 
                         $('#myModalSave').modal('hide');
                     }

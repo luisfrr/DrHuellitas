@@ -62,7 +62,7 @@
 
 <div id="myModalSave" class="modal fade" role="dialog">
     <div class="modal-dialog">
-        <div class="modal-content" style="height:600px;">
+        <div class="modal-content" style="height:700px;">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Cita</h4>
@@ -85,10 +85,10 @@
                             </span>
                         </div>
                     </div>
-                    <div class="form-group" id="divEndDate" style="display:none">
+                    <div class="form-group" id="divEndDate">
                         <label>Fecha y hora de finalización</label>
                         <div class="input-group date" id="dtp2">
-                            @Html.TextBoxFor(x => x.sInicio, new { @id = "txtEnd", @class = "form-control" })
+                            @Html.TextBoxFor(x => x.sFin, new { @id = "txtEnd", @class = "form-control" })
                             <span class="input-group-addon">
                                 <span class="fa fa-calendar"></span>
                             </span>
@@ -143,7 +143,10 @@
                             start: moment(v.inicio),
                             end: v.fin != null ? moment(v.fin) : null,
                             color: v.color,
-                            comercio: v.comercio.nombreComercial
+                            comercio: v.comercio.nombreComercial,
+                            idcomercio: v.comercio.id,
+                            mascota: v.mascotas.nombremascota,
+                            idmascota: v.mascotas.id
                         });
                     })
 
@@ -192,7 +195,10 @@
                         start: start,
                         end: end,
                         color: '',
-                        comercio: ''
+                        comercio: '',
+                        idcomercio: 0,
+                        mascota: '',
+                        idmascota: 0
                     };
                     openAddEditForm();
                     $('#calendar').fullCalendar('unselect');
@@ -200,13 +206,16 @@
                 editable: true,
                 eventDrop: function (event) {
                     var data = {
-                        EventID: event.eventID,
-                        Subject: event.titulo,
-                        Start: event.inicio.format('DD/MM/YYYY HH:mm A'),
-                        End: event.fin != null ? event.fin.format('DD/MM/YYYY HH:mm A') : null,
-                        Description: event.descripcion,
-                        ThemeColor: event.color,
-                        Comercio: event.comercio.nombreComercial
+                        eventID: event.eventID,
+                        title: event.titulo,
+                        start: event.inicio.format('DD/MM/YYYY HH:mm A'),
+                        end: event.fin != null ? event.fin.format('DD/MM/YYYY HH:mm A') : null,
+                        description: event.descripcion,
+                        color: event.color,
+                        comercio: event.comercio.nombreComercial,
+                        idcomercio: event.comercio.id,
+                        mascota: event.mascotas.nombremascota,
+                        idmascotas: event.mascota.id
                     };
                     SaveEvent(data);
                 }
@@ -251,43 +260,21 @@
                 $('#hdEventID').val(selectedEvent.eventID);
                 $('#txtSubject').val(selectedEvent.title);
                 $('#txtStart').val(selectedEvent.start.format('DD/MM/YYYY HH:mm A'));
-                
+                $('#txtEnd').val(selectedEvent.end.format('DD/MM/YYYY HH:mm A'));
                 $('#txtDescription').val(selectedEvent.description);
-                $('#DropDwnComercios option:selected').text(selectedEvent.nombreComercial);
+                $('#DropDwnComercios option:selected').val(selectedEvent.idcomercio);
+                $('#DropDwnComercios option:selected').text(selectedEvent.comercio);
+                $('#DropDwnMascotas option:selected').text(selectedEvent.mascota);
+                $('#DropDwnMascotas option:selected').val(selectedEvent.idmascota);
+                
             }
             $('#myModal').modal('hide');
             $('#myModalSave').modal();
         }
         $('#btnSave').click(function () {
-            //Validation/
-            if ($('#txtSubject').val().trim() == "") {
-                alert('Subject required');
-                return;
-            }
-            if ($('#txtStart').val().trim() == "") {
-                alert('Start date required');
-                return;
-            }
-            if ($('#chkIsFullDay').is(':checked') == false && $('#txtEnd').val().trim() == "") {
-                alert('End date required');
-                return;
-            }
-            else {
-                var startDate = moment($('#txtStart').val(), "DD/MM/YYYY HH:mm A").toDate();
-                var endDate = moment($('#txtEnd').val(), "DD/MM/YYYY HH:mm A").toDate();
-                if (startDate > endDate) {
-                    alert('Invalid end date');
-                    return;
-                }
-            }
 
-            var data = {
-                id: $('#hdEventID').val(),
-                titulo: $('#txtSubject').val().trim(),
-                inicio: $('#txtStart').val().trim(),
-                fin: $('#txtEnd').val().trim(),
-                descripcion: $('#txtDescription').val(),
-            }
+            var data = $("#SubmitForm").serialize();
+
             SaveEvent(data);
             // call function for submit data to the server 
         })
@@ -301,7 +288,9 @@
                 success: function (data) {
                     if (data.status) {
                         //Refresh the calender
+                        location.reload();
                         FetchEventAndRenderCalendar();
+
                         $('#myModalSave').modal('hide');
                     }
                 },

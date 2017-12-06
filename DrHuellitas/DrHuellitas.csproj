@@ -218,6 +218,7 @@
     <Content Include="Content\login\style.css" />
     <Content Include="Content\mediaelementplayer.css" />
     <Content Include="Content\prettyPhoto.css" />
+    <Content Include="Content\propa.css" />
     <Content Include="Content\Scroll.css" />
     <Content Include="Content\style-switcher.css" />
     <Content Include="Content\style.css" />

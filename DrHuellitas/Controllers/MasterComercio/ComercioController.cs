@@ -11,6 +11,8 @@ namespace DrHuellitas.Controllers.MasterComercio
     public class ComercioController : Controller
     {
         ComercioDAO objDAO = new ComercioDAO();
+        FotoBO objFoto = new FotoBO();
+        AgendaDAO objAgenda = new AgendaDAO();
         // GET: Comercio
         public ActionResult Index()
         {
@@ -77,6 +79,7 @@ namespace DrHuellitas.Controllers.MasterComercio
 
             return Redirect(modulo);
         }
+
         public ActionResult completarregistro(RegistrosBO dato)
         {
             int id = (int)Session["id"];
@@ -86,6 +89,7 @@ namespace DrHuellitas.Controllers.MasterComercio
             return Redirect("~/Comercio/Index");
 
         }
+
         public ActionResult chat()
         {
             string modulo = "";
@@ -145,6 +149,7 @@ namespace DrHuellitas.Controllers.MasterComercio
             json.MaxJsonLength = Int32.MaxValue;
             return json;
         }
+
         public JsonResult mostrar(int id)
         {
             List<PropagandaBO> obtenerlista = objDAO.unapropaganda(id).ToList();
@@ -152,6 +157,7 @@ namespace DrHuellitas.Controllers.MasterComercio
             json.MaxJsonLength = Int32.MaxValue;
             return json;
         }
+
         public JsonResult fotolista(int id)
         {
             List<PropagandaBO> obtenerfoto = objDAO.fotoperfil(id).ToList();
@@ -159,11 +165,89 @@ namespace DrHuellitas.Controllers.MasterComercio
             json.MaxJsonLength = Int32.MaxValue;
             return json;
         }
-        public ActionResult modifcarfotoperfil (PropagandaBO obj)
+
+        public ActionResult modifcarfotoperfil(PropagandaBO obj)
         {
             int id = (int)Session["id"];
             var fotos = objDAO.modificarfoto(obj, id);
+            Session["foto"] = @"data:image/jpeg;base64," + objFoto.ConvertirAFoto(obj.imagen);
             return Redirect("~/Comercio/Index");
         }
+
+
+        public ActionResult Agenda()
+        {
+            string modulo = "";
+            if (Session["id"] != null)
+            {
+                if ((int)Session["idtipo"] == 1)
+                {
+                    modulo = "~/Admin/Index";
+                }
+                else if ((int)Session["idtipo"] == 2)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Usuario/Index" : "~/Usuario/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 3)
+                {
+                    if ((int)Session["status"] == 1)
+                        return View();
+                    else
+                        modulo = "~/Comercio/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 4)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Vet/Index" : "~/Vet/Continuar";
+                }
+            }
+            else
+            {
+                modulo = "~/Inicio/Index";
+            }
+
+            return Redirect(modulo);
+        }
+
+        public JsonResult GetEvents()
+        {
+            var events = objAgenda.GetEventsUser((int)Session["id"]).ToList();
+            var json = new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
+
+        [HttpPost]
+        public JsonResult SaveEvent(CitasBO e)
+        {
+            var status = false;
+
+            if (e.id > 0)
+            {
+                //Update the event
+                objAgenda.ActualizarCita(e, (int)Session["id"]);
+                status = true;
+            }
+            else
+            {
+                objAgenda.AgregarCita(e, (int)Session["id"]);
+                status = true;
+            }
+
+            return new JsonResult { Data = new { status = status } };
+        }
+
+
+        [HttpPost]
+        public JsonResult DeleteEvent(int eventID)
+        {
+            var status = false;
+
+            var c = objAgenda.EliminarCita(eventID);
+            status = true;
+
+
+            return new JsonResult { Data = new { status = status } };
+        }
+
     }
 }

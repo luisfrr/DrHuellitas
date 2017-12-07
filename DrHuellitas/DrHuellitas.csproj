@@ -888,7 +888,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Chat\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -981,6 +980,7 @@
     <Content Include="Views\Gestiones\propagandades.cshtml" />
     <Content Include="Views\Usuario\Comercio.cshtml" />
     <Content Include="Views\Usuario\Agenda.cshtml" />
+    <Content Include="Views\Comercio\Agenda.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Encriptacion\MD5.csproj">

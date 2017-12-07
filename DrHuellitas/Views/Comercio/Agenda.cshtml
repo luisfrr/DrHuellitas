@@ -1,0 +1,296 @@
+﻿@using DrHuellitas.BO;
+@model CitasBO
+@{
+    ViewBag.Title = "Agenda";
+    Layout = "~/Views/Shared/MasterFrontEndVet.cshtml";
+}
+
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Mi agenda</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="main" role="main">
+    <div id="content" class="content full">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-xs-12">
+                    <div id="calender"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><span id="eventTitle"></span></h4>
+            </div>
+            <div class="modal-body">
+                <p id="pDetails"></p>
+            </div>
+            <div class="modal-footer">
+                <button id="btnDelete" class="btn btn-default pull-left">
+                    <i class="fa fa-remove"></i> Eliminar
+                </button>
+                <button id="btnEdit" class="btn btn-default pull-left" style="margin-right:5px;">
+                    <i class="fa fa-pencil"></i> Editar
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModalSave" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="height:700px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Cita</h4>
+            </div>
+            <div class="modal-body">
+                <form class="col-md-12 form-horizontal" id="SubmitForm">
+
+                    @Html.HiddenFor(x => x.id, new { @id = "hdEventID", @value = "0" })
+                    <div class="form-group">
+                        <label>Título</label>
+
+                        @Html.TextBoxFor(x => x.titulo, new { @id = "txtSubject", @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Fecha y hora de inicio</label>
+                        <div class="input-group date" id="dtp1">
+                            @Html.TextBoxFor(x => x.sInicio, new { @id = "txtStart", @class = "form-control" })
+                            <span class="input-group-addon">
+                                <span class="fa fa-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group" id="divEndDate">
+                        <label>Fecha y hora de finalización</label>
+                        <div class="input-group date" id="dtp2">
+                            @Html.TextBoxFor(x => x.sFin, new { @id = "txtEnd", @class = "form-control" })
+                            <span class="input-group-addon">
+                                <span class="fa fa-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Descripción</label>
+
+                        @Html.TextAreaFor(x => x.descripcion, new { @id = "txtDescription", @rows = "3", @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Comercios</label>
+                        @Html.DropDownListFor(x => x.comercio.id, ViewBag.ListaComercio as SelectList, "Seleccionar", new { @id = "DropDwnComercios", @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        <label>Mi mascota para la cita</label>
+                        @Html.DropDownListFor(x => x.mascotas.id, ViewBag.ListaMascotas as SelectList, "Seleccionar", new { @id = "DropDwnMascotas", @class = "form-control" })
+                    </div>
+                    <button type="button" id="btnSave" class="btn btn-success">Guardar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    document.getElementById("slider").style.height = "200px"
+    $("#slider").attr("data-pagination", "");
+    $("#slider").attr("data-arrows", "");
+    $("#slider").attr("data-style", "");
+
+
+    $(document).ready(function () {
+        var events = [];
+        var selectedEvent = null;
+        FetchEventAndRenderCalendar();
+
+        function FetchEventAndRenderCalendar() {
+            $.ajax({
+                type: "GET",
+                url: "/Usuario/GetEvents",
+                success: function (data) {
+                    $.each(data, function (i, v) {
+                        events.push({
+                            eventID: v.id,
+                            title: v.titulo,
+                            description: v.descripcion,
+                            start: moment(v.inicio),
+                            end: v.fin != null ? moment(v.fin) : null,
+                            color: v.color,
+                            comercio: v.comercio.nombreComercial,
+                            idcomercio: v.comercio.id,
+                            mascota: v.mascotas.nombremascota,
+                            idmascota: v.mascotas.id
+                        });
+                    })
+
+                    GenerateCalender(events);
+                },
+                error: function (error) {
+                    alert('Error');
+                }
+            })
+        }
+
+
+        function GenerateCalender(events) {
+            $('#calender').fullCalendar('destroy');
+            $('#calender').fullCalendar({
+                contentHeight: 400,
+                defaultDate: new Date(),
+                timeFormat: 'h(:mm)a',
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,basicWeek,basicDay,agenda'
+                },
+                eventLimit: true,
+                eventColor: '#007F7B',
+                events: events,
+                eventClick: function (calEvent, jsEvent, view) {
+                    selectedEvent = calEvent;
+                    $('#myModal #eventTitle').text(calEvent.title);
+                    var $description = $('<div/>');
+                    $description.append($('<p/>').html('<strong>Fecha y hora de inicio: </strong>' + calEvent.start.format("DD-MMM-YYYY HH:mm a")));
+                    if (calEvent.end != null) {
+                        $description.append($('<p/>').html('<strong>Fecha y hora de finalización: </strong>' + calEvent.end.format("DD-MMM-YYYY HH:mm a")));
+                    }
+                    $description.append($('<p/>').html('<strong>Descripción de la cita: </strong>' + calEvent.description));
+                    $('#myModal #pDetails').empty().html($description);
+
+                    $('#myModal').modal();
+                },
+                selectable: true,
+                select: function (start, end) {
+                    selectedEvent = {
+                        eventID: 0,
+                        title: '',
+                        description: '',
+                        start: start,
+                        end: end,
+                        color: '',
+                        comercio: '',
+                        idcomercio: 0,
+                        mascota: '',
+                        idmascota: 0
+                    };
+                    openAddEditForm();
+                    $('#calendar').fullCalendar('unselect');
+                },
+                editable: true,
+                eventDrop: function (event) {
+                    var data = {
+                        eventID: event.eventID,
+                        title: event.titulo,
+                        start: event.inicio.format('DD/MM/YYYY HH:mm A'),
+                        end: event.fin != null ? event.fin.format('DD/MM/YYYY HH:mm A') : null,
+                        description: event.descripcion,
+                        color: event.color,
+                        comercio: event.comercio.nombreComercial,
+                        idcomercio: event.comercio.id,
+                        mascota: event.mascotas.nombremascota,
+                        idmascotas: event.mascota.id
+                    };
+                    SaveEvent(data);
+                }
+            })
+        }
+
+        $('#btnEdit').click(function () {
+            //Open modal dialog for edit event
+            openAddEditForm();
+        })
+
+
+
+        $('#btnDelete').click(function () {
+            if (selectedEvent != null && confirm('¿Esta usted seguro que desea cancelar y eliminar la cita?')) {
+                $.ajax({
+                    type: "POST",
+                    url: '/Usuario/DeleteEvent',
+                    data: { 'eventID': selectedEvent.eventID },
+                    success: function (data) {
+                        if (data.status) {
+                            //Refresh the calender
+                            location.reload();
+
+                            $('#myModal').modal('hide');
+                        }
+                    },
+                    error: function () {
+                        alert('Error al eliminar el evento');
+                    }
+                })
+            }
+        })
+
+
+        $('#dtp1,#dtp2').datetimepicker({
+            format: 'DD/MM/YYYY HH:mm A'
+        });
+
+        function openAddEditForm() {
+            if (selectedEvent != null) {
+
+                $('#hdEventID').val(selectedEvent.eventID);
+                $('#txtSubject').val(selectedEvent.title);
+                $('#txtStart').val(selectedEvent.start.format('DD/MM/YYYY HH:mm A'));
+                $('#txtEnd').val(selectedEvent.end.format('DD/MM/YYYY HH:mm A'));
+                $('#txtDescription').val(selectedEvent.description);
+                $('#DropDwnComercios option:selected').val(selectedEvent.idcomercio);
+                $('#DropDwnComercios option:selected').text(selectedEvent.comercio);
+                $('#DropDwnMascotas option:selected').text(selectedEvent.mascota);
+                $('#DropDwnMascotas option:selected').val(selectedEvent.idmascota);
+
+            }
+            $('#myModal').modal('hide');
+            $('#myModalSave').modal();
+        }
+        $('#btnSave').click(function () {
+
+            var data = $("#SubmitForm").serialize();
+
+            SaveEvent(data);
+            // call function for submit data to the server
+        })
+
+
+        function SaveEvent(data) {
+            $.ajax({
+                type: "POST",
+                url: '/Usuario/SaveEvent',
+                data: data,
+                success: function (data) {
+                    if (data.status) {
+                        //Refresh the calender
+                        location.reload();
+
+
+                        $('#myModalSave').modal('hide');
+                    }
+                },
+                error: function () {
+                    alert('Error al guardar la cita');
+                }
+            })
+        }
+
+    })
+

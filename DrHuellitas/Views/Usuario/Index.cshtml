@@ -1,5 +1,5 @@
 ﻿@using DrHuellitas.BO;
-@model PropagandaBO
+@model RegistrosBO
 @{
     ViewBag.Title = "Bienvenido a Dr. Huellitas";
     Layout = "~/Views/Shared/MasterFrontEnd.cshtml";
@@ -451,9 +451,9 @@
 
 <style>
     .cortar {
-        width: 300px;
+        width: 400px;
         height: 20px;
-        padding: 20px;
+        padding: 30px;
         border: 1px solid double;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -486,99 +486,100 @@
 <div class="main" role="main">
     <div id="content" class="content full">
         <div class="container">
-            <div class="row pul" id="listapropagandas">
+            <div class="row col-lg-12" id="listapropagandas">
             </div>
         </div>
     </div>
 </div>
-<div class="modal fade" id="descripcion">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <a  class="close" data-dismiss="modal">&times;</a>
-                <h4>Descripción</h4>
-            </div>
-            <div class="modal-body">
-                @Html.HiddenFor(x=>x.id, new { @id="id"})
-                <textarea id="des" rows="4" cols="100" disabled="disabled" class="form-control text-block-typical"></textarea>
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="btn btn-primary" data-dismiss="modal" id="r">Cerrar</a>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="modal fade product_view" id="product_view">
+@using (Html.BeginForm("mostarveterinaria", "Usuario"))
+{
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <a href="#" data-dismiss="modal" class="class pull-right"><i class="fa fa-close"></i></a>
-                <h3 class="modal-title"><img id="img" src="@Session["foto"]" class="img-responsive img-circle pull-left "alt="Mouse0270" style="width:32px; height:32px;">HTML5 is a markup language</h3>
+                <a data-dismiss="modal" class="class pull-right"><i class="fa fa-close"></i></a>
+                <h3 class="modal-title">Vista previa de la propaganda</h3>
+                @Html.HiddenFor(x => x.comercio.id, new { @id = "idcomercio" })
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-6 product_img">
-                        <img id="img" src="http://img.bbystatic.com/BestBuy_US/images/products/5613/5613060_sd.jpg" class="img-responsive">
+                        <h4>Foto propaganda</h4>
+                        <img id="imgpropaganda" src="" class="img-responsive" !important style="width:100%; height:1000%;">
+                        <h5>Descripción de la propaganda:</h5>
+                        <label id="pdescripcion"></label>
                     </div>
-                    <div class="col-md-6 product_content">
-                        <h4>Product Id: <span>51526</span></h4>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                        <div class="space-ten"></div>
+                    <div class="col-md-6 product_img">
+                        <h4>Foto del comercio que publico</h4>
+                        <img id="fotousuario" src="" class="img-thumbnail" style="width:100%; height:1000%;" />
+                        <h5>Datos del comercio:</h5>
+                        <p>Nombre gerente: <label id="nombreusuario"></label></p>
+                        <p>Nombre comercio: <label id="nombrecomercio"></label></p>
+                        <p>Telefono comercio: <label id="telefono"></label></p>
+                        <p>E-mail comercio: <label id="email"></label></p>
                         <div class="btn-ground">
-                            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> Add To Cart</button>
-                            <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-heart"></span> Add To Wishlist</button>
+                            <button type="submit"  class="btn btn-primary center-block"><span class="glyphicon glyphicon-shopping-cart"></span>Ir a veterinaria</button>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
+}
 </div>
 
-<script>
-    document.getElementById("slider").style.height = "400px"
+    <script>
+        document.getElementById("slider").style.height = "400px"
 
 
-    $.get("/Usuario/Jsonpropaganda", null, DataBind);
-    function DataBind(lista) {
-        var SetData = $("#listapropagandas");
-        for (var i = 0; i < lista.length; i++) {
-            var Data = "<div class='col-md-8'>" +
-                "<div class='thumbnail form-group panel-google-plus'>" +
-
-                "<div class='panel-heading'>" +
-                "<img src=" + lista[i].fotousuario + " style='width:52px; height:52px;' class='img img-circle pull-left' alt='Mouse0270' />" +
-                "<h3 class='center-block'>" + lista[i].nombrecomercio + "</h3>" +
-                "<h5><span>Propaganda</span> - <span>" + lista[i].fecha + "</span> </h5>" +
-
-                "</div>" +
-                "<div>" +
-                "<p class='glyphicon-text-color cortar'>" + lista[i].descripcion + "</p>" +
-                "</div>" +
-                "<img src=" + lista[i].foto + "   style='width:1000px; height:300px;' class='img-responsive'>"+
-                "<div class='space-ten'>" +
-                "<button type='button' class='btn btn-primary pull-left' data-toggle='modal' data-target='#product_view'><i class='fa fa-search'></i> Ver Descripción</button>" +"</br>"+
-                 "</div > " +
-                "</div>" +
-
-                "</div>";
-            SetData.append(Data);
-        }
-
-    }
-
-    function mostrardescripcion(id) {
-        $.get("/Usuario/mostrardescripcion?id=" + id, null, llamada);
-        function llamada(lista) {
-
+        $.get("/Usuario/Jsonpropaganda", null, DataBind);
+        function DataBind(lista) {
+            var SetData = $("#listapropagandas");
             for (var i = 0; i < lista.length; i++) {
-                $("#id").val(lista[i].id);
-                $("#des").val(lista[i].descripcion);
+                var Data = "<div class='col-md-6'>" +
+                    "<div class='thumbnail form-group panel-google-plus'>" +
+
+                    "<div class='panel-heading'>" +
+                    "<img src=" + lista[i].fotousuario + " style='width:52px; height:52px;' class='img img-circle pull-left' alt='Mouse0270' />" +
+                    "<h3 class='center-block'>" + lista[i].nombrecomercio + "</h3>" +
+                    "<h5><span>Propaganda</span> - <span>" + lista[i].fecha + "</span> </h5>" +
+
+                    "</div>" +
+                    "<div>" +
+                    "<p class='glyphicon-text-color cortar'>" + lista[i].descripcion + "</p>" +
+                    "</div>" +
+                    "<img src=" + lista[i].foto + "   style='width:1000px; height:300px;' class='img-responsive'>" +
+                    "<div class='space-ten'>" +
+                    "<button type='button' class='btn btn-primary pull-left' onclick='mostrardescripcion(" + lista[i].id + ")' data-toggle='modal'><i class='fa fa-search'></i> Ver Descripción</button>" + "</br>" +
+                    "</div > " +
+                    "</div>" +
+
+                    "</div>";
+                SetData.append(Data);
             }
+
         }
-        $("#descripcion").modal();
 
-    }
-
-</script>
+        function mostrardescripcion(id) {
+            $.get("/Usuario/mostrardescripcion?id=" + id, null, llamada);
+            function llamada(lista) {
+                for (var i = 0; i < lista.length; i++)
+                {
+                    $("#fotousuario").attr("src", lista[i].fotousuario);
+                    $("#imgpropaganda").attr("src", lista[i].foto);
+                    $("#pdescripcion").text(lista[i].descripcion);
+                    $("#nombrecomercio").text(lista[i].nombrecomercio);
+                    $("#nombreusuario").text(lista[i].gerente);
+                    $("#telefono").text(lista[i].telefono);
+                    $("#email").text(lista[i].email);
+                    $("#idcomercio").val(lista[i].idcomercio);
+               
+                }
+            }
+            $("#product_view").modal();
+        }
+        function enviarotrapagina(id) {
+            $.get("/Usuario/mostrardescripcion?id", null);
+        }
+    </script>

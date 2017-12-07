@@ -17,5 +17,9 @@ namespace DrHuellitas.BO
         public string fotousuario { get; set; }
         public string nombrecomercio { get; set; }
         public UsuarioBO usuario { get; set; }
+        public string email { get; set; }
+        public string telefono { get; set;  }
+        public int idcomercio { get; set; }
+        public string gerente { get; set; }
     }
 }

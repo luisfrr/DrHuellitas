@@ -17,6 +17,7 @@ namespace DrHuellitas.Controllers
         PropagandaUsuarioDAO obtnerpropaganda = new PropagandaUsuarioDAO();
         FotoBO objFoto = new FotoBO();
         AgendaDAO objAgenda = new AgendaDAO();
+        ListarVeterinariasDAO objlistar = new ListarVeterinariasDAO();
 
 
         // GET: Usuario
@@ -167,6 +168,12 @@ namespace DrHuellitas.Controllers
                 
 
             return new JsonResult { Data = new { status = status } };
+        }
+
+        public ActionResult mostarveterinaria(RegistrosBO obj)
+        {
+            int id = obj.comercio.id;
+            return View(objlistar.listarveterinaria(id));
         }
     }
 }

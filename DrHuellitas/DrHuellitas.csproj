@@ -142,6 +142,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="BO\CalificacionBO.cs" />
     <Compile Include="BO\ChatBO.cs" />
     <Compile Include="BO\CitasBO.cs" />
     <Compile Include="BO\CiudadesBO.cs" />
@@ -177,6 +178,7 @@
     <Compile Include="DAO\ComercioDAO.cs" />
     <Compile Include="DAO\ConexionSQL.cs" />
     <Compile Include="DAO\EspeciesDAO.cs" />
+    <Compile Include="DAO\ListarVeterinariasDAO.cs" />
     <Compile Include="DAO\MascotasDAO.cs" />
     <Compile Include="DAO\PaquetesDAO.cs" />
     <Compile Include="DAO\PropagandaDAO.cs" />
@@ -980,6 +982,7 @@
     <Content Include="Views\Gestiones\propagandades.cshtml" />
     <Content Include="Views\Usuario\Comercio.cshtml" />
     <Content Include="Views\Usuario\Agenda.cshtml" />
+    <Content Include="Views\Usuario\mostarveterinaria.cshtml" />
     <Content Include="Views\Comercio\Agenda.cshtml" />
   </ItemGroup>
   <ItemGroup>

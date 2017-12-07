@@ -13,6 +13,7 @@ namespace DrHuellitas.BO
         public ComercioBO comercio { get; set; }
         public HorarioBO horario { get; set; }
         public DireccionBO direccion { get; set; }
+        public CalificacionBO calificacion { get; set; }
 
     }
 }

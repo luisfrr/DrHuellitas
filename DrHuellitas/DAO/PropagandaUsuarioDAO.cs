@@ -70,7 +70,7 @@ namespace DrHuellitas.DAO
         {
             var propaganda =new List<PropagandaBO>();
 
-            SqlCommand cmd = new SqlCommand("select p.id, p.foto,p.descripcion,p.fecha,u.foto as fotousuario, c.nombreComercial as comercio from Propaganda p join Usuario u on p.idUsuario=u.id join UsuarioComercio uc on u.id=uc.idempresa join Comercio c on c.id=uc.idsucursal where p.status=1 and p.id='"+id+"' order by p.id desc");
+            SqlCommand cmd = new SqlCommand("select p.id, p.foto,p.descripcion,p.fecha,u.foto as fotousuario,u.nombre+' '+u.apellidos as gerente, c.nombreComercial as comercio,C.email,C.telefono1,C.id as idcomercio from Propaganda p join Usuario u on p.idUsuario=u.id join UsuarioComercio uc on u.id=uc.idempresa join Comercio c on c.id=uc.idsucursal where p.status=1 and p.id='" + id+"' order by p.id desc");
             cmd.Connection = conex.establecerConexion();
             conex.AbrirConexion();
 
@@ -92,7 +92,11 @@ namespace DrHuellitas.DAO
                             descripcion = dr["descripcion"].ToString(),
                             fecha = Convert.ToDateTime(dr["fecha"]).ToString("dd-MM-yyyy"),
                             fotousuario = "",
-                            nombrecomercio = dr["comercio"].ToString()
+                            gerente = dr["gerente"].ToString(),
+                            nombrecomercio = dr["comercio"].ToString(),
+                            email=dr["email"].ToString(),
+                            telefono=dr["telefono1"].ToString(),
+                            idcomercio=Convert.ToInt32(dr["idcomercio"].ToString())
 
 
                         };
@@ -109,7 +113,11 @@ namespace DrHuellitas.DAO
                             descripcion = dr["descripcion"].ToString(),
                             fecha = Convert.ToDateTime(dr["fecha"]).ToString("dd-MM-yyyy"),
                             fotousuario = "data:image/jpeg;base64," + Convert.ToBase64String((byte[])dr["fotousuario"]),
-                            nombrecomercio = dr["comercio"].ToString()
+                            gerente = dr["gerente"].ToString(),
+                            nombrecomercio = dr["comercio"].ToString(),
+                            email = dr["email"].ToString(),
+                            telefono = dr["telefono1"].ToString(),
+                            idcomercio = Convert.ToInt32(dr["idcomercio"].ToString())
                         };
                         propaganda.Add(p);
                     }

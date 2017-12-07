@@ -303,5 +303,7 @@ namespace DrHuellitas.DAO
             cmd.Parameters.Add("@foto", SqlDbType.Image).Value = Foto.ConvertirAFoto(bO.usuario.img);
             return conex.EjecutarComando(cmd);
         }
+
+        
     }
 }

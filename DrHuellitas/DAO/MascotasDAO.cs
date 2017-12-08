@@ -261,5 +261,50 @@ namespace DrHuellitas.DAO
             return usuarios;
         }
 
+
+        public List<GestionMascotaBO> ObtenerListaMascotasUsuario(int id)
+        {
+            var mascotas = new List<GestionMascotaBO>();
+            SqlCommand cmd = new SqlCommand("SELECT m.id, m.nombre, (m.CDominante + '|' + m.CPDominante + '|' + m.CAlternativo) AS color, m.genero, m.fechanacimiento, m.foto, m.idRaza, r.nombre AS raza, r.idEspecie, (e.nomCientifico+'(' + e.nomComun+')') AS especie  FROM Mascotas m JOIN UsuarioMascota um ON um.idmascota = m.id JOIN Raza r ON r.id = m.idRaza JOIN Especie e ON e.id = r.idEspecie WHERE um.idusuario=@id");
+            cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
+
+            cmd.Connection = con.establecerConexion();
+            con.AbrirConexion();
+            var query = cmd;
+            using (var dr = query.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    var p = new BO.GestionMascotaBO
+                    {
+                        mascotas = new MascotasBO
+                        {
+                            id = Convert.ToInt32(dr["id"].ToString()),
+                            nombremascota = dr["nombre"].ToString(),
+                            colorDominate = dr["color"].ToString(),
+                            sgenero = dr["genero"].ToString(),
+                            fnacimiento = Convert.ToDateTime(dr["fechanacimiento"]).ToString("dd/MM/yyyy"),
+                            foto = "data:image/jpeg;base64," + Convert.ToBase64String((byte[])dr["foto"])
+                        },
+                        especies = new EspeciesBO
+                        {
+                            id = Convert.ToInt32(dr["idEspecie"].ToString()),
+                            nomCientifico = dr["especie"].ToString()
+                        },
+                        razas = new RazasBO
+                        {
+                            id = Convert.ToInt32(dr["idRaza"].ToString()),
+                            nombre = dr["raza"].ToString()
+                        }
+                    };
+                    mascotas.Add(p);
+                }
+
+            }
+            con.CerrarConexion();
+            return mascotas;
+        }
+
+
     }
 }

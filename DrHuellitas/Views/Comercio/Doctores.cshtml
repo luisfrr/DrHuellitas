@@ -1,7 +1,7 @@
 ﻿@using DrHuellitas.BO;
 @model RegistrosBO
 @{
-    ViewBag.Title = "gestionveterinario";
+    ViewBag.Title = "Mis veterinarios";
     Layout = "~/Views/Shared/MasterFrontEndVet.cshtml";
 }
 <div class="page-header">
@@ -25,10 +25,8 @@
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Usuario</th>
-                    <th>Tipo de usuario</th>
                     <th>E-mail</th>
                     <th>Fecha de nacimiento</th>
-                    <th>Fecha de registro</th>
                     <th>Foto</th>
                     <th>Editar</th>
                     <th>Eliminar</th>
@@ -54,27 +52,24 @@
                             @using (Html.BeginForm("agregarveterinario", "Comercio", FormMethod.Post, new { @enctype = "multipart/form-data" }))
                             {
                                 <div class="col-md-12">
-
                                     <div class="form-group">
-                                       @Html.HiddenFor(x=>x.usuario.id)
+                                        @Html.HiddenFor(x => x.usuario.id)
                                         <div class="form-group">
                                             <label class="text-align-left">Usuario:</label>
                                             @Html.TextBoxFor(x => x.usuario.usuario, new { @required = "required", @class = "form-control", @type = "text", @placeholder = "Usuario.." })
-                                            </div>
+                                        </div>
                                         <div class="form-group">
                                             <label class="text-align-left">Contraseña:</label>
                                             @Html.TextBoxFor(x => x.usuario.contraseña, new { @required = "required", @type = "password", @class = "form-control", @placeholder = "Contraseña.." })
-                                            </div>
+                                        </div>
                                         <div class="form-group">
                                             <img id="img" src="../../img/admin/avatar-1-128.png" width="200" height="200" class="img-circle center-block" />
-                                            @Html.TextBoxFor(x => x.usuario.img, new { @type = "file", @name = "file", @id = "carga", @required="required", @class = "btn btn-file center-block form-control" })
-                                            </div>
-
-
+                                            @Html.TextBoxFor(x => x.usuario.img, new { @type = "file", @name = "file", @id = "carga", @required = "required", @class = "btn btn-file center-block form-control" })
                                         </div>
+                                    </div>
                                 </div>
 
-                                        <button class=" btn btn-block btn-success" type="submit" id="btnListo">Guardar</button>
+                                <button class=" btn btn-block btn-success" type="submit" id="btnListo">Guardar</button>
 
                             }
                         </div>

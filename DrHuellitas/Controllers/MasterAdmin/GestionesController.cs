@@ -198,12 +198,12 @@ namespace DrHuellitas.Controllers.MasterAdmin
             int resultado = objMascotasDAO.ActualizarFoto(model);
             if (resultado != 0)
             {
-                modulo = "~/Gestiones/Usuarios";
+                modulo = "~/Gestiones/Mascotas";
                 ViewBag.ImagenBien = true;
             }
             else
             {
-                modulo = "~/Gestiones/Usuarios";
+                modulo = "~/Gestiones/Mascotas";
                 ViewBag.ImagenMal = true;
             }
 

@@ -14,6 +14,7 @@ namespace DrHuellitas.Controllers.MasterComercio
         FotoBO objFoto = new FotoBO();
         AgendaDAO objAgenda = new AgendaDAO();
         AgregarVeterinarioDAO objveterinario = new AgregarVeterinarioDAO();
+
         // GET: Comercio
         public ActionResult Index()
         {
@@ -141,7 +142,6 @@ namespace DrHuellitas.Controllers.MasterComercio
             return Redirect("~/Comercio/Index");
         }
 
-
         public JsonResult Obtenerpropaganda()
         {
             int id = (int)Session["id"];
@@ -176,5 +176,94 @@ namespace DrHuellitas.Controllers.MasterComercio
             Session["foto"] =  foto;
             return Redirect("~/Comercio/Index");
         }
+
+        public ActionResult Doctores()
+        {
+            return View();
+        }
+
+        public ActionResult Agenda()
+        {
+
+            string modulo = "";
+            if (Session["id"] != null)
+            {
+                if ((int)Session["idtipo"] == 1)
+                {
+                    modulo = "~/Admin/Index";
+                }
+                else if ((int)Session["idtipo"] == 2)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Usuario/Index" : "~/Usuario/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 3)
+                {
+                    if ((int)Session["status"] == 1)
+                    {
+                        return View();
+                    }
+                    else
+                        modulo = "~/Comercio/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 4)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Vet/Index" : "~/Vet/Continuar";
+                }
+            }
+            else
+            {
+                modulo = "~/Inicio/Index";
+            }
+
+            return Redirect(modulo);
+        }
+
+        public JsonResult GetEvents()
+        {
+            var events = objAgenda.GetEventsComercios((int)Session["id"]).ToList();
+            var json = new JsonResult { Data = events, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
+
+        [HttpPost]
+        public JsonResult SaveEvent(CitasBO e)
+        {
+            var status = false;
+
+            if (e.id > 0)
+            {
+                //Update the event
+                objAgenda.ActualizarCita(e, (int)Session["id"]);
+                status = true;
+            }
+            else
+            {
+                objAgenda.AgregarCita(e, (int)Session["id"]);
+                status = true;
+            }
+
+            return new JsonResult { Data = new { status = status } };
+        }
+        [HttpPost]
+        public JsonResult DeleteEvent(int eventID)
+        {
+            var status = false;
+
+            var c = objAgenda.EliminarCita(eventID);
+            status = true;
+
+
+            return new JsonResult { Data = new { status = status } };
+        }
+
+
+        public ActionResult agregarveterinario(RegistrosBO bO)
+        {
+            var e = objveterinario.agregarVeterinario(bO,(int)Session["id"]);
+            
+            return Redirect("~/Comercio/Doctores");
+        }
+
     }
 }

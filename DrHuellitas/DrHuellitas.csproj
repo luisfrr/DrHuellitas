@@ -984,9 +984,9 @@
     <Content Include="Views\Usuario\Comercio.cshtml" />
     <Content Include="Views\Usuario\Agenda.cshtml" />
     <Content Include="Views\Usuario\PerfilComercio.cshtml" />
-    <Content Include="Views\Usuario\mostarveterinaria.cshtml" />
-    <Content Include="Views\Comercio\gestionveterinario.cshtml" />
+    <Content Include="Views\Comercio\Doctores.cshtml" />
     <Content Include="Views\Comercio\Agenda.cshtml" />
+    <Content Include="Views\Usuario\Mascotas.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Encriptacion\MD5.csproj">

@@ -18,6 +18,7 @@ namespace DrHuellitas.Controllers
         FotoBO objFoto = new FotoBO();
         AgendaDAO objAgenda = new AgendaDAO();
         ListarVeterinariasDAO objlistar = new ListarVeterinariasDAO();
+        MascotasDAO objMascotas = new MascotasDAO();
 
 
         // GET: Usuario
@@ -122,11 +123,42 @@ namespace DrHuellitas.Controllers
 
         public ActionResult Agenda()
         {
-            List<ComercioBO> Comercios = objAgenda.ObtenerComercios().ToList();
-            ViewBag.ListaComercio = new SelectList(Comercios, "id", "nombreComercial");
-            List<MascotasBO> Mascotas = objAgenda.ObtenerMisMascotas((int)Session["id"]).ToList();
-            ViewBag.ListaMascotas = new SelectList(Mascotas, "id", "nombremascota");
-            return View();
+            string modulo = "";
+            if (Session["id"] != null)
+            {
+                if ((int)Session["idtipo"] == 1)
+                {
+                    modulo = "~/Admin/Index";
+                }
+                else if ((int)Session["idtipo"] == 2)
+                {
+                    if ((int)Session["status"] == 1)
+                    {
+                        List<ComercioBO> Comercios = objAgenda.ObtenerComercios().ToList();
+                        ViewBag.ListaComercio = new SelectList(Comercios, "id", "nombreComercial");
+                        List<MascotasBO> Mascotas = objAgenda.ObtenerMisMascotas((int)Session["id"]).ToList();
+                        ViewBag.ListaMascotas = new SelectList(Mascotas, "id", "nombremascota");
+                        return View();
+                    }
+                    else
+                        modulo = "~/Usuario/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 3)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Comercio/Index" : "~/Comercio/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 4)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Vet/Index" : "~/Vet/Continuar";
+                }
+            }
+            else
+            {
+                modulo = "~/Inicio/Index";
+            }
+
+            return Redirect(modulo);
+           
         }
 
         public JsonResult GetEvents()
@@ -174,6 +206,123 @@ namespace DrHuellitas.Controllers
         {
             int id = obj.comercio.id;
             return View(objlistar.listarveterinaria(id));
+        }
+
+
+
+        public ActionResult Mascotas()
+        {
+            string modulo = "";
+            if (Session["id"] != null)
+            {
+                if ((int)Session["idtipo"] == 1)
+                {
+                    modulo = "~/Admin/Index";
+                }
+                else if ((int)Session["idtipo"] == 2)
+                {
+                    if ((int)Session["status"] == 1)
+                    {
+                        List<RazasBO> Raza = objMascotas.DropDownRaza().ToList();
+                        ViewBag.ListaRaza = new SelectList(Raza, "id", "nombre");
+                        List<EspeciesBO> Especie = objMascotas.DropDownEspecie().ToList();
+                        ViewBag.ListaEspecie = new SelectList(Especie, "id", "nomCientifico");
+                        return View();
+                    }
+                    else
+                        modulo = "~/Usuario/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 3)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Comercio/Index" : "~/Comercio/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 4)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Vet/Index" : "~/Vet/Continuar";
+                }
+            }
+            else
+            {
+                modulo = "~/Inicio/Index";
+            }
+
+            return Redirect(modulo);
+        }
+
+        public JsonResult ObtenerListaMascotas()
+        {
+            List<GestionMascotaBO> PackMascotas = objMascotas.ObtenerListaMascotasUsuario((int)Session["id"]).ToList();
+            var json = Json(PackMascotas, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
+
+        public JsonResult ObtenerMascota(int id)
+        {
+            List<GestionMascotaBO> PackMascotas = objMascotas.ObtenerMascota(id).ToList();
+            var json = Json(PackMascotas, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
+        string modulo = "";
+        [HttpPost]
+        public ActionResult ImagenMascota(GestionMascotaBO model)
+        {
+
+            int resultado = objMascotas.ActualizarFoto(model);
+            if (resultado != 0)
+            {
+                modulo = "~/Gestiones/Usuarios";
+                ViewBag.ImagenBien = true;
+            }
+            else
+            {
+                modulo = "~/Gestiones/Usuarios";
+                ViewBag.ImagenMal = true;
+            }
+
+            return Redirect(modulo);
+        }
+
+        public JsonResult GuardarMascota(GestionMascotaBO model)
+        {
+            var result = false;
+            try
+            {
+                if (model.mascotas.id > 0)
+                {
+                    objMascotas.ActualizarMascotas(model);
+                    result = true;
+                }
+                else
+                {
+                    objMascotas.AgregarMascotas(model);
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            var json = Json(result, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
+
+        public JsonResult EliminarMascota(int idMascota)
+        {
+            bool result = false;
+
+            int x = objMascotas.EliminarMascotas(idMascota, (int)Session["id"]);
+            if (x != 0)
+            {
+                result = true;
+            }
+
+            var json = Json(result, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
         }
     }
 }

@@ -140,5 +140,47 @@ namespace DrHuellitas.DAO
             con.CerrarConexion();
             return citas;
         }
+
+
+
+        public List<CitasBO> GetEventsComercios(int id)
+        {
+            var citas = new List<CitasBO>();
+            SqlCommand cmd = new SqlCommand("SELECT c.id,c.titulo, c.descripcion,c.color,c.fechaInicio, c.fechaFin, (SELECT nombreComercial FROM Comercio WHERE id = (SELECT idsucursal FROM UsuarioComercio WHERE idempresa = c.idComercio)) AS nombrecomercio, c.idComercio, (SELECT nombre FROM Mascotas WHERE id = c.idMascota) AS nombremascota,c.idMascota FROM Citas c WHERE c.idComercio=@id");
+            cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
+
+            cmd.Connection = con.establecerConexion();
+            con.AbrirConexion();
+            var query = cmd;
+            using (var dr = query.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    var c = new BO.CitasBO
+                    {
+                        id = Convert.ToInt32(dr["id"].ToString()),
+                        titulo = dr["titulo"].ToString(),
+                        descripcion = dr["descripcion"].ToString(),
+                        inicio = Convert.ToDateTime(dr["fechaInicio"]),
+                        fin = Convert.ToDateTime(dr["fechaFin"]),
+                        color = dr["color"].ToString(),
+                        comercio = new BO.ComercioBO
+                        {
+                            id = Convert.ToInt32(dr["idComercio"].ToString()),
+                            nombreComercial = dr["nombrecomercio"].ToString()
+                        },
+                        mascotas = new BO.MascotasBO
+                        {
+                            id = Convert.ToInt32(dr["idMascota"].ToString()),
+                            nombremascota = dr["nombremascota"].ToString()
+                        }
+                    };
+                    citas.Add(c);
+                }
+            }
+            con.CerrarConexion();
+            return citas;
+        }
+
     }
 }

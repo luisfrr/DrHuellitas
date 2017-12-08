@@ -5,6 +5,15 @@
     Layout = "~/Views/Shared/MasterFrontEndVet.cshtml";
 }
 
+@Styles.Render("~/Content/fullcalendar.css")
+@Styles.Render("~/Content/fullcalendar.min.css")
+@Styles.Render("~/Content/fullcalendar.print.css")
+@Styles.Render("~/Content/bootstrap-datetimepicker.min.css")
+@Scripts.Render("~/Scripts/moment.min.js")
+@Scripts.Render("~/Scripts/fullcalendar.min.js")
+@Scripts.Render("~/Scripts/bootstrap-datetimepicker.min.js")
+
+
 <div class="page-header">
     <div class="container">
         <div class="row">
@@ -87,17 +96,9 @@
                     </div>
                     <div class="form-group">
                         <label>Descripción</label>
-
                         @Html.TextAreaFor(x => x.descripcion, new { @id = "txtDescription", @rows = "3", @class = "form-control" })
                     </div>
-                    <div class="form-group">
-                        <label>Comercios</label>
-                        @Html.DropDownListFor(x => x.comercio.id, ViewBag.ListaComercio as SelectList, "Seleccionar", new { @id = "DropDwnComercios", @class = "form-control" })
-                    </div>
-                    <div class="form-group">
-                        <label>Mi mascota para la cita</label>
-                        @Html.DropDownListFor(x => x.mascotas.id, ViewBag.ListaMascotas as SelectList, "Seleccionar", new { @id = "DropDwnMascotas", @class = "form-control" })
-                    </div>
+                   
                     <button type="button" id="btnSave" class="btn btn-success">Guardar</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                 </form>
@@ -124,7 +125,7 @@
         function FetchEventAndRenderCalendar() {
             $.ajax({
                 type: "GET",
-                url: "/Usuario/GetEvents",
+                url: "/Comercio/GetEvents",
                 success: function (data) {
                     $.each(data, function (i, v) {
                         events.push({
@@ -224,7 +225,7 @@
             if (selectedEvent != null && confirm('¿Esta usted seguro que desea cancelar y eliminar la cita?')) {
                 $.ajax({
                     type: "POST",
-                    url: '/Usuario/DeleteEvent',
+                    url: '/Comercio/DeleteEvent',
                     data: { 'eventID': selectedEvent.eventID },
                     success: function (data) {
                         if (data.status) {
@@ -254,11 +255,6 @@
                 $('#txtStart').val(selectedEvent.start.format('DD/MM/YYYY HH:mm A'));
                 $('#txtEnd').val(selectedEvent.end.format('DD/MM/YYYY HH:mm A'));
                 $('#txtDescription').val(selectedEvent.description);
-                $('#DropDwnComercios option:selected').val(selectedEvent.idcomercio);
-                $('#DropDwnComercios option:selected').text(selectedEvent.comercio);
-                $('#DropDwnMascotas option:selected').text(selectedEvent.mascota);
-                $('#DropDwnMascotas option:selected').val(selectedEvent.idmascota);
-
             }
             $('#myModal').modal('hide');
             $('#myModalSave').modal();
@@ -275,14 +271,12 @@
         function SaveEvent(data) {
             $.ajax({
                 type: "POST",
-                url: '/Usuario/SaveEvent',
+                url: '/Comercio/SaveEvent',
                 data: data,
                 success: function (data) {
                     if (data.status) {
                         //Refresh the calender
                         location.reload();
-
-
                         $('#myModalSave').modal('hide');
                     }
                 },
@@ -294,3 +288,4 @@
 
     })
 
+</script>

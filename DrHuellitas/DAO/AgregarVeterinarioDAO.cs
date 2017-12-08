@@ -26,6 +26,7 @@ namespace DrHuellitas.DAO
 
             return conex.EjecutarComando(cmd);
         }
+
         public int actualizardatos(RegistrosBO obj,int id)
         {
             SqlCommand cmd = new SqlCommand("update Usuario set email=@email,nombre=@nombre,apellidos=@apell,telefono=@telefono,fechanacimiento=@fechanacimiento,foto=@foto, status=1 where id='"+id+"'");

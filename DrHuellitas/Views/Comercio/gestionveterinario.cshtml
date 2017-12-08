@@ -1,0 +1,146 @@
+﻿@using DrHuellitas.BO;
+@model RegistrosBO
+@{
+    ViewBag.Title = "gestionveterinario";
+    Layout = "~/Views/Shared/MasterFrontEndVet.cshtml";
+}
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Mis veterinarios</h1>
+            </div>
+        </div>
+    </div>
+</div><br />
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="container">
+
+        <a href="#" class="btn btn-primary"  onclick="AgregarNuevoUsuario(0)">Añadir nuevo usuario</a> <br /><br />
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Usuario</th>
+                    <th>Tipo de usuario</th>
+                    <th>E-mail</th>
+                    <th>Fecha de nacimiento</th>
+                    <th>Fecha de registro</th>
+                    <th>Foto</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+            </thead>
+            <tbody id="ListaUsuarios">
+                <tr id="CargarTabla" style="color:black"></tr>
+            </tbody>
+        </table>
+
+
+
+
+        <!--Modal usuarios-->
+            <div class="modal fade" id="veterinario">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <a href="#" class="close" data-dismiss="modal">&times;</a>
+                            <h4 id="ModalTitle1"></h4>
+                        </div>
+                        <div class="modal-body">
+                            @using (Html.BeginForm("agregarveterinario", "Comercio", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                            {
+                                <div class="col-md-12">
+
+                                    <div class="form-group">
+                                       @Html.HiddenFor(x=>x.usuario.id)
+                                        <div class="form-group">
+                                            <label class="text-align-left">Usuario:</label>
+                                            @Html.TextBoxFor(x => x.usuario.usuario, new { @required = "required", @class = "form-control", @type = "text", @placeholder = "Usuario.." })
+                                            </div>
+                                        <div class="form-group">
+                                            <label class="text-align-left">Contraseña:</label>
+                                            @Html.TextBoxFor(x => x.usuario.contraseña, new { @required = "required", @type = "password", @class = "form-control", @placeholder = "Contraseña.." })
+                                            </div>
+                                        <div class="form-group">
+                                            <img id="img" src="../../img/admin/avatar-1-128.png" width="200" height="200" class="img-circle center-block" />
+                                            @Html.TextBoxFor(x => x.usuario.img, new { @type = "file", @name = "file", @id = "carga", @required="required", @class = "btn btn-file center-block form-control" })
+                                            </div>
+
+
+                                        </div>
+                                </div>
+
+                                        <button class=" btn btn-block btn-success" type="submit" id="btnListo">Guardar</button>
+
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        <div class="modal fade" id="VentanaEliminado">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <a href="#" class="close" data-dismiss="modal">&times;</a>
+                        <h4>Eliminar Usuario</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4>¿Esta usted seguro que lo desea eliminar?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-primary" data-dismiss="modal" id="r">Cancelar</a>
+                        <a href="#" class="btn btn-danger" onclick="ConfirmDelete()">Confirmar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       </div>
+    </div>
+</div>
+<script>
+    document.getElementById("slider").style.height = "200px"
+    $("#slider").attr("data-pagination", "");
+    $("#slider").attr("data-arrows", "");
+    $("#slider").attr("data-style", "");
+
+    $(document).ready(function () {
+        $(function () {
+            $('#carga').change(function (e) {
+                addImage(e);
+            });
+
+            function addImage(e) {
+                var file = e.target.files[0], imageType = /image.*/;
+
+                if (!file.type.match(imageType))
+                    return;
+
+                var reader = new FileReader();
+                reader.onload = fileOnload;
+                reader.readAsDataURL(file);
+            }
+
+            function fileOnload(e) {
+                var result = e.target.result;
+                $('#img').attr("src", result);
+            }
+        });
+    });
+
+
+    function AgregarNuevoUsuario(idUsuario) {
+        $("#idUsuario").val(0);
+        $("#imgSalida").attr("src", "../../img/admin/avatar-1-128.png");
+        $("#ModalTitle1").html("Añadir Veterinario");
+        $("#subirfoto").hide();
+        $("#veterinario").modal();
+
+    }
+</script>

@@ -11,6 +11,7 @@ namespace DrHuellitas.Controllers.MasterComercio
     public class ComercioController : Controller
     {
         ComercioDAO objDAO = new ComercioDAO();
+        AgregarVeterinarioDAO objveterinario = new AgregarVeterinarioDAO();
         // GET: Comercio
         public ActionResult Index()
         {
@@ -164,6 +165,26 @@ namespace DrHuellitas.Controllers.MasterComercio
             int id = (int)Session["id"];
             var fotos = objDAO.modificarfoto(obj, id);
             return Redirect("~/Comercio/Index");
+        }
+
+        public ActionResult gestionveterinario()
+        {
+            return View();
+        }
+
+        public ActionResult agregarveterinario(RegistrosBO obj)
+        {
+            int id = (int)Session["id"];
+            var agregar = objveterinario.agregarVeterinario(obj, id);
+            return Redirect("~/Comercio/gestionveterinario");
+        }
+        public ActionResult actualizardatos(RegistrosBO obj)
+        {
+            int id = (int)Session["id"];
+            var update = objveterinario.actualizardatos(obj, id);
+            update = objDAO.ContinuarRegistroComercio(obj, id);
+            Session["status"] = 1;
+            return Redirect("~/Vet/Index");
         }
     }
 }

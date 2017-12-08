@@ -201,7 +201,7 @@
     }
 
         .card.hovercard .cardheader {
-            background: url(../../img/pic2.PNG);
+            background:url(@Session["foto"]);
             background-size: cover;
             height: 135px;
         }
@@ -621,7 +621,7 @@
 
                         <div class="form-group">
                             @Html.HiddenFor(x=>x.usuario.id, new { @idusuario = "id" })
-                            <img id="img" src="~/img/admin/avatar-1-128.png" width="200" height="200" class="img-circle center-block" />
+                            <img id="img" src="" width="200" height="200" class="img-circle center-block" />
                             <br />
 
                             @Html.TextBoxFor(x=>x.usuario.img, new { @type = "file", @name = "file", @id = "carga", @class = "btn btn-file center-block form-control" })

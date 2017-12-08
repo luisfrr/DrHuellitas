@@ -191,8 +191,6 @@
 
             $("#GuardarCambios").click(function () {
                 var data = $("#form").serialize();
-
-                alert(data);
                 $.ajax({
                     type: "Post",
                     url: "/Gestiones/GuardarUsuario",

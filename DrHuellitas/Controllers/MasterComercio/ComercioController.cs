@@ -11,6 +11,8 @@ namespace DrHuellitas.Controllers.MasterComercio
     public class ComercioController : Controller
     {
         ComercioDAO objDAO = new ComercioDAO();
+        FotoBO objFoto = new FotoBO();
+        AgendaDAO objAgenda = new AgendaDAO();
         AgregarVeterinarioDAO objveterinario = new AgregarVeterinarioDAO();
         // GET: Comercio
         public ActionResult Index()
@@ -78,6 +80,7 @@ namespace DrHuellitas.Controllers.MasterComercio
 
             return Redirect(modulo);
         }
+
         public ActionResult completarregistro(RegistrosBO dato)
         {
             int id = (int)Session["id"];
@@ -87,6 +90,7 @@ namespace DrHuellitas.Controllers.MasterComercio
             return Redirect("~/Comercio/Index");
 
         }
+
         public ActionResult chat()
         {
             string modulo = "";
@@ -146,6 +150,7 @@ namespace DrHuellitas.Controllers.MasterComercio
             json.MaxJsonLength = Int32.MaxValue;
             return json;
         }
+
         public JsonResult mostrar(int id)
         {
             List<PropagandaBO> obtenerlista = objDAO.unapropaganda(id).ToList();
@@ -153,6 +158,7 @@ namespace DrHuellitas.Controllers.MasterComercio
             json.MaxJsonLength = Int32.MaxValue;
             return json;
         }
+
         public JsonResult fotolista(int id)
         {
             List<PropagandaBO> obtenerfoto = objDAO.fotoperfil(id).ToList();
@@ -160,31 +166,13 @@ namespace DrHuellitas.Controllers.MasterComercio
             json.MaxJsonLength = Int32.MaxValue;
             return json;
         }
-        public ActionResult modifcarfotoperfil (PropagandaBO obj)
+
+        public ActionResult modifcarfotoperfil(PropagandaBO obj)
         {
             int id = (int)Session["id"];
             var fotos = objDAO.modificarfoto(obj, id);
+            Session["foto"] = @"data:image/jpeg;base64," + objFoto.ConvertirAFoto(obj.imagen);
             return Redirect("~/Comercio/Index");
-        }
-
-        public ActionResult gestionveterinario()
-        {
-            return View();
-        }
-
-        public ActionResult agregarveterinario(RegistrosBO obj)
-        {
-            int id = (int)Session["id"];
-            var agregar = objveterinario.agregarVeterinario(obj, id);
-            return Redirect("~/Comercio/gestionveterinario");
-        }
-        public ActionResult actualizardatos(RegistrosBO obj)
-        {
-            int id = (int)Session["id"];
-            var update = objveterinario.actualizardatos(obj, id);
-            update = objDAO.ContinuarRegistroComercio(obj, id);
-            Session["status"] = 1;
-            return Redirect("~/Vet/Index");
         }
     }
 }

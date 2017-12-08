@@ -28,9 +28,35 @@ namespace DrHuellitas.Controllers.MasterAdmin
         //Usuarios
         public ActionResult Usuarios()
         {
-            List<TipoUsuarioBO> TipoUser = objUsuariosDAO.DropDownTipoUs().ToList();
-            ViewBag.ListaTipoUs = new SelectList(TipoUser, "id", "nombre");
-            return View();
+            string modulo = "";
+            if (Session["id"] != null)
+            {
+                if ((int)Session["idtipo"] == 1)
+                {
+                    List<TipoUsuarioBO> TipoUser = objUsuariosDAO.DropDownTipoUs().ToList();
+                    ViewBag.ListaTipoUs = new SelectList(TipoUser, "id", "nombre");
+                    return View();
+                }
+                else if ((int)Session["idtipo"] == 2)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Usuario/Index" : "~/Usuario/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 3)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Comercio/Index" : "~/Comercio/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 4)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Vet/Index" : "~/Vet/Continuar";
+                }
+            }
+            else
+            {
+                modulo = "~/Inicio/Index";
+            }
+
+            return Redirect(modulo);
+
         }
 
         public JsonResult ObtenerListaUsuarios()
@@ -80,10 +106,8 @@ namespace DrHuellitas.Controllers.MasterAdmin
         {
             
             int resultado = objUsuariosDAO.ActualizarFoto(model);
-            if (resultado != 0)
-                modulo = "~/Gestiones/Usuarios";
-            else
-                modulo = "~/Admin/Index";
+            
+            modulo = "~/Gestiones/Usuarios";
 
             return Redirect(modulo);
         }
@@ -107,13 +131,39 @@ namespace DrHuellitas.Controllers.MasterAdmin
         //Mascotas
         public ActionResult Mascotas()
         {
-            List<UsuarioBO> Usuario = objMascotasDAO.DropDownUsuario().ToList();
-            ViewBag.ListaUsuario = new SelectList(Usuario, "id", "nombre");
-            List<RazasBO> Raza = objMascotasDAO.DropDownRaza().ToList();
-            ViewBag.ListaRaza = new SelectList(Raza, "id", "nombre");
-            List<EspeciesBO> Especie = objMascotasDAO.DropDownEspecie().ToList();
-            ViewBag.ListaEspecie = new SelectList(Especie, "id", "nomCientifico");
-            return View();
+            string modulo = "";
+            if (Session["id"] != null)
+            {
+                if ((int)Session["idtipo"] == 1)
+                {
+                    List<UsuarioBO> Usuario = objMascotasDAO.DropDownUsuario().ToList();
+                    ViewBag.ListaUsuario = new SelectList(Usuario, "id", "nombre");
+                    List<RazasBO> Raza = objMascotasDAO.DropDownRaza().ToList();
+                    ViewBag.ListaRaza = new SelectList(Raza, "id", "nombre");
+                    List<EspeciesBO> Especie = objMascotasDAO.DropDownEspecie().ToList();
+                    ViewBag.ListaEspecie = new SelectList(Especie, "id", "nomCientifico");
+                    return View();
+                }
+                else if ((int)Session["idtipo"] == 2)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Usuario/Index" : "~/Usuario/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 3)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Comercio/Index" : "~/Comercio/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 4)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Vet/Index" : "~/Vet/Continuar";
+                }
+            }
+            else
+            {
+                modulo = "~/Inicio/Index";
+            }
+
+            return Redirect(modulo);
+            
         }
 
         public JsonResult ObtenerDropDownRaza(int id)
@@ -205,7 +255,32 @@ namespace DrHuellitas.Controllers.MasterAdmin
         //Especies 
         public ActionResult Especies()
         {
-            return View();
+            string modulo = "";
+            if (Session["id"] != null)
+            {
+                if ((int)Session["idtipo"] == 1)
+                {
+                    return View();
+                }
+                else if ((int)Session["idtipo"] == 2)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Usuario/Index" : "~/Usuario/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 3)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Comercio/Index" : "~/Comercio/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 4)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Vet/Index" : "~/Vet/Continuar";
+                }
+            }
+            else
+            {
+                modulo = "~/Inicio/Index";
+            }
+
+            return Redirect(modulo);
         }
 
         public JsonResult ObtenerListaEspecies()
@@ -268,9 +343,35 @@ namespace DrHuellitas.Controllers.MasterAdmin
         //Razas
         public ActionResult Razas()
         {
-            List<EspeciesBO> Especies = objEspeciesDAO.ObteterListaEspecies().ToList();
-            ViewBag.ListaDeEspecies = new SelectList(Especies, "id", "nomCientifico");
-            return View();
+            string modulo = "";
+            if (Session["id"] != null)
+            {
+                if ((int)Session["idtipo"] == 1)
+                {
+                    List<EspeciesBO> Especies = objEspeciesDAO.ObteterListaEspecies().ToList();
+                    ViewBag.ListaDeEspecies = new SelectList(Especies, "id", "nomCientifico");
+                    return View();
+                }
+                else if ((int)Session["idtipo"] == 2)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Usuario/Index" : "~/Usuario/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 3)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Comercio/Index" : "~/Comercio/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 4)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Vet/Index" : "~/Vet/Continuar";
+                }
+            }
+            else
+            {
+                modulo = "~/Inicio/Index";
+            }
+
+            return Redirect(modulo);
+            
         }
 
         public JsonResult ObtenerListaRazas()
@@ -334,7 +435,32 @@ namespace DrHuellitas.Controllers.MasterAdmin
         //Vacunas
         public ActionResult Vacunas()
         {
-            return View();
+            string modulo = "";
+            if (Session["id"] != null)
+            {
+                if ((int)Session["idtipo"] == 1)
+                {
+                    return View();
+                }
+                else if ((int)Session["idtipo"] == 2)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Usuario/Index" : "~/Usuario/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 3)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Comercio/Index" : "~/Comercio/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 4)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Vet/Index" : "~/Vet/Continuar";
+                }
+            }
+            else
+            {
+                modulo = "~/Inicio/Index";
+            }
+
+            return Redirect(modulo);
         }
 
         public JsonResult ObtenerListasVacunas()
@@ -397,9 +523,35 @@ namespace DrHuellitas.Controllers.MasterAdmin
         //Ciudades
         public ActionResult Ciudades()
         {
-            List<EstadosBO> Estados = objRegionesDAO.DropDownEstado().ToList();
-            ViewBag.ListaDeEstados = new SelectList(Estados, "id", "nombre");
-            return View();
+            string modulo = "";
+            if (Session["id"] != null)
+            {
+                if ((int)Session["idtipo"] == 1)
+                {
+                    List<EstadosBO> Estados = objRegionesDAO.DropDownEstado().ToList();
+                    ViewBag.ListaDeEstados = new SelectList(Estados, "id", "nombre");
+                    return View();
+                }
+                else if ((int)Session["idtipo"] == 2)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Usuario/Index" : "~/Usuario/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 3)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Comercio/Index" : "~/Comercio/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 4)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Vet/Index" : "~/Vet/Continuar";
+                }
+            }
+            else
+            {
+                modulo = "~/Inicio/Index";
+            }
+
+            return Redirect(modulo);
+            
         }
 
         public JsonResult ObtenerListaCiudades()
@@ -463,9 +615,35 @@ namespace DrHuellitas.Controllers.MasterAdmin
         //Estados
         public ActionResult Estados()
         {
-            List<PaisesBO> Paises = objRegionesDAO.DropDownPais().ToList();
-            ViewBag.ListaDePaises = new SelectList(Paises, "id", "nombre");
-            return View();
+            string modulo = "";
+            if (Session["id"] != null)
+            {
+                if ((int)Session["idtipo"] == 1)
+                {
+                    List<PaisesBO> Paises = objRegionesDAO.DropDownPais().ToList();
+                    ViewBag.ListaDePaises = new SelectList(Paises, "id", "nombre");
+                    return View();
+                }
+                else if ((int)Session["idtipo"] == 2)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Usuario/Index" : "~/Usuario/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 3)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Comercio/Index" : "~/Comercio/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 4)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Vet/Index" : "~/Vet/Continuar";
+                }
+            }
+            else
+            {
+                modulo = "~/Inicio/Index";
+            }
+
+            return Redirect(modulo);
+            
         }
 
         public JsonResult ObtenerListaEstados()
@@ -529,7 +707,32 @@ namespace DrHuellitas.Controllers.MasterAdmin
         //Paises
         public ActionResult Paises()
         {
-            return View();
+            string modulo = "";
+            if (Session["id"] != null)
+            {
+                if ((int)Session["idtipo"] == 1)
+                {
+                    return View();
+                }
+                else if ((int)Session["idtipo"] == 2)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Usuario/Index" : "~/Usuario/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 3)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Comercio/Index" : "~/Comercio/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 4)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Vet/Index" : "~/Vet/Continuar";
+                }
+            }
+            else
+            {
+                modulo = "~/Inicio/Index";
+            }
+
+            return Redirect(modulo);
         }
 
         public JsonResult ObtenerListaPaises()
@@ -593,7 +796,32 @@ namespace DrHuellitas.Controllers.MasterAdmin
         //Paquetes
         public ActionResult Paquetes()
         {
-            return View();
+            string modulo = "";
+            if (Session["id"] != null)
+            {
+                if ((int)Session["idtipo"] == 1)
+                {
+                    return View();
+                }
+                else if ((int)Session["idtipo"] == 2)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Usuario/Index" : "~/Usuario/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 3)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Comercio/Index" : "~/Comercio/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 4)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Vet/Index" : "~/Vet/Continuar";
+                }
+            }
+            else
+            {
+                modulo = "~/Inicio/Index";
+            }
+
+            return Redirect(modulo);
         }
 
         public JsonResult ObtenerListaPaquetes()
@@ -657,13 +885,63 @@ namespace DrHuellitas.Controllers.MasterAdmin
         //Comentarios
         public ActionResult Comentarios()
         {
-            return View();
+            string modulo = "";
+            if (Session["id"] != null)
+            {
+                if ((int)Session["idtipo"] == 1)
+                {
+                    return View();
+                }
+                else if ((int)Session["idtipo"] == 2)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Usuario/Index" : "~/Usuario/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 3)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Comercio/Index" : "~/Comercio/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 4)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Vet/Index" : "~/Vet/Continuar";
+                }
+            }
+            else
+            {
+                modulo = "~/Inicio/Index";
+            }
+
+            return Redirect(modulo);
         }
 
         //Propaganda
         public ActionResult Propaganda()
         {
-            return View();
+            string modulo = "";
+            if (Session["id"] != null)
+            {
+                if ((int)Session["idtipo"] == 1)
+                {
+                    return View();
+                }
+                else if ((int)Session["idtipo"] == 2)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Usuario/Index" : "~/Usuario/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 3)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Comercio/Index" : "~/Comercio/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 4)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Vet/Index" : "~/Vet/Continuar";
+                }
+            }
+            else
+            {
+                modulo = "~/Inicio/Index";
+            }
+
+            return Redirect(modulo);
         }
 
         public JsonResult propagandaadmin()
@@ -689,7 +967,32 @@ namespace DrHuellitas.Controllers.MasterAdmin
         //propagandas propagandas
         public ActionResult propagandades()
         {
-            return View();
+            string modulo = "";
+            if (Session["id"] != null)
+            {
+                if ((int)Session["idtipo"] == 1)
+                {
+                    return View();
+                }
+                else if ((int)Session["idtipo"] == 2)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Usuario/Index" : "~/Usuario/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 3)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Comercio/Index" : "~/Comercio/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 4)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Vet/Index" : "~/Vet/Continuar";
+                }
+            }
+            else
+            {
+                modulo = "~/Inicio/Index";
+            }
+
+            return Redirect(modulo);
         }
 
         public JsonResult propagandasaprovadas()

@@ -170,7 +170,9 @@ namespace DrHuellitas.Controllers.MasterComercio
         {
             int id = (int)Session["id"];
             var fotos = objDAO.modificarfoto(obj, id);
-            Session["foto"] = @"data:image/jpeg;base64," + objFoto.ConvertirAFoto(obj.imagen);
+            Session["foto"] = null;
+            String foto = "data:image/jpeg;base64," + Convert.ToBase64String(objFoto.ConvertirAFoto(obj.usuario.img));
+            Session["foto"] =  foto;
             return Redirect("~/Comercio/Index");
         }
 

@@ -17,5 +17,10 @@ namespace DrHuellitas.BO
         public string telefono1 { get; set; }
         public string telefono2 { get; set; }
         public string emal { get; set; }
+
+
+        public int vet { get; set; }
+        public int est { get; set; }
+        public int prod { get; set; }
     }
 }

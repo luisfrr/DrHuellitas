@@ -170,7 +170,7 @@ namespace DrHuellitas.Controllers
             return new JsonResult { Data = new { status = status } };
         }
 
-        public ActionResult mostarveterinaria(RegistrosBO obj)
+        public ActionResult PerfilComercio(RegistrosBO obj)
         {
             int id = obj.comercio.id;
             return View(objlistar.listarveterinaria(id));

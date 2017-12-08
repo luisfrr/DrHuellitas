@@ -115,9 +115,9 @@ namespace DrHuellitas.DAO
             //comando.Parameters.Add("@idusuario", SqlDbType.Int).Value = id;
             //aqui empieza comercio
             comando.Parameters.Add("@nomco", SqlDbType.VarChar).Value = objbo.comercio.nombreComercial;
-            comando.Parameters.Add("@veterinaria", SqlDbType.Bit).Value = objbo.comercio.veterinaria;
-            comando.Parameters.Add("@estetica", SqlDbType.Bit).Value = objbo.comercio.estetica;
-            comando.Parameters.Add("@vendeproduc", SqlDbType.Bit).Value = objbo.comercio.venderproducto;
+            comando.Parameters.Add("@veterinaria", SqlDbType.Int).Value = (objbo.comercio.veterinaria != false) ? 1 : 0;
+            comando.Parameters.Add("@estetica", SqlDbType.Int).Value = (objbo.comercio.estetica != false) ? 1 : 0;
+            comando.Parameters.Add("@vendeproduc", SqlDbType.Int).Value = (objbo.comercio.venderproducto != false) ? 1 : 0;
             comando.Parameters.Add("@nomfis", SqlDbType.VarChar).Value = objbo.comercio.nombreFiscal;
             comando.Parameters.Add("@rfc", SqlDbType.VarChar).Value = objbo.comercio.rfc;
             comando.Parameters.Add("@telefono1", SqlDbType.VarChar).Value = objbo.comercio.telefono1;

@@ -70,6 +70,9 @@ namespace DrHuellitas.Controllers
                 Session["idtipo"] = r.usuario.idtipo;
                 Session["foto"] = r.usuario.foto;
                 Session["status"]= r.usuario.status;
+                Session["veterinaria"] = r.comercio.vet;
+                Session["estetica"] = r.comercio.est;
+                Session["Productos"] = r.comercio.prod;
 
                 int id = r.usuario.id;
                 int status = r.usuario.status;

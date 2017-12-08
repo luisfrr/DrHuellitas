@@ -38,7 +38,7 @@ namespace DrHuellitas.DAO
         public RegistrosBO IniciarSesion(string Usuario, string Contraseña)
         {
             string newpass = MD5.Encriptar(Contraseña);
-            SqlCommand cmd = new SqlCommand("SELECT id, nombre, status, foto, idTipo FROM Usuario where usuario=@usuario and contraseña=@contraseña");
+            SqlCommand cmd = new SqlCommand("SELECT u.id, u.nombre, u.status, u.foto, u.idTipo, (SELECT veterinaria FROM Comercio WHERE id = (SELECT uc.idsucursal FROM UsuarioComercio uc WHERE idempresa = u.id)) AS veterinaria, (SELECT venderProducto FROM Comercio WHERE id = (SELECT uc.idsucursal FROM UsuarioComercio uc WHERE idempresa = u.id)) AS productos, (SELECT estetica FROM Comercio WHERE id = (SELECT uc.idsucursal FROM UsuarioComercio uc WHERE idempresa = u.id)) AS estetica FROM Usuario u WHERE u.usuario = @usuario AND u.contraseña = @contraseña");
             cmd.Parameters.Add("@usuario", SqlDbType.VarChar).Value = Usuario;
             cmd.Parameters.Add("@contraseña", SqlDbType.VarChar).Value = newpass;
 
@@ -57,6 +57,24 @@ namespace DrHuellitas.DAO
                     foto = (Reader[3] != null) ? @"data:image/jpeg;base64," + Convert.ToBase64String((byte[])Reader[3]) : " ",
                     idtipo = int.Parse(Reader[4].ToString())
                 };
+                if(Reader[5].ToString() != "" || Reader[6].ToString() != "" || Reader[7].ToString() != "")
+                {
+                    objBO.comercio = new BO.ComercioBO
+                    {
+                        vet = Convert.ToInt32(Reader[5].ToString()),
+                        prod = Convert.ToInt32(Reader[6].ToString()),
+                        est = Convert.ToInt32(Reader[7].ToString())
+                    };
+                }
+                else
+                {
+                    objBO.comercio = new BO.ComercioBO
+                    {
+                        vet = 0,
+                        prod = 0,
+                        est = 0
+                    };
+                }
             }
 
             con.CerrarConexion();

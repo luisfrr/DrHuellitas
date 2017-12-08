@@ -17,7 +17,7 @@ namespace DrHuellitas.DAO
         public ConexionSQL()
         {
             //Luis
-           string cadena = @"Data Source=DESKTOP-LMFOHUK\LFRR;Initial Catalog=PHuellitas;Integrated Security=True";
+            string cadena = @"Data Source=DESKTOP-LMFOHUK\LFRR;Initial Catalog=PHuellitas;Integrated Security=True";
             //Gerardo
             //string cadena = "Data Source=LAPTOP-P4OEGADG\\SQLEXPRESS;Initial Catalog=PHuellitas;Integrated Security=True";
             //Willy

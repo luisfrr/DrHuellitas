@@ -220,6 +220,7 @@
     <Content Include="Content\login\carrousel.css" />
     <Content Include="Content\login\style.css" />
     <Content Include="Content\mediaelementplayer.css" />
+    <Content Include="Content\perfil.css" />
     <Content Include="Content\prettyPhoto.css" />
     <Content Include="Content\propa.css" />
     <Content Include="Content\Scroll.css" />
@@ -873,6 +874,7 @@
     <Content Include="Scripts\mediaelement-and-player.min.js" />
     <Content Include="Scripts\modernizr.js" />
     <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\perfil.js" />
     <Content Include="Scripts\prettyphoto.js" />
     <Content Include="Scripts\script.js" />
     <Content Include="Scripts\waypoints.js" />

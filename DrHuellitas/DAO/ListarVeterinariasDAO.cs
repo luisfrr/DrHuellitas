@@ -31,9 +31,9 @@ namespace DrHuellitas.DAO
                         {
                             id = Convert.ToInt32(dr["id"].ToString()),
                             nombreComercial = dr["nombreComercial"].ToString(),
-                            veterinaria = Convert.ToBoolean(dr["veterinaria"]),
-                            estetica = Convert.ToBoolean(dr["estetica"]),
-                            venderproducto = Convert.ToBoolean(dr["venderProducto"]),
+                            vet = Convert.ToInt32(dr["veterinaria"].ToString()),
+                            est = Convert.ToInt32(dr["estetica"].ToString()),
+                            prod = Convert.ToInt32(dr["venderProducto"].ToString()),
                             nombreFiscal = dr["nombreFiscal"].ToString(),
                             telefono1 = dr["telefono1"].ToString(),
                             emal = dr["email"].ToString(),

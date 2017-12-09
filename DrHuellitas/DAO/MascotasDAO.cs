@@ -15,7 +15,7 @@ namespace DrHuellitas.DAO
 
         public int AgregarMascotas(GestionMascotaBO objBO)
         {
-            SqlCommand cmd = new SqlCommand("EXEC GestionMascotas @nombre=@nombre,@CDomitante=@CDominante,@CPDominante=@CPDominante,@CAlternativo=@CAlternativo,@genero=@genero,@fechanacimiento=@fechanacimiento,@idRaza=@idRaza,@idUsuario=@idUsuario");
+            SqlCommand cmd = new SqlCommand("EXEC GestionMascotas @nombre=@nombre,@CDomitante=@CDomitante,@CPDominante=@CPDominante,@CAlternativo=@CAlternativo,@genero=@genero,@fechanacimiento=@fechanacimiento,@idRaza=@idRaza,@idUsuario=@idUsuario");
             cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = objBO.mascotas.nombremascota;
             cmd.Parameters.Add("@CDomitante", SqlDbType.VarChar).Value = objBO.mascotas.colorDominate;
             cmd.Parameters.Add("@CPDominante", SqlDbType.VarChar).Value = objBO.mascotas.colorPreDominante;
@@ -23,6 +23,21 @@ namespace DrHuellitas.DAO
             cmd.Parameters.Add("@genero", SqlDbType.VarChar).Value = objBO.mascotas.genero;
             cmd.Parameters.Add("@fechanacimiento", SqlDbType.Date).Value = objBO.mascotas.fechaNaci.ToString("dd/MM/yyyy");
             cmd.Parameters.Add("@idRaza", SqlDbType.Int).Value = objBO.mascotas.idRaza;
+            cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = objBO.usuarios.id;
+
+            return con.EjecutarComando(cmd);
+        }
+
+        public int AgregarMascotasUsuarios(GestionMascotaBO objBO)
+        {
+            SqlCommand cmd = new SqlCommand("EXEC GestionMascotasUsuarios @nombre=@nombre,@CDomitante=@CDomitante,@CPDominante=@CPDominante,@CAlternativo=@CAlternativo,@genero=@genero,@fechanacimiento=@fechanacimiento,@idRaza=@idRaza,@idUsuario=@idUsuario");
+            cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = objBO.mascotas.nombremascota;
+            cmd.Parameters.Add("@CDomitante", SqlDbType.VarChar).Value = objBO.mascotas.colorDominate;
+            cmd.Parameters.Add("@CPDominante", SqlDbType.VarChar).Value = objBO.mascotas.colorPreDominante;
+            cmd.Parameters.Add("@CAlternativo", SqlDbType.VarChar).Value = objBO.mascotas.colorAlternativo;
+            cmd.Parameters.Add("@genero", SqlDbType.VarChar).Value = objBO.mascotas.sgenero;
+            cmd.Parameters.Add("@fechanacimiento", SqlDbType.Date).Value = objBO.mascotas.fnacimiento;
+            cmd.Parameters.Add("@idRaza", SqlDbType.Int).Value = objBO.razas.id;
             cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = objBO.usuarios.id;
 
             return con.EjecutarComando(cmd);
@@ -37,22 +52,41 @@ namespace DrHuellitas.DAO
             return con.EjecutarComando(cmd);
         }
 
-        public int ActualizarMascotas(GestionMascotaBO objBO)
+        public int ActualizarMascotas(GestionMascotaBO objBO, int id)
         {
-            SqlCommand cmd = new SqlCommand("EXEC ActualizarGestionMascotas @nombre=@nombre,@CDomitante=@CDominante,@CPDominante=@CPDominante,@CAlternativo=@CAlternativo,@genero=@genero,@fechanacimiento=@fechanacimiento,@idRaza=@idRaza,@idUsuario=@idUsuario,@idMascota=@idMascota");
+            SqlCommand cmd = new SqlCommand("EXEC ActualizarGestionMascotas @nombre=@nombre,@CDomitante=@CDomitante,@CPDominante=@CPDominante,@CAlternativo=@CAlternativo,@genero=@genero,@fechanacimiento=@fechanacimiento,@idRaza=@idRaza,@idUsuario=@idUsuario,@idMascota=@idMascota");
             cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = objBO.mascotas.nombremascota;
             cmd.Parameters.Add("@CDomitante", SqlDbType.VarChar).Value = objBO.mascotas.colorDominate;
             cmd.Parameters.Add("@CPDominante", SqlDbType.VarChar).Value = objBO.mascotas.colorPreDominante;
             cmd.Parameters.Add("@CAlternativo", SqlDbType.VarChar).Value = objBO.mascotas.colorAlternativo;
-            cmd.Parameters.Add("@genero", SqlDbType.VarChar).Value = objBO.mascotas.genero;
-            cmd.Parameters.Add("@fechanacimiento", SqlDbType.Date).Value = objBO.mascotas.fechaNaci.ToString("dd/MM/yyyy");
-            cmd.Parameters.Add("@idRaza", SqlDbType.Int).Value = objBO.mascotas.idRaza;
-            cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = objBO.usuarios.id;
-            cmd.Parameters.Add("@idmascota", SqlDbType.Int).Value = objBO.mascotas.id;
+            cmd.Parameters.Add("@genero", SqlDbType.VarChar).Value = objBO.mascotas.sgenero;
+            cmd.Parameters.Add("@fechanacimiento", SqlDbType.Date).Value = objBO.mascotas.fnacimiento;
+            cmd.Parameters.Add("@idRaza", SqlDbType.Int).Value = objBO.razas.id;
+            cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = (objBO.usuarios.id != 0)? objBO.usuarios.id:id;
+            cmd.Parameters.Add("@idMascota", SqlDbType.Int).Value = objBO.mascotas.id;
 
             return con.EjecutarComando(cmd);
 
         }
+
+        public int ActualizarMascotasUsuario(GestionMascotaBO objBO, int id)
+        {
+            SqlCommand cmd = new SqlCommand("EXEC ActualizarMascotas @nombre=@nombre,@CDomitante=@CDomitante,@CPDominante=@CPDominante,@CAlternativo=@CAlternativo,@genero=@genero,@fechanacimiento=@fechanacimiento,@idRaza=@idRaza,@idUsuario=@idUsuario,@idMascota=@idMascota");
+            cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = objBO.mascotas.nombremascota;
+            cmd.Parameters.Add("@CDomitante", SqlDbType.VarChar).Value = objBO.mascotas.colorDominate;
+            cmd.Parameters.Add("@CPDominante", SqlDbType.VarChar).Value = objBO.mascotas.colorPreDominante;
+            cmd.Parameters.Add("@CAlternativo", SqlDbType.VarChar).Value = objBO.mascotas.colorAlternativo;
+            cmd.Parameters.Add("@genero", SqlDbType.VarChar).Value = objBO.mascotas.sgenero;
+            cmd.Parameters.Add("@fechanacimiento", SqlDbType.Date).Value = objBO.mascotas.fnacimiento;
+            cmd.Parameters.Add("@idRaza", SqlDbType.Int).Value = objBO.razas.id;
+            cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = (objBO.usuarios.id != 0) ? objBO.usuarios.id : id;
+            cmd.Parameters.Add("@idMascota", SqlDbType.Int).Value = objBO.mascotas.id;
+
+            return con.EjecutarComando(cmd);
+
+        }
+
+        
 
         public int EliminarMascotas(int idmascota, int idusuario)
         {

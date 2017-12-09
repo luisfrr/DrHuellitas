@@ -54,7 +54,7 @@ namespace DrHuellitas.DAO
             return dt;
         }
 
-        public int EjecutarComando(SqlCommand SqlComando)//INSERT,UPDATE, DELETE
+        /*public int EjecutarComando(SqlCommand SqlComando)//INSERT,UPDATE, DELETE
         {
             try
             {
@@ -73,9 +73,9 @@ namespace DrHuellitas.DAO
             {
                 this.CerrarConexion();
             }
-        }
+        }*/
 
-        /*public int EjecutarComando(SqlCommand SqlComando)//INSERT,UPDATE, DELETE
+        public int EjecutarComando(SqlCommand SqlComando)//INSERT,UPDATE, DELETE
         {
 
             ComandoSQL = SqlComando;
@@ -85,6 +85,6 @@ namespace DrHuellitas.DAO
             this.CerrarConexion();
             return id;
 
-        }*/
+        }
     }
 }

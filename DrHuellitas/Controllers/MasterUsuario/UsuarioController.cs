@@ -272,12 +272,12 @@ namespace DrHuellitas.Controllers
             int resultado = objMascotas.ActualizarFoto(model);
             if (resultado != 0)
             {
-                modulo = "~/Gestiones/Usuarios";
+                modulo = "~/Usuario/Mascotas";
                 ViewBag.ImagenBien = true;
             }
             else
             {
-                modulo = "~/Gestiones/Usuarios";
+                modulo = "~/Usuario/Mascotas";
                 ViewBag.ImagenMal = true;
             }
 
@@ -291,12 +291,12 @@ namespace DrHuellitas.Controllers
             {
                 if (model.mascotas.id > 0)
                 {
-                    objMascotas.ActualizarMascotas(model);
+                    objMascotas.ActualizarMascotasUsuario(model,(int)Session["id"]);
                     result = true;
                 }
                 else
                 {
-                    objMascotas.AgregarMascotas(model);
+                    objMascotas.AgregarMascotasUsuarios(model);
                     result = true;
                 }
             }

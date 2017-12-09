@@ -217,7 +217,7 @@ namespace DrHuellitas.Controllers.MasterAdmin
             {
                 if (model.mascotas.id > 0)
                 {
-                    objMascotasDAO.ActualizarMascotas(model);
+                    objMascotasDAO.ActualizarMascotas(model, (int)Session["id"]);
                     result = true;
                 }
                 else

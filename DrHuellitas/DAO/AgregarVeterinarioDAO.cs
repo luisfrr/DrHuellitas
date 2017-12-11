@@ -39,5 +39,40 @@ namespace DrHuellitas.DAO
             return conex.EjecutarComando(cmd);
 
         }
+
+        public List<UsuarioBO>veterinarios(int id)
+        {
+            var veterinario = new List<UsuarioBO>();
+
+            SqlCommand cmd = new SqlCommand("select u.id,u.usuario,u.email,u.nombre,u.apellidos,u.telefono,u.foto from Usuario u where u.id= (select idUsuario from UsuarioTrabaja where idComercio ='"+id+"' )");
+            cmd.Connection = conex.establecerConexion();
+            conex.AbrirConexion();
+
+            var query = cmd;
+
+
+            using (var dr = query.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+
+                    var p = new BO.UsuarioBO
+                    {
+
+
+                        id = Convert.ToInt32(dr["id"].ToString()),
+                        usuario = dr["usuario"].ToString(),
+                        email = dr["email"].ToString(),
+                        nombre = dr["nombre"].ToString(),
+                        apellidos=dr["apellidos"].ToString(),
+                        foto = "data:image/jpeg;base64," + Convert.ToBase64String((byte[])dr["foto"])
+                        };
+                        veterinario.Add(p);
+                    
+                }
+            }
+            return veterinario;
+        }
+
     }
 }

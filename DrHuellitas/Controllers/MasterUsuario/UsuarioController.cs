@@ -19,6 +19,7 @@ namespace DrHuellitas.Controllers
         AgendaDAO objAgenda = new AgendaDAO();
         ListarVeterinariasDAO objlistar = new ListarVeterinariasDAO();
         MascotasDAO objMascotas = new MascotasDAO();
+        ComercioDAO objcomercio = new ComercioDAO();
 
 
         // GET: Usuario
@@ -321,6 +322,20 @@ namespace DrHuellitas.Controllers
             }
 
             var json = Json(result, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
+        public JsonResult Obtenerpropaganda(int id)
+        {
+            List<PropagandaBO> Packpropaganda = objlistar.listar(id).ToList();
+            var json = Json(Packpropaganda, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
+        public JsonResult comentario(int id)
+        {
+            List<comentariosBO> packcomentario = objlistar.comentario(id).ToList();
+            var json = Json(packcomentario, JsonRequestBehavior.AllowGet);
             json.MaxJsonLength = Int32.MaxValue;
             return json;
         }

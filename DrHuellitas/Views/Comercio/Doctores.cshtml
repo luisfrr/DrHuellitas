@@ -129,6 +129,29 @@
         });
     });
 
+    $("#CargarTabla").html("");
+    $.get("/Comercio/ObtenerListaMascotas", null, DataBind);
+    function DataBind(PackMascotas) {
+        var SetData = $("#ListaMascotas");
+        for (var i = 0; i < PackMascotas.length; i++) {
+            var Data = "<tr class='row_" + PackMascotas[i].mascotas.id + "'>" +
+                "<td>" + PackMascotas[i].mascotas.id + "</td>" +
+                "<td>" + PackMascotas[i].mascotas.nombremascota + "</td>" +
+                "<td>" + PackMascotas[i].mascotas.colorDominate + "</td>" +
+                "<td>" + PackMascotas[i].mascotas.sgenero + "</td>" +
+                "<td>" + PackMascotas[i].mascotas.fnacimiento + "</td>" +
+                "<td>" + PackMascotas[i].especies.nomCientifico + "</td>" +
+                "<td>" + PackMascotas[i].razas.nombre + "</td>" +
+                "<td>" + "<img src='" + PackMascotas[i].mascotas.foto + "' width='64' height='64' class='img-thumbnail img-circle'/> " + "</td>" +
+                "<td>" + PackMascotas[i].usuarios.nombre + "</td>" +
+                "<td>" + "<a href='#' class='btn btn-warning' onclick='EditarMascota(" + PackMascotas[i].mascotas.id + ")' ><span class='glyphicon glyphicon-edit'></span></a>" + "</td>" +
+                "<td>" + "<a href='#' class='btn btn-danger' onclick='EliminarMascota(" + PackMascotas[i].mascotas.id + "," + PackMascotas[i].usuarios.id + ")'><span class='glyphicon glyphicon-trash'></span></a>" + "</td>" +
+                "</tr>";
+            SetData.append(Data);
+            $("#LoadingStatus").html("");
+
+        }
+    }
 
     function AgregarNuevoUsuario(idUsuario) {
         $("#idUsuario").val(0);
@@ -136,6 +159,34 @@
         $("#ModalTitle1").html("Añadir Veterinario");
         $("#subirfoto").hide();
         $("#veterinario").modal();
+
+    }
+    function Editarveterinario(id) {
+        $.get("/Gestiones/ObtenerDropDownRaza?id=" + idMascota, null, llamada);
+        $("#subirfoto").show();
+        function llamada(PackMascotas) {
+
+            for (var i = 0; i < PackMascotas.length; i++) {
+
+                $("#idMascota").val(PackMascotas[i].mascotas.id);
+                $("#idImagen").val(PackMascotas[i].mascotas.id);
+                $("#idUsuarios").val(PackMascotas[i].usuarios.id);
+                $("#nomMascota").val(PackMascotas[i].mascotas.nombremascota);
+                $("#dominante").val(PackMascotas[i].mascotas.colorDominate);
+                $("#predominante").val(PackMascotas[i].mascotas.colorPreDominante);
+                $("#alternativo").val(PackMascotas[i].mascotas.colorAlternativo);
+                $("#genero").val(PackMascotas[i].mascotas.sgenero);
+                alert(PackMascotas[i].mascotas.fnacimiento);
+                var fecha = new Date(PackMascotas[i].mascotas.fnacimiento);
+                $("#fechanacimiento").val(PackMascotas[i].mascotas.fnacimiento);
+                $("#imgSalida").attr("src", PackMascotas[i].mascotas.foto);
+                $("#DropDwnEspecie option:selected").val(PackMascotas[i].especies.id);
+                $("#DropDwnRaza option:selected").val(PackMascotas[i].razas.id);
+                $("#DropDwnUsuario option:selected").val(PackMascotas[i].usuarios.id);
+            }
+        }
+        $("#ModalTitle").html("Actualizar datos de mascota");
+        $("#MyModal").modal();
 
     }
 </script>

@@ -1,0 +1,199 @@
+﻿
+@{
+    ViewBag.Title = "Cartilla " + ViewBag.nombremascota;
+    Layout = "~/Views/Shared/MasterFrontEnd.cshtml";
+}
+
+@Scripts.Render("~/Scripts/imgLiquid.js")
+
+<style>
+    #carnet {
+        -webkit-box-shadow: 5px 5px 22px 0px rgba(130,130,130,1);
+        -moz-box-shadow: 5px 5px 22px 0px rgba(130,130,130,1);
+        box-shadow: 5px 5px 22px 0px rgba(130,130,130,1);
+        background: rgba(255,255,255,0.87);
+        background: -moz-linear-gradient(-45deg, rgba(255,255,255,0.87) 0%, rgba(250,247,250,0.98) 82%, rgba(245,245,245,1) 100%);
+        background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(255,255,255,0.87)), color-stop(82%, rgba(250,247,250,0.98)), color-stop(100%, rgba(245,245,245,1)));
+        background: -webkit-linear-gradient(-45deg, rgba(255,255,255,0.87) 0%, rgba(250,247,250,0.98) 82%, rgba(245,245,245,1) 100%);
+        background: -o-linear-gradient(-45deg, rgba(255,255,255,0.87) 0%, rgba(250,247,250,0.98) 82%, rgba(245,245,245,1) 100%);
+        background: -ms-linear-gradient(-45deg, rgba(255,255,255,0.87) 0%, rgba(250,247,250,0.98) 82%, rgba(245,245,245,1) 100%);
+        background: linear-gradient(135deg, rgba(255,255,255,0.87) 0%, rgba(250,247,250,0.98) 82%, rgba(245,245,245,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#f5f5f5', GradientType=1 );
+    }
+
+    #datospropietario {
+        border-left: dotted;
+        border-width: 1px;
+        border-color: #dbdbdb;
+        height: 331px
+    }
+</style>
+
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Cartilla - Historial Clínico</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="main" role="main" style="background-color:#fff">
+    <div id="content" class="content full">
+        <div class="container">
+            <div class="row" style="padding: 5px 5px 5px 5px">
+                <div id="carnet">
+                    <div class="spacer-30"></div>
+                    <div class="col-md-5 col-xs-12">
+                        <h2 style="text-align:center; color:#333; margin-bottom:0px !important;">CARNÉ DE IDENTIFICACIÓN</h2>
+                        <h3 style="text-align:center; color:#333; margin-bottom:0px !important;">DR. HUELLITAS</h3>
+                        <center>
+                            <div class="imgLiquid" style="width:70px; height:70px;">
+                                <a rel='nofollow' href='http://www.qrcode-generator.de' border='0' style='cursor:default'><img src='https://chart.googleapis.com/chart?cht=qr&chl=2011&chs=180x180&choe=UTF-8&chld=L|2' alt=''></a>
+                            </div>
+                        </center>
+                        <div class="spacer-20"></div>
+                        <div class="form-group">
+                            <label class="label-custom">Número de registro:</label>&nbsp;<label id="idMascota" style="font-weight:normal !important;"></label>
+                        </div>
+                        <div class="form-group">
+                            <label class="label-custom">Especie:</label>&nbsp;<label id="especie" style="font-weight:normal !important;"></label>&nbsp;&nbsp;&nbsp;
+                            <label class="label-custom">Raza:</label>&nbsp;<label id="raza" style="font-weight:normal !important;"></label>&nbsp;&nbsp;&nbsp;
+                            <label class="label-custom">Sexo:</label>&nbsp;<label id="sexo" style="font-weight:normal !important;"></label>
+                        </div>
+                        <div class="form-group">
+                            <label class="label-custom">Nombre:</label>&nbsp;<label id="nomMascota" style="font-weight:normal !important;"></label>&nbsp;&nbsp;&nbsp;
+                            <label class="label-custom">Fecha de nacimiento:</label>&nbsp;<label id="fechanaci" style="font-weight:normal !important;"></label>
+                        </div>
+                        <div class="form-group">
+                            <label class="label-custom">Color:</label>&nbsp;<label id="color" style="font-weight:normal !important;"></label>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-xs-12" id="datospropietario">
+                        <div>
+                            <div class="spacer-40"></div>
+                            <h3 style="text-align:center; color:#333; margin-bottom:0px !important;">DATOS DEL PROPIETARIO</h3>
+                            <div class="spacer-20"></div>
+                            <div class="form-group">
+                                <label class="label-custom">Número de registro:</label>&nbsp;<label id="idUsuario" style="font-weight:normal !important;"></label>
+                            </div>
+                            <div class="form-group">
+                                <label class="label-custom">Nombre:</label>&nbsp;<label id="nomUsuario" style="font-weight:normal !important;"></label>&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="form-group">
+                                <label class="label-custom">Nombre de usuario:</label>&nbsp;<label id="nickname" style="font-weight:normal !important;"></label>&nbsp;&nbsp;&nbsp;
+                            </div>
+
+                            <div class="form-group">
+                                <label class="label-custom">Email:</label>&nbsp;<label id="email" style="font-weight:normal !important;"></label>&nbsp;&nbsp;&nbsp;
+                            </div>
+                            <div class="form-group">
+                                <label class="label-custom">Teléfono:</label>&nbsp;<label id="telefono" style="font-weight:normal !important;"></label>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-3 col-xs-12">
+                        <div class="img-rounded" style="width:200px; height:320px; background-color:#dbdbdb; padding:10px 10px 10px 10px">
+                            <div class="imgLiquid" style="width:180px; height:300px;">
+                                <img id="imgSalida" src="" class="img-rounded" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="spacer-20"></div>
+                </div>
+            </div>
+
+            <div class="spacer-50"></div>
+            <div class="row">
+                <h2 style="text-align:center; color:#333;">HISTORIAL CLÍNICO</h2>
+                <br />
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th>Folio</th><!--Dato del detalle cartilla id  Calendario de amor calendario calendario de amor, esta noche no pquiero ni mirarla otra vez -->
+                            <th>Fecha</th><!--Dato de la cita-->
+                            <th>Servicio</th><!--Dato de la cartilla-->
+                            <th>Vacuna</th><!--Dato de vacunas-->
+                            <th>Nota</th><!--Dato de la cartilla-->
+                            <th>Clínica</th><!--Dato de la cita (usuario comercio)-->
+                            <th>Firma Médico</th><!--Dato de la cita (usuario atiente)-->
+                        </tr>
+                    </thead>
+                    <tbody id="ListaHistorial">
+                        <tr id="CargarTabla" style="color:black;"></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+    document.getElementById("slider").style.height = "200px"
+    $("#slider").attr("data-pagination", "");
+    $("#slider").attr("data-arrows", "");
+    $("#slider").attr("data-style", "");
+
+    //La magia en todo su esplendor xd 
+    //document.oncontextmenu = function () { return false; }
+
+    var idmascota = @ViewBag.idMascota;
+
+    $.get("/Usuario/ObtenerCartilla?id=" + idmascota, null, llamada);
+    function llamada(PackCartilla) {
+
+        for (var i = 0; i < PackCartilla.length; i++) {
+
+            $("#idMascota").text(PackCartilla[i].mascotas.id);
+            $("#especie").text(PackCartilla[i].especies.nomComun);
+            $("#raza").text(PackCartilla[i].razas.nombre);
+            $("#sexo").text(PackCartilla[i].mascotas.sgenero);
+            $("#nomMascota").text(PackCartilla[i].mascotas.nombremascota);
+            $("#fechanaci").text(PackCartilla[i].mascotas.fnacimiento);
+            $("#color").text(PackCartilla[i].mascotas.colorDominate);
+            $("#idUsuario").text(PackCartilla[i].usuarios.id);
+            $("#nomUsuario").text(PackCartilla[i].usuarios.nombre);
+            $("#nickname").text(PackCartilla[i].usuarios.usuario);
+            $("#email").text(PackCartilla[i].usuarios.email);
+            $("#telefono").text(PackCartilla[i].usuarios.telefono);
+
+            if (PackCartilla[i].mascotas.foto != "") {
+                $("#imgSalida").attr("src", PackCartilla[i].mascotas.foto);
+            }
+            else {
+                $("#imgSalida").attr("src", "~/img/14.jpg");
+            }
+
+            $(".imgLiquid").imgLiquid({
+                fill: true,
+                horizontalAlign: 'center'
+            });
+        }
+    }
+
+    $("#CargarTabla").html("");
+    $.get("/Usuario/ObtenerHistorial?id=" + idmascota, null, DataBind);
+    function DataBind(PackHistorial) {
+        var SetData = $("#ListaHistorial");
+        for (var i = 0; i < PackHistorial.length; i++) {
+            var Data = "<tr class='row_" + PackHistorial[i].historial.folio + "'>" +
+                "<td>" + PackHistorial[i].historial.folio + "</td>" +
+                "<td>" + PackHistorial[i].historial.sfecha + "</td>" +
+                "<td>" + PackHistorial[i].historial.servicio + "</td>" +
+                "<td>" + PackHistorial[i].historial.vacuna + "</td>" +
+                "<td>" + PackHistorial[i].historial.notas + "</td>" +
+                "<td>" + PackHistorial[i].historial.comercio + "</td>" +
+                "<td>" + "<img src='" + PackHistorial[i].historial.firma + "' width='40' height='40' class='img-circle'/> " + "</td>" +
+                "</tr>";
+            SetData.append(Data);
+            $("#LoadingStatus").html("");
+
+        }
+    }
+</script>

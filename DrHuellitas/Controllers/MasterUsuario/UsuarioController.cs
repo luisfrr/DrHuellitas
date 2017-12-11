@@ -18,7 +18,8 @@ namespace DrHuellitas.Controllers
         FotoBO objFoto = new FotoBO();
         AgendaDAO objAgenda = new AgendaDAO();
         ListarVeterinariasDAO objlistar = new ListarVeterinariasDAO();
-        MascotasDAO objMascotas = new MascotasDAO();
+        MascotasDAO objMascotasDAO = new MascotasDAO();
+        CartillaDAO objCartillaDAO = new CartillaDAO();
 
 
         // GET: Usuario
@@ -223,9 +224,9 @@ namespace DrHuellitas.Controllers
                 {
                     if ((int)Session["status"] == 1)
                     {
-                        List<RazasBO> Raza = objMascotas.DropDownRaza().ToList();
+                        List<RazasBO> Raza = objMascotasDAO.DropDownRaza().ToList();
                         ViewBag.ListaRaza = new SelectList(Raza, "id", "nombre");
-                        List<EspeciesBO> Especie = objMascotas.DropDownEspecie().ToList();
+                        List<EspeciesBO> Especie = objMascotasDAO.DropDownEspecie().ToList();
                         ViewBag.ListaEspecie = new SelectList(Especie, "id", "nomCientifico");
                         return View();
                     }
@@ -251,7 +252,7 @@ namespace DrHuellitas.Controllers
 
         public JsonResult ObtenerListaMascotas()
         {
-            List<GestionMascotaBO> PackMascotas = objMascotas.ObtenerListaMascotasUsuario((int)Session["id"]).ToList();
+            List<GestionMascotaBO> PackMascotas = objMascotasDAO.ObtenerListaMascotasUsuario((int)Session["id"]).ToList();
             var json = Json(PackMascotas, JsonRequestBehavior.AllowGet);
             json.MaxJsonLength = Int32.MaxValue;
             return json;
@@ -259,26 +260,27 @@ namespace DrHuellitas.Controllers
 
         public JsonResult ObtenerMascota(int id)
         {
-            List<GestionMascotaBO> PackMascotas = objMascotas.ObtenerMascota(id).ToList();
+            List<GestionMascotaBO> PackMascotas = objMascotasDAO.ObtenerMascota(id).ToList();
             var json = Json(PackMascotas, JsonRequestBehavior.AllowGet);
             json.MaxJsonLength = Int32.MaxValue;
             return json;
         }
+
         string modulo = "";
         [HttpPost]
         public ActionResult ImagenMascota(GestionMascotaBO model)
         {
 
-            int resultado = objMascotas.ActualizarFoto(model);
+            int resultado = objMascotasDAO.ActualizarFoto(model);
             if (resultado != 0)
             {
                 modulo = "~/Usuario/Mascotas";
-                ViewBag.ImagenBien = true;
+                
             }
             else
             {
                 modulo = "~/Usuario/Mascotas";
-                ViewBag.ImagenMal = true;
+                
             }
 
             return Redirect(modulo);
@@ -291,12 +293,12 @@ namespace DrHuellitas.Controllers
             {
                 if (model.mascotas.id > 0)
                 {
-                    objMascotas.ActualizarMascotasUsuario(model,(int)Session["id"]);
+                    objMascotasDAO.ActualizarMascotasUsuario(model);
                     result = true;
                 }
                 else
                 {
-                    objMascotas.AgregarMascotasUsuarios(model);
+                    objMascotasDAO.AgregarMascotasUsuarios(model);
                     result = true;
                 }
             }
@@ -314,13 +316,67 @@ namespace DrHuellitas.Controllers
         {
             bool result = false;
 
-            int x = objMascotas.EliminarMascotas(idMascota, (int)Session["id"]);
+            int x = objMascotasDAO.EliminarMascotas(idMascota, (int)Session["id"]);
             if (x != 0)
             {
                 result = true;
             }
 
             var json = Json(result, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
+
+
+        public ActionResult Cartilla(int id)
+        {
+            string modulo = "";
+            if (Session["id"] != null)
+            {
+                if ((int)Session["idtipo"] == 1)
+                {
+                    modulo = "~/Admin/Index";
+                }
+                else if ((int)Session["idtipo"] == 2)
+                {
+                    if ((int)Session["status"] == 1)
+                    {
+                        ViewBag.idMascota = id;
+                        ViewBag.nombremascota = objCartillaDAO.NombreMascota(id);
+                        return View();
+                    }
+                    else
+                        modulo = "~/Usuario/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 3)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Comercio/Index" : "~/Comercio/Continuar";
+                }
+                else if ((int)Session["idtipo"] == 4)
+                {
+                    modulo = ((int)Session["status"] == 1) ? "~/Vet/Index" : "~/Vet/Continuar";
+                }
+            }
+            else
+            {
+                modulo = "~/Inicio/Index";
+            }
+
+            return Redirect(modulo);
+        }
+
+        public JsonResult ObtenerCartilla(int id)
+        {
+            List<GestionMascotaBO> PackCartilla = objCartillaDAO.ObtenerCartilla(id,(int)Session["id"]).ToList();
+            var json = Json(PackCartilla, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
+
+        public JsonResult ObtenerHistorial(int id)
+        {
+            List<GestionMascotaBO> PackHistorial = objCartillaDAO.ObtenerHistorialClinico(id).ToList();
+            var json = Json(PackHistorial, JsonRequestBehavior.AllowGet);
             json.MaxJsonLength = Int32.MaxValue;
             return json;
         }

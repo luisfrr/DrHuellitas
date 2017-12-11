@@ -11,5 +11,6 @@ namespace DrHuellitas.BO
         public EspeciesBO especies { get; set; }
         public RazasBO razas { get; set; }
         public UsuarioBO usuarios { get; set; }
+        public HistorialClinicoBO historial { get; set; }
     }
 }

@@ -34,7 +34,7 @@ namespace DrHuellitas.DAO
             cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = objBO.mascotas.nombremascota;
             cmd.Parameters.Add("@CDomitante", SqlDbType.VarChar).Value = objBO.mascotas.colorDominate;
             cmd.Parameters.Add("@CPDominante", SqlDbType.VarChar).Value = objBO.mascotas.colorPreDominante;
-            cmd.Parameters.Add("@CAlternativo", SqlDbType.VarChar).Value = objBO.mascotas.colorAlternativo;
+            cmd.Parameters.Add("@CAlternativo", SqlDbType.VarChar).Value = (objBO.mascotas.colorAlternativo!= null)? objBO.mascotas.colorAlternativo:"-";
             cmd.Parameters.Add("@genero", SqlDbType.VarChar).Value = objBO.mascotas.sgenero;
             cmd.Parameters.Add("@fechanacimiento", SqlDbType.Date).Value = objBO.mascotas.fnacimiento;
             cmd.Parameters.Add("@idRaza", SqlDbType.Int).Value = objBO.razas.id;
@@ -69,7 +69,7 @@ namespace DrHuellitas.DAO
 
         }
 
-        public int ActualizarMascotasUsuario(GestionMascotaBO objBO, int id)
+        public int ActualizarMascotasUsuario(GestionMascotaBO objBO)
         {
             SqlCommand cmd = new SqlCommand("EXEC ActualizarMascotas @nombre=@nombre,@CDomitante=@CDomitante,@CPDominante=@CPDominante,@CAlternativo=@CAlternativo,@genero=@genero,@fechanacimiento=@fechanacimiento,@idRaza=@idRaza,@idUsuario=@idUsuario,@idMascota=@idMascota");
             cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = objBO.mascotas.nombremascota;
@@ -79,7 +79,7 @@ namespace DrHuellitas.DAO
             cmd.Parameters.Add("@genero", SqlDbType.VarChar).Value = objBO.mascotas.sgenero;
             cmd.Parameters.Add("@fechanacimiento", SqlDbType.Date).Value = objBO.mascotas.fnacimiento;
             cmd.Parameters.Add("@idRaza", SqlDbType.Int).Value = objBO.razas.id;
-            cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = (objBO.usuarios.id != 0) ? objBO.usuarios.id : id;
+            cmd.Parameters.Add("@idUsuario", SqlDbType.Int).Value = objBO.usuarios.id;
             cmd.Parameters.Add("@idMascota", SqlDbType.Int).Value = objBO.mascotas.id;
 
             return con.EjecutarComando(cmd);
@@ -168,7 +168,7 @@ namespace DrHuellitas.DAO
                             sgenero = dr["genero"].ToString(),
                             fnacimiento = Convert.ToDateTime(dr["fechanacimiento"]).ToString("yyyy-MM-dd"),
                             idRaza = Convert.ToInt32(dr["idraza"].ToString()),
-                            foto = "data:image/jpeg;base64," + Convert.ToBase64String((byte[])dr["foto"])
+                            foto = (dr["foto"].ToString() != "") ? "data:image/jpeg;base64," + Convert.ToBase64String((byte[])dr["foto"]) : ""
                         },
                         especies = new BO.EspeciesBO
                         {
@@ -299,7 +299,7 @@ namespace DrHuellitas.DAO
         public List<GestionMascotaBO> ObtenerListaMascotasUsuario(int id)
         {
             var mascotas = new List<GestionMascotaBO>();
-            SqlCommand cmd = new SqlCommand("SELECT m.id, m.nombre, (m.CDominante + '|' + m.CPDominante + '|' + m.CAlternativo) AS color, m.genero, m.fechanacimiento, m.foto, m.idRaza, r.nombre AS raza, r.idEspecie, (e.nomCientifico+'(' + e.nomComun+')') AS especie  FROM Mascotas m JOIN UsuarioMascota um ON um.idmascota = m.id JOIN Raza r ON r.id = m.idRaza JOIN Especie e ON e.id = r.idEspecie WHERE um.idusuario=@id");
+            SqlCommand cmd = new SqlCommand("SELECT m.id, m.nombre, (m.CDominante + '|' + m.CPDominante + '|' + m.CAlternativo) AS color, m.genero, m.fechanacimiento, m.foto, m.idRaza, r.nombre AS raza, r.idEspecie, (e.nomComun) AS especie  FROM Mascotas m JOIN UsuarioMascota um ON um.idmascota = m.id JOIN Raza r ON r.id = m.idRaza JOIN Especie e ON e.id = r.idEspecie WHERE um.idusuario=@id");
             cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
 
             cmd.Connection = con.establecerConexion();
@@ -309,29 +309,58 @@ namespace DrHuellitas.DAO
             {
                 while (dr.Read())
                 {
-                    var p = new BO.GestionMascotaBO
+                    if (dr["foto"].ToString() != "")
                     {
-                        mascotas = new MascotasBO
+                        var p = new BO.GestionMascotaBO
                         {
-                            id = Convert.ToInt32(dr["id"].ToString()),
-                            nombremascota = dr["nombre"].ToString(),
-                            colorDominate = dr["color"].ToString(),
-                            sgenero = dr["genero"].ToString(),
-                            fnacimiento = Convert.ToDateTime(dr["fechanacimiento"]).ToString("dd/MM/yyyy"),
-                            foto = "data:image/jpeg;base64," + Convert.ToBase64String((byte[])dr["foto"])
-                        },
-                        especies = new EspeciesBO
+                            mascotas = new MascotasBO
+                            {
+                                id = Convert.ToInt32(dr["id"].ToString()),
+                                nombremascota = dr["nombre"].ToString(),
+                                colorDominate = dr["color"].ToString(),
+                                sgenero = dr["genero"].ToString(),
+                                fnacimiento = Convert.ToDateTime(dr["fechanacimiento"]).ToString("dd/MM/yyyy"),
+                                foto = "data:image/jpeg;base64," + Convert.ToBase64String((byte[])dr["foto"])
+                            },
+                            especies = new EspeciesBO
+                            {
+                                id = Convert.ToInt32(dr["idEspecie"].ToString()),
+                                nomCientifico = dr["especie"].ToString()
+                            },
+                            razas = new RazasBO
+                            {
+                                id = Convert.ToInt32(dr["idRaza"].ToString()),
+                                nombre = dr["raza"].ToString()
+                            }
+                        };
+                        mascotas.Add(p);
+                    }
+                    else
+                    {
+                        var p = new BO.GestionMascotaBO
                         {
-                            id = Convert.ToInt32(dr["idEspecie"].ToString()),
-                            nomCientifico = dr["especie"].ToString()
-                        },
-                        razas = new RazasBO
-                        {
-                            id = Convert.ToInt32(dr["idRaza"].ToString()),
-                            nombre = dr["raza"].ToString()
-                        }
-                    };
-                    mascotas.Add(p);
+                            mascotas = new MascotasBO
+                            {
+                                id = Convert.ToInt32(dr["id"].ToString()),
+                                nombremascota = dr["nombre"].ToString(),
+                                colorDominate = dr["color"].ToString(),
+                                sgenero = dr["genero"].ToString(),
+                                fnacimiento = Convert.ToDateTime(dr["fechanacimiento"]).ToString("dd/MM/yyyy")
+                            },
+                            especies = new EspeciesBO
+                            {
+                                id = Convert.ToInt32(dr["idEspecie"].ToString()),
+                                nomCientifico = dr["especie"].ToString()
+                            },
+                            razas = new RazasBO
+                            {
+                                id = Convert.ToInt32(dr["idRaza"].ToString()),
+                                nombre = dr["raza"].ToString()
+                            }
+                        };
+                        mascotas.Add(p);
+                    }
+
                 }
 
             }

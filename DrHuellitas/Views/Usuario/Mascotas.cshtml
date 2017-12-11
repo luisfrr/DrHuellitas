@@ -20,26 +20,27 @@
 
             <a href="#" class="btn btn-primary" onclick="AgregarNuevaMascota(0)">Añadir nueva mascota</a> <br /><br />
 
-            <table class="table table-striped">
+            <table class="table table-responsive">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Nombre</th>
-                        <th>Color</th>
                         <th>Género</th>
                         <th>Fecha de nacimiento</th>
                         <th>Especie</th>
                         <th>Raza</th>
                         <th>Foto</th>
+                        <th>Cartilla</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
                     </tr>
                 </thead>
                 <tbody id="ListaMascotas">
-                    <tr id="CargarTabla" style="color:black"></tr>
+                    <tr id="CargarTabla" style="color:black;"></tr>
                 </tbody>
             </table>
-
+            <br />
+            <br />
+            <br />
 
             <!--Modal Mascotas-->
             <div class="modal fade" id="MyModal">
@@ -146,16 +147,15 @@
         var SetData = $("#ListaMascotas");
         for (var i = 0; i < PackMascotas.length; i++) {
             var Data = "<tr class='row_" + PackMascotas[i].mascotas.id + "'>" +
-                "<td>" + PackMascotas[i].mascotas.id + "</td>" +
                 "<td>" + PackMascotas[i].mascotas.nombremascota + "</td>" +
-                "<td>" + PackMascotas[i].mascotas.colorDominate + "</td>" +
                 "<td>" + PackMascotas[i].mascotas.sgenero + "</td>" +
                 "<td>" + PackMascotas[i].mascotas.fnacimiento + "</td>" +
                 "<td>" + PackMascotas[i].especies.nomCientifico + "</td>" +
                 "<td>" + PackMascotas[i].razas.nombre + "</td>" +
-                "<td>" + "<img src='" + PackMascotas[i].mascotas.foto + "' width='64' height='64' class='img-thumbnail img-circle'/> " + "</td>" +
-                "<td>" + "<a href='#' class='btn btn-warning' onclick='EditarMascota(" + PackMascotas[i].mascotas.id + ")' ><span class='fa fa-pencil fa-2x'></span></a>" + "</td>" +
-                "<td>" + "<a href='#' class='btn btn-danger' onclick='EliminarMascota(" + PackMascotas[i].mascotas.id + ")'><span class='fa fa-remove fa-2x'></span></a>" + "</td>" +
+                "<td>" + "<img src='" + PackMascotas[i].mascotas.foto + "' width='40' height='40' class='img-circle'/> " + "</td>" +
+                "<td>" + "<a href='Cartilla/" + PackMascotas[i].mascotas.id +"'class='btn btn-info'><span class='fa fa-newspaper-o fa-2x'></span></a>" + "</td>" +
+                "<td>" + "<a class='btn btn-warning' onclick='EditarMascota(" + PackMascotas[i].mascotas.id + ")' ><span class='fa fa-pencil fa-2x'></span></a>" + "</td>" +
+                "<td>" + "<a class='btn btn-danger' onclick='EliminarMascota(" + PackMascotas[i].mascotas.id + ")'><span class='fa fa-remove fa-2x'></span></a>" + "</td>" +
                 "</tr>";
             SetData.append(Data);
             $("#LoadingStatus").html("");
@@ -166,23 +166,13 @@
     function AgregarNuevaMascota(idMascota) {
         $("#form")[0].reset();
         $("#idMascota").val(0);
+        $("#idUsuario").val(@Session["id"]);
         $("#DropDwnEspecie option:selected").text("Seleccionar");
         $("#DropDwnRaza option:selected").text("Seleccionar");
         $("#ModalTitle").html("Añadir nueva mascota");
         $("#subirfoto").hide();
         $("#MyModal").modal();
 
-    }
-
-
-
-    function DropDownRazas(idEspecie) {
-        $.get("/Usuario/ObtenerMascota?id=" + idEspecie, null)
-        function DataBind(listaraza) {
-            for (var i = 0; i < PackMascotas.length; i++) {
-                $("#DropDwnRaza").listaraza();
-            }
-        }
     }
 
 
@@ -195,7 +185,7 @@
 
                 $("#idMascota").val(PackMascotas[i].mascotas.id);
                 $("#idImagen").val(PackMascotas[i].mascotas.id);
-                $("#idUsuarios").val(PackMascotas[i].usuarios.id);
+                $("#idUsuario").val(PackMascotas[i].usuarios.id);
                 $("#nomMascota").val(PackMascotas[i].mascotas.nombremascota);
                 $("#dominante").val(PackMascotas[i].mascotas.colorDominate);
                 $("#predominante").val(PackMascotas[i].mascotas.colorPreDominante);
@@ -203,7 +193,12 @@
                 $("#genero").val(PackMascotas[i].mascotas.sgenero);
                 var fecha = new Date(PackMascotas[i].mascotas.fnacimiento);
                 $("#fechanacimiento").val(PackMascotas[i].mascotas.fnacimiento);
-                $("#imgSalida").attr("src", PackMascotas[i].mascotas.foto);
+                if (PackMascotas[i].mascotas.foto != "") {
+                    $("#imgSalida").attr("src", PackMascotas[i].mascotas.foto);
+                }
+                else {
+                    $("#imgSalida").attr("src", "~/img/admin/avatar-1-128.png");
+                }
                 $("#DropDwnEspecie option:selected").val(PackMascotas[i].especies.id);
                 $("#DropDwnRaza option:selected").val(PackMascotas[i].razas.id);
                 $("#DropDwnEspecie option:selected").text(PackMascotas[i].especies.nomCientifico);

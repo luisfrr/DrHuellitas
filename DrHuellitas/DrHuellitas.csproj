@@ -153,6 +153,7 @@
     <Compile Include="BO\FotoBO.cs" />
     <Compile Include="BO\GestionMascotaBO.cs" />
     <Compile Include="BO\GmailBO.cs" />
+    <Compile Include="BO\HistorialClinicoBO.cs" />
     <Compile Include="BO\HorarioBO.cs" />
     <Compile Include="BO\MascotasBO.cs" />
     <Compile Include="BO\MensajesBO.cs" />
@@ -175,6 +176,7 @@
     <Compile Include="Controllers\MasterVeterinario\VetController.cs" />
     <Compile Include="DAO\AgendaDAO.cs" />
     <Compile Include="DAO\AgregarVeterinarioDAO.cs" />
+    <Compile Include="DAO\CartillaDAO.cs" />
     <Compile Include="DAO\ChatDAO.cs" />
     <Compile Include="DAO\ComercioDAO.cs" />
     <Compile Include="DAO\ConexionSQL.cs" />
@@ -245,6 +247,12 @@
     </Content>
     <Content Include="img\1.jpg" />
     <Content Include="favicon.ico" />
+    <Content Include="img\10.jpg" />
+    <Content Include="img\11.jpg" />
+    <Content Include="img\12.jpg" />
+    <Content Include="img\13.jpg" />
+    <Content Include="img\14.jpg" />
+    <Content Include="img\15.jpg" />
     <Content Include="img\pic1.jpg" />
     <Content Include="img\admin\100x100.jpg" />
     <Content Include="img\admin\avatar-1-128.png" />
@@ -858,8 +866,10 @@
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\Cliente\Step.js" />
+    <Content Include="Scripts\es.js" />
     <Content Include="Scripts\fullcalendar.min.js" />
     <Content Include="Scripts\helper-plugins.js" />
+    <Content Include="Scripts\imgLiquid.js" />
     <Content Include="Scripts\init.js" />
     <Content Include="Scripts\jquery-2.0.0.min.js" />
     <Content Include="Scripts\jquery.countdown.min.js" />
@@ -989,6 +999,7 @@
     <Content Include="Views\Comercio\Doctores.cshtml" />
     <Content Include="Views\Comercio\Agenda.cshtml" />
     <Content Include="Views\Usuario\Mascotas.cshtml" />
+    <Content Include="Views\Usuario\Cartilla.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Encriptacion\MD5.csproj">

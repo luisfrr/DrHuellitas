@@ -73,13 +73,10 @@
                                     </li>
                                     <li>
                                         @Html.ActionLink("Mis Mascotas", "Mascotas", "Usuario")
-                                        <ul class="dropdown">
-                                            <li>@Html.ActionLink("Cartillas", "Cartillas", "Usuario")</li>
-                                        </ul>
                                     </li>
                                     <li>
                                         <a>
-                                            @if ((String)Session["foto"] == "0" || Session["foto"] == null)
+                                            @if ((String)Session["foto"] == "" || Session["foto"] == null)
                                             {
                                                 <img src="~/img/admin/avatar-1-32.png" class="img-thumbnail img-circle img-responsive" style="width:32px; height:32px;" />@Session["nombre"]
                                             }
@@ -175,6 +172,7 @@
     @Scripts.Render("~/Scripts/jquery_cookie.js")
     @Scripts.Render("~/Scripts/script.js")
     @Scripts.Render("~/Scripts/Cliente/Step.js")
+    
     
    
 </body>

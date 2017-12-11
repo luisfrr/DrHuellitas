@@ -18,6 +18,8 @@ namespace DrHuellitas.Controllers
         FotoBO objFoto = new FotoBO();
         AgendaDAO objAgenda = new AgendaDAO();
         ListarVeterinariasDAO objlistar = new ListarVeterinariasDAO();
+        MascotasDAO objMascotas = new MascotasDAO();
+        ComercioDAO objcomercio = new ComercioDAO();
         MascotasDAO objMascotasDAO = new MascotasDAO();
         CartillaDAO objCartillaDAO = new CartillaDAO();
 
@@ -377,6 +379,20 @@ namespace DrHuellitas.Controllers
         {
             List<GestionMascotaBO> PackHistorial = objCartillaDAO.ObtenerHistorialClinico(id).ToList();
             var json = Json(PackHistorial, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
+        public JsonResult Obtenerpropaganda(int id)
+        {
+            List<PropagandaBO> Packpropaganda = objlistar.listar(id).ToList();
+            var json = Json(Packpropaganda, JsonRequestBehavior.AllowGet);
+            json.MaxJsonLength = Int32.MaxValue;
+            return json;
+        }
+        public JsonResult comentario(int id)
+        {
+            List<comentariosBO> packcomentario = objlistar.comentario(id).ToList();
+            var json = Json(packcomentario, JsonRequestBehavior.AllowGet);
             json.MaxJsonLength = Int32.MaxValue;
             return json;
         }

@@ -3,7 +3,7 @@
     ViewBag.Title = "mostarveterinaria";
     Layout = "~/Views/Shared/MasterFrontEnd.cshtml";
 }
-
+<link href="~/Content/comentarios.css" rel="stylesheet" />
 <style>
 
     .card {
@@ -472,6 +472,42 @@
             color: #fff;
         }
 </style>
+<style type="text/css">
+    .tooltip {
+        display: inline;
+        position: relative;
+    }
+
+        .tooltip:hover:after {
+            bottom: 26px;
+            content: attr(title); /* este es el texto que será mostrado */
+            left: 20%;
+            position: absolute;
+            z-index: 98;
+            /* el formato gráfico */
+            background: #1e1e1f; /* el color de fondo */
+            border-radius: 5px;
+            color: #FFF; /* el color del texto */
+            font-family: Georgia;
+            font-size: 12px;
+            padding: 5px 15px;
+            text-align: center;
+            text-shadow: 1px 1px 1px #000;
+            width: 150px;
+        }
+
+        .tooltip:hover:before {
+            bottom: 20px;
+            content: "";
+            left: 50%;
+            position: absolute;
+            z-index: 99;
+            /* el triángulo inferior */
+            border: solid;
+            border-color: #1e1e1f transparent;
+            border-width: 6px 6px 0 6px;
+        }
+</style>
 <div class="page-header">
     <div class="container">
         <div class="row">
@@ -490,7 +526,7 @@
                 {
 
 
-                <div class="col-xm-10 col-md-4 sidebar">
+                <div class="col-xm-10 col-md-4">
                     <div class="card hovercard">
                         <div class="cardheader">
                         </div>
@@ -498,17 +534,29 @@
                             <img alt="" src="@item.usuario.foto">
                         </div>
                         <div class="info">
-                            <div class="title">
-                                <p>@item.comercio.nombreComercial</p>
+                            <h5>@item.comercio.nombreComercial</h5>
+                            <div class="info">
+                                <button class="btn btn-primary hovercard" title="Calificación"   href="~/Usuario/Index" id="btnMisPropagandas" style="width:50px; height:50px;">
+                                    <i class="fa fa-star"></i>
+                                </button>
+                                <button class="btn btn-primary hovercard" title="Propagandas"  id="btnMisPropagandas" onclick="propaganda(@item.usuario.id)" style="width:50px; height:50px;">
+                                    <i class="fa fa-picture-o"></i>
+                                </button>
+                                <button class="btn btn-primary hovercard" title="Comentarios"  id="btnMisPropagandas" onclick="comentario(@item.usuario.id)" style="width:50px; height:50px;">
+                                    <i class="fa fa-comments"></i>
+                                </button>
+                                <button class="btn btn-primary hovercard" title="Agenda tu cita" id="btnMisPropagandas" onclick="cita(@item.usuario.id)" style="width:50px; height:50px;">
+                                    <i class="fa fa-calendar"></i>
+                                </button>
                             </div>
                             <p>Nombre gerente: @item.usuario.nombre</p>
                             <p>Nombre fiscal: @item.comercio.nombreFiscal</p>
                             <h5>Servicios:</h5>
-                            @if (item.comercio.prod==1)
+                            @if (item.comercio.prod == 1)
                             {
                                 <p>Vender productos</p>
                             }
-                            @if (item.comercio.vet==1)
+                            @if (item.comercio.vet == 1)
                             {
                                 <p>Veterinaria</p>
                             }
@@ -516,38 +564,119 @@
                             {
                                 <p>Estetica</p>
                             }
+                            <h5>Contactanos:</h5>
+                            <p>E-mail: @item.comercio.emal</p>
+                            <p>Teléfono: @item.comercio.telefono1</p>
                         </div>
-
-                        <div class="bottom">
-                            <div class="panel-footer">
-
-                                <button class="btn btn-primary" id="btnMisPropagandas" onclick="propaganda()" style="width:150px;">
-                                    <i class="fa fa-image"></i>&nbsp;Mis propagandas
-                                </button>
-                            </div>
-                        </div>
-
-                        <br />
 
                     </div>
                 </div>
                 }
-                <div class="col-md-1">
+                <div class="col-xm-10 col-md-8">
+                   <div class="col-md-12" id="listaPropaganda">
 
+                   </div>
+                    <div class="col-md-12 " id="listacomentario"></div>
+                        <div >
+                            <h1 id="timeline">Comentarios</h1>
+                        </div>
+                        <ul class="timeline" id="comentario">
+                            
+                        </ul>
+                   
                 </div>
-                <div class="col-md-7" id="listaPropaganda">
-
-                </div>
+                
+                
 
             </div>
         </div>
     </div>
 </div>
+<style>
+    .hovercard {
+        background-color: #060606;
+    }
+</style>
+<style>
+    .gato {
+        background-color: #060606;
+        opacity:.9;
+        color:white;
+    }
+</style>
+<style>
+    .btn-primary {
+        border-radius: 100px;
+        background-position-x: left;
+    }
+</style>
 <script>
     document.getElementById("slider").style.height = "200px"
     $("#slider").attr("data-pagination", "");
     $("#slider").attr("data-arrows", "");
     $("#slider").attr("data-style", "");
 
+    function propaganda(id) {
+
+        $.get("/Usuario/Obtenerpropaganda?id=" + id, null, DataBind);
+        var SetData = $("#listaPropaganda");
+        $("#listacomentario").hide();
+        $("#listaPropaganda").show();
+        function DataBind(Packpropaganda) {
+            for (var i = 0; i < Packpropaganda.length; i++)
+            {
+                var Data = "<div class='col-md-12'>" +
+                    "<div class='thumbnail form-group panel-google-plus'>" +
+
+                    "<div class='panel-heading'>" +
+                    "<img src=" + Packpropaganda[i].fotousuario + " style='width:52px; height:52px;' class='img img-circle pull-left' alt='Mouse0270' />" +
+                    "<h3 class='center-block'>" + Packpropaganda[i].nombrecomercio + "</h3>" +
+                    "<h5><span>Propaganda</span> - <span>" + Packpropaganda[i].fecha + "</span> </h5>" +
+
+                    "</div>" +
+                    "<div class='cortar'>" +
+                    "<table class='table-responsive border-white'>" +
+                    "<tr>" +
+                    "<td>" + Packpropaganda[i].descripcion + "</td>" +
+                    "</tr>" +
+                    "</table>" +
+                    "<p class='glyphicon-text-color cortar'></p>" +
+                    "</div>" +
+                    "<img src=" + Packpropaganda[i].foto + "   style='width:1000px; height:300px;' class='img-responsive'>" +
+                    "</div>" +
+
+                    "</div>";
+                SetData.append(Data);
+
+
+            }
+        }
+    }
+
+    function comentario(id) {
+
+        $.get("/Usuario/comentario?id="+id, null,DataBind);
+        var SetData = $("#comentario");
+        $("#listacomentario").show();
+        $("#listaPropaganda").hide();
+        function DataBind(packcomentario) {
+            for (var i = 0; i < packcomentario.length; i++)
+            {
+                var Data = "<li>" +
+                    "<div class='timeline-panel'>" +
+                    "<div class='timeline-heading' >" +
+                    "<img src=" + packcomentario[i].foto + " class='img-circle pull-left' style=' width:52px; height:52px;' alt='Mouse0270' />" +
+                    "<h3 class='timeline-title center-block'>" + packcomentario[i].usuario + "</h3>" +
+                    "</div><br />" +
+                    "<div class='timeline-body'>" +
+                    "<p>"+packcomentario[i].comentario+"</p>" +
+                    "</div>" +
+                    "</div>" +
+                    "</li>";
+                SetData.append(Data);
+            }
+        }
+    }
+ 
 </script>
 

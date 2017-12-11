@@ -146,6 +146,7 @@
     <Compile Include="BO\ChatBO.cs" />
     <Compile Include="BO\CitasBO.cs" />
     <Compile Include="BO\CiudadesBO.cs" />
+    <Compile Include="BO\comentariosBO.cs" />
     <Compile Include="BO\ComercioBO.cs" />
     <Compile Include="BO\DireccionBO.cs" />
     <Compile Include="BO\EspeciesBO.cs" />
@@ -212,6 +213,7 @@
     <Content Include="Content\admin\chat.min.css" />
     <Content Include="Content\Cliente\Step.css" />
     <Content Include="Content\color1.css" />
+    <Content Include="Content\comentarios.css" />
     <Content Include="Content\css.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />

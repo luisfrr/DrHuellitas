@@ -200,6 +200,8 @@ namespace DrHuellitas.Controllers.MasterComercio
                 {
                     if ((int)Session["status"] == 1)
                     {
+                        List<UsuarioBO> Vet = objAgenda.ObtenerMisVeterinarios((int)Session["id"]).ToList();
+                        ViewBag.ListaVeterinarios = new SelectList(Vet, "id", "nombre");
                         return View();
                     }
                     else
@@ -234,7 +236,7 @@ namespace DrHuellitas.Controllers.MasterComercio
             if (e.id > 0)
             {
                 //Update the event
-                objAgenda.ActualizarCita(e, (int)Session["id"]);
+                objAgenda.ActualizarCitaComercio(e, (int)Session["id"]);
                 status = true;
             }
             else

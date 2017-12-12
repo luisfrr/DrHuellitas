@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewBag.Title = "Agenda";
+    Layout = "~/Views/Shared/DoctorVeterinarioView.cshtml";
+}
+
+<div class="page-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Agenda</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main" role="main" style="background-color:#fff">
+    <div id="content" class="content full">
+        <div class="container">
+            <div class="spacer-30"></div>
+            <div class="row">
+                <h2 style="text-align:center; color:#333;">CITAS DEL DÍA</h2>
+                <br />
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <td>ID</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody id="ListaHistorial">
+                        <tr id="CargarTabla" style="color:black;"></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

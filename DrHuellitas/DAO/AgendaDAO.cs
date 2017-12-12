@@ -146,7 +146,7 @@ namespace DrHuellitas.DAO
         public List<CitasBO> GetEventsComercios(int id)
         {
             var citas = new List<CitasBO>();
-            SqlCommand cmd = new SqlCommand("SELECT c.id,c.titulo, c.descripcion,c.color,c.fechaInicio, c.fechaFin, (SELECT nombreComercial FROM Comercio WHERE id = (SELECT idsucursal FROM UsuarioComercio WHERE idempresa = c.idComercio)) AS nombrecomercio, c.idComercio, (SELECT nombre FROM Mascotas WHERE id = c.idMascota) AS nombremascota,c.idMascota FROM Citas c WHERE c.idComercio=@id");
+            SqlCommand cmd = new SqlCommand("SELECT c.id,c.titulo, c.descripcion,c.color,c.fechaInicio, c.fechaFin, (SELECT nombreComercial FROM Comercio WHERE id = (SELECT idsucursal FROM UsuarioComercio WHERE idempresa = c.idComercio)) AS nombrecomercio, c.idComercio, (SELECT nombre FROM Mascotas WHERE id = c.idMascota) AS nombremascota,c.idMascota, (SELECT id FROM Usuario WHERE id=(SELECT idUsuario FROM UsuarioTrabaja WHERE c.idComercio =@id)) AS idvet, (SELECT (nombre + ' ' + apellidos) FROM Usuario WHERE id=(SELECT idUsuario FROM UsuarioTrabaja WHERE c.idComercio =@id)) AS nombrevet FROM Citas c WHERE c.idComercio=@id");
             cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
 
             cmd.Connection = con.establecerConexion();
@@ -173,6 +173,11 @@ namespace DrHuellitas.DAO
                         {
                             id = Convert.ToInt32(dr["idMascota"].ToString()),
                             nombremascota = dr["nombremascota"].ToString()
+                        },
+                        propietario = new BO.UsuarioBO
+                        {
+                            id = Convert.ToInt32(dr["idvet"].ToString()),
+                            nombre = dr["nombrevet"].ToString()
                         }
                     };
                     citas.Add(c);
@@ -181,6 +186,55 @@ namespace DrHuellitas.DAO
             con.CerrarConexion();
             return citas;
         }
+
+
+
+
+
+
+        //Listas para agenda comercio
+        public List<UsuarioBO> ObtenerMisVeterinarios(int id)
+        {
+            var vetetinarios = new List<UsuarioBO>();
+            SqlCommand cmd = new SqlCommand("SELECT uc.idUsuario, u.nombre FROM UsuarioTrabaja uc JOIN Usuario u ON u.id=uc.idUsuario WHERE uc.idComercio =@id");
+            cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
+
+            cmd.Connection = con.establecerConexion();
+            con.AbrirConexion();
+            var query = cmd;
+            using (var dr = query.ExecuteReader())
+            {
+                while (dr.Read())
+                {
+                    var c = new BO.UsuarioBO
+                    {
+                        id = Convert.ToInt32(dr["idUsuario"].ToString()),
+                        nombre = dr["nombre"].ToString(),
+                    };
+                    vetetinarios.Add(c);
+                }
+            }
+            con.CerrarConexion();
+            return vetetinarios;
+        }
+
+        //Actulizar cita del lado del comercio
+        public int ActualizarCitaComercio(CitasBO citas, int idUsuario)
+        {
+            SqlCommand cmd = new SqlCommand("UPDATE Citas SET idComercio=@idComercio, fechaInicio=@fechaInicio, fechaFin=@fechaFin, descripcion=@descripcion, titulo=@titulo, status=1, idMedico=@idmedico WHERE id=@id");
+            cmd.Parameters.Add("@idComercio", SqlDbType.Int).Value = idUsuario;
+            cmd.Parameters.Add("@fechaInicio", SqlDbType.DateTime).Value = citas.sInicio;
+            cmd.Parameters.Add("@fechaFin", SqlDbType.DateTime).Value = citas.sFin;
+            cmd.Parameters.Add("@descripcion", SqlDbType.VarChar).Value = citas.descripcion;
+            
+            cmd.Parameters.Add("@titulo", SqlDbType.VarChar).Value = citas.titulo;
+            cmd.Parameters.Add("@idmedico", SqlDbType.Int).Value = citas.propietario.id;
+            cmd.Parameters.Add("@id", SqlDbType.Int).Value = citas.id;
+
+            return con.EjecutarComando(cmd);
+        }
+
+
 
     }
 }

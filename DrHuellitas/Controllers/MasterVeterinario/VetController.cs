@@ -44,7 +44,6 @@ namespace DrHuellitas.Controllers.MasterVeterinario
             return Redirect(modulo);
         }
 
-
         public ActionResult Continuar()
         {
             string modulo = "";
@@ -76,6 +75,11 @@ namespace DrHuellitas.Controllers.MasterVeterinario
             }
 
             return Redirect(modulo);
+        }
+
+        public ActionResult Agenda()
+        {
+            return View();
         }
     }
 }

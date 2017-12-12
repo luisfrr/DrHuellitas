@@ -1002,6 +1002,7 @@
     <Content Include="Views\Comercio\Agenda.cshtml" />
     <Content Include="Views\Usuario\Mascotas.cshtml" />
     <Content Include="Views\Usuario\Cartilla.cshtml" />
+    <Content Include="Views\Vet\Agenda.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Encriptacion\MD5.csproj">

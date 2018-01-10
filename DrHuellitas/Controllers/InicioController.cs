@@ -16,6 +16,7 @@ namespace DrHuellitas.Controllers
         {
             int tipo = 0;
             int status = 0;
+            int prueba = 0;
             
             string modulo = "";
             if(Session["id"] != null)
